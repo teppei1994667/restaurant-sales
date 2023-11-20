@@ -1,7 +1,17 @@
+import { Grid, Paper, Typography } from "@mui/material";
+
 export const Home = () => {
   return (
-    <div>売り上げ管理</div>
-  )
-}
+    <Paper className="bg-blue-100 w-screen h-screen pt-5">
+      <Grid container className="justify-center">
+        <Grid item>
+          <Typography className="text-gray-700 font-mono" variant="h3">
+            売り上げ管理
+          </Typography>
+        </Grid>
+      </Grid>
+    </Paper>
+  );
+};
 
 export default Home;
