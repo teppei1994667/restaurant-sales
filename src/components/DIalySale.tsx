@@ -2,7 +2,7 @@ import { Grid, Typography } from "@mui/material";
 import { DialySaleType } from "../type/DialySale";
 
 // 1日の売り上げを表示するコンポーネント
-export const DialySale = () => {
+export const DialySale = ({ dialySale }: { dialySale: DialySaleType }) => {
   return (
     <>
       <Grid container>
