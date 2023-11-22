@@ -28,12 +28,10 @@ export const DialySales = () => {
   }, []);
 
   return (
-    <Paper>
+    <>
       {dialySales.map((dialySale) => (
-        <Box key={String(dialySale.day)}>
-          <DialySale dialySale={dialySale} />
-        </Box>
+        <DialySale key={String(dialySale.day)} dialySale={dialySale} />
       ))}
-    </Paper>
+    </>
   );
 };
