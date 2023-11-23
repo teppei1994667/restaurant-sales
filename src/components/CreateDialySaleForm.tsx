@@ -61,14 +61,22 @@ export const CreateDialySaleForm = () => {
       <Grid container spacing={0.75} sx={{ alignItems: "center" }}>
         <Grid item>
           <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
-            <DatePicker value={day} onChange={handleDayOnChange} />
+            <DatePicker label="日付" value={day} onChange={handleDayOnChange} />
           </LocalizationProvider>
         </Grid>
         <Grid item className="ml-9">
-          <TextField value={lunchSale} onChange={handleLunchSaleOnChange} />
+          <TextField
+            label="ランチ売り上げ"
+            value={lunchSale}
+            onChange={handleLunchSaleOnChange}
+          />
         </Grid>
         <Grid item className="ml-9">
-          <TextField value={dinnerSale} onChange={handleDinnerSaleOnChange} />
+          <TextField
+            label="ディナー売り上げ"
+            value={dinnerSale}
+            onChange={handleDinnerSaleOnChange}
+          />
         </Grid>
         <Grid item className="ml-9">
           <Button variant="outlined" onClick={handleMakeDialySaleOnClick}>
