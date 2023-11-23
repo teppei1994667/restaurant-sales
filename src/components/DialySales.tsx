@@ -68,6 +68,7 @@ export const DialySales = () => {
             outlineOffset: -3,
           },
         }}
+        hideFooter
       />
     </>
   );
