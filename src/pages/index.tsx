@@ -3,7 +3,7 @@ import { Grid, Paper, Typography } from "@mui/material";
 
 export const Home = () => {
   return (
-    <Paper className="bg-blue-100 w-screen h-screen pt-5">
+    <Paper className="w-screen h-screen pt-5">
       <Grid container className="justify-center">
         <Grid item>
           <Typography className="text-gray-700 font-mono" variant="h3">

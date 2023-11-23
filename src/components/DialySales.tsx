@@ -1,8 +1,7 @@
 import { DialySaleType } from "@/type/DialySale";
-import { Box, Paper } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { DialySale } from "./DIalySale";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 //売り上げ一覧を表示するコンポーネント
 export const DialySales = () => {
@@ -27,11 +26,37 @@ export const DialySales = () => {
     fetchDialySales();
   }, []);
 
+  const columns: GridColDef[] = [
+    { field: "day", headerName: "日", width: 130 },
+    {
+      field: "lunch_sales",
+      headerName: "ランチ売り上げ",
+      type: "number",
+      width: 200,
+    },
+    {
+      field: "dinner_sales",
+      headerName: "ディナー売り上げ",
+      type: "number",
+      width: 200,
+    },
+  ];
+
+  console.log("dialySales", dialySales);
+
   return (
     <>
-      {dialySales.map((dialySale) => (
-        <DialySale key={String(dialySale.day)} dialySale={dialySale} />
-      ))}
+      <DataGrid
+        rows={dialySales}
+        columns={columns}
+        showCellVerticalBorder
+        showColumnVerticalBorder
+        sx={{
+          ".MuiDataGrid-columnHeaders": {
+            backgroundColor: "#F7EDE2",
+          },
+        }}
+      />
     </>
   );
 };
