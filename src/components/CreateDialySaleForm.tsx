@@ -20,8 +20,8 @@ export const CreateDialySaleForm = () => {
       await axios.post("http://localhost:3000/dialy_sales", {
         dialy_sale: {
           day,
-          lunch_sale: lunchSale,
-          dinner_sale: dinnerSale,
+          lunch_sales: lunchSale,
+          dinner_sales: dinnerSale,
         },
       });
 
