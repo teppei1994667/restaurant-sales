@@ -1,5 +1,9 @@
+import { Grid } from "@mui/material";
 import axios from "axios";
 import { FormEvent, useState } from "react";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import ja from "date-fns/locale/ja";
 
 export const CreateDialySaleForm = () => {
   //formの入力値を管理するstate
@@ -32,4 +36,16 @@ export const CreateDialySaleForm = () => {
       console.log(error);
     }
   };
+
+  return (
+    <>
+      <Grid container>
+        <Grid item>
+          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
+            <DatePicker />
+          </LocalizationProvider>
+        </Grid>
+      </Grid>
+    </>
+  );
 };
