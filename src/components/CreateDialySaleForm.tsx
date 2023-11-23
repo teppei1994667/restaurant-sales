@@ -1,15 +1,20 @@
 import { Button, Grid, TextField } from "@mui/material";
+import { FormProvider, useForm } from "react-hook-form";
 import axios from "axios";
 import { FormEvent, useState } from "react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import ja from "date-fns/locale/ja";
+import { DialySaleFormType } from "@/type/DialySale";
+import { ControlledTextField } from "./share/form/ControlledTextField";
 
 export const CreateDialySaleForm = () => {
   //formの入力値を管理するstate
   const [day, setDay] = useState<Date | null>();
-  const [lunchSale, setLunchSale] = useState("");
-  const [dinnerSale, setDinnerSale] = useState("");
+
+  const dialySaleForm = useForm<DialySaleFormType>({
+    defaultValues: { day: null, lunchSale: "", dinnerSale: "" },
+  });
 
   //フォームの入力値を更新する関数
   const handleMakeDialySaleOnClick = async (event: FormEvent) => {
@@ -20,15 +25,13 @@ export const CreateDialySaleForm = () => {
       await axios.post("http://localhost:3000/dialy_sales", {
         dialy_sale: {
           day,
-          lunch_sales: lunchSale,
-          dinner_sales: dinnerSale,
+          lunch_sales: dialySaleForm.getValues("lunchSale"),
+          dinner_sales: dialySaleForm.getValues("dinnerSale"),
         },
       });
 
       //dialySaleの作成に成功したらformの値をリセット
-      setDay(null);
-      setLunchSale("");
-      setDinnerSale("");
+      dialySaleForm.reset;
 
       //dialySaleの作成に成功したら画面を更新する
       window.location.reload();
@@ -42,48 +45,37 @@ export const CreateDialySaleForm = () => {
     setDay(newValue);
   };
 
-  //lunchSale(昼の売上)の変更時に値をsetStateする
-  const handleLunchSaleOnChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setLunchSale(event.target.value);
-  };
-
-  //dinnerSale(夜の売上)の変更時に値をsetStateする
-  const handleDinnerSaleOnChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setDinnerSale(event.target.value);
-  };
+  console.log("createDialySaleForm");
 
   return (
     <>
-      <Grid container spacing={0.75} sx={{ alignItems: "center" }}>
-        <Grid item>
-          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
-            <DatePicker label="日付" value={day} onChange={handleDayOnChange} />
-          </LocalizationProvider>
+      <FormProvider {...dialySaleForm}>
+        <Grid container spacing={0.75} sx={{ alignItems: "center" }}>
+          <Grid item>
+            <LocalizationProvider
+              dateAdapter={AdapterDateFns}
+              adapterLocale={ja}
+            >
+              <DatePicker
+                label="日付"
+                value={day}
+                onChange={handleDayOnChange}
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item className="ml-9">
+            <ControlledTextField name="lunchSale" label="ランチ売り上げ" />
+          </Grid>
+          <Grid item className="ml-9">
+            <ControlledTextField name="dinnerSale" label="ディナー売り上げ" />
+          </Grid>
+          <Grid item className="ml-9">
+            <Button variant="outlined" onClick={handleMakeDialySaleOnClick}>
+              作成
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item className="ml-9">
-          <TextField
-            label="ランチ売り上げ"
-            value={lunchSale}
-            onChange={handleLunchSaleOnChange}
-          />
-        </Grid>
-        <Grid item className="ml-9">
-          <TextField
-            label="ディナー売り上げ"
-            value={dinnerSale}
-            onChange={handleDinnerSaleOnChange}
-          />
-        </Grid>
-        <Grid item className="ml-9">
-          <Button variant="outlined" onClick={handleMakeDialySaleOnClick}>
-            作成
-          </Button>
-        </Grid>
-      </Grid>
+      </FormProvider>
     </>
   );
 };
