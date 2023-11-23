@@ -1,4 +1,4 @@
-import { Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import axios from "axios";
 import { FormEvent, useState } from "react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -12,7 +12,7 @@ export const CreateDialySaleForm = () => {
   const [dinnerSale, setDinnerSale] = useState("");
 
   //フォームの入力値を更新する関数
-  const handleSubmit = async (event: FormEvent) => {
+  const handleMakeDialySaleOnClick = async (event: FormEvent) => {
     event.preventDefault();
 
     try {
@@ -58,7 +58,7 @@ export const CreateDialySaleForm = () => {
 
   return (
     <>
-      <Grid container>
+      <Grid container spacing={0.75} sx={{ alignItems: "center" }}>
         <Grid item>
           <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
             <DatePicker value={day} onChange={handleDayOnChange} />
@@ -69,6 +69,11 @@ export const CreateDialySaleForm = () => {
         </Grid>
         <Grid item className="ml-9">
           <TextField value={dinnerSale} onChange={handleDinnerSaleOnChange} />
+        </Grid>
+        <Grid item className="ml-9">
+          <Button variant="outlined" onClick={handleMakeDialySaleOnClick}>
+            作成
+          </Button>
         </Grid>
       </Grid>
     </>
