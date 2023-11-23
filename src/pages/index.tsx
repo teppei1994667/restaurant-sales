@@ -1,3 +1,4 @@
+import { CreateDialySaleForm } from "@/components/CreateDialySaleForm";
 import { DialySales } from "@/components/DialySales";
 import { Grid, Paper, Typography } from "@mui/material";
 
@@ -11,6 +12,12 @@ export const Home = () => {
           </Typography>
         </Grid>
       </Grid>
+      <Grid container className="justify-center mt-9">
+        <Grid item>
+          <CreateDialySaleForm />
+        </Grid>
+      </Grid>
+
       <Grid container className="justify-center mt-9">
         <Grid item>
           <DialySales />
