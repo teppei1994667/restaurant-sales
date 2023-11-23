@@ -37,9 +37,9 @@ export const CreateDialySaleForm = () => {
     }
   };
 
-  //日付のonBlue時に値をstateにセットする
-  const dayOnChange = (newValue: Date | null) => {
-    console.log(newValue);
+  //日付の変更時に値をstateにセットする
+  const handleDayOnChange = (newValue: Date | null) => {
+    setDay(newValue);
   };
 
   return (
@@ -47,7 +47,7 @@ export const CreateDialySaleForm = () => {
       <Grid container>
         <Grid item>
           <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
-            <DatePicker value={day} onChange={dayOnChange} />
+            <DatePicker value={day} onChange={handleDayOnChange} />
           </LocalizationProvider>
         </Grid>
       </Grid>
