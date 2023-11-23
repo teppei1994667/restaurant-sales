@@ -46,8 +46,14 @@ export const CreateDialySaleForm = () => {
   const handleLunchSaleOnChange = (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    console.log(event.target.value);
     setLunchSale(event.target.value);
+  };
+
+  //dinnerSale(夜の売上)の変更時に値をsetStateする
+  const handleDinnerSaleOnChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setDinnerSale(event.target.value);
   };
 
   return (
@@ -60,6 +66,9 @@ export const CreateDialySaleForm = () => {
         </Grid>
         <Grid item className="ml-9">
           <TextField value={lunchSale} onChange={handleLunchSaleOnChange} />
+        </Grid>
+        <Grid item className="ml-9">
+          <TextField value={dinnerSale} onChange={handleDinnerSaleOnChange} />
         </Grid>
       </Grid>
     </>
