@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import axios from "axios";
 import { FormEvent, useState } from "react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -37,9 +37,17 @@ export const CreateDialySaleForm = () => {
     }
   };
 
-  //日付の変更時に値をstateにセットする
+  //日付の変更時に値をsetStateする
   const handleDayOnChange = (newValue: Date | null) => {
     setDay(newValue);
+  };
+
+  //lunchSale(昼の売上)の変更時に値をsetStateする
+  const handleLunchSaleOnChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    console.log(event.target.value);
+    setLunchSale(event.target.value);
   };
 
   return (
@@ -49,6 +57,9 @@ export const CreateDialySaleForm = () => {
           <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
             <DatePicker value={day} onChange={handleDayOnChange} />
           </LocalizationProvider>
+        </Grid>
+        <Grid item className="ml-9">
+          <TextField value={lunchSale} onChange={handleLunchSaleOnChange} />
         </Grid>
       </Grid>
     </>
