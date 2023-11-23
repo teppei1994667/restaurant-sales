@@ -7,7 +7,7 @@ import ja from "date-fns/locale/ja";
 
 export const CreateDialySaleForm = () => {
   //formの入力値を管理するstate
-  const [day, setDay] = useState("");
+  const [day, setDay] = useState<Date | null>();
   const [lunchSale, setLunchSale] = useState("");
   const [dinnerSale, setDinnerSale] = useState("");
 
@@ -26,7 +26,7 @@ export const CreateDialySaleForm = () => {
       });
 
       //dialySaleの作成に成功したらformの値をリセット
-      setDay("");
+      setDay(null);
       setLunchSale("");
       setDinnerSale("");
 
@@ -37,12 +37,17 @@ export const CreateDialySaleForm = () => {
     }
   };
 
+  //日付のonBlue時に値をstateにセットする
+  const dayOnChange = (newValue: Date | null) => {
+    console.log(newValue);
+  };
+
   return (
     <>
       <Grid container>
         <Grid item>
           <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
-            <DatePicker />
+            <DatePicker value={day} onChange={dayOnChange} />
           </LocalizationProvider>
         </Grid>
       </Grid>
