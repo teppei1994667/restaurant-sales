@@ -18,10 +18,10 @@ export const CreateDialySaleForm = () => {
     try {
       //apiを呼び出してDialySaleを作成する
       await axios.post("http://localhost:3000/dialy_sales", {
-        dialySale: {
+        dialy_sale: {
           day,
-          lunchSale,
-          dinnerSale,
+          lunch_sale: lunchSale,
+          dinner_sale: dinnerSale,
         },
       });
 
