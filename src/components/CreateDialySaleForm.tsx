@@ -46,6 +46,11 @@ export const CreateDialySaleForm = () => {
 
   console.log("createDialySaleForm");
 
+  //作成ボタン押下時のテスト用関数
+  const handleMakeDialySaleOnClickTest = () => {
+    console.log("作成テスト", dialySaleForm.getValues());
+  };
+
   return (
     <>
       <FormProvider {...dialySaleForm}>
@@ -60,7 +65,7 @@ export const CreateDialySaleForm = () => {
             <ControlledTextField name="dinnerSale" label="ディナー売り上げ" />
           </Grid>
           <Grid item className="ml-9">
-            <Button variant="outlined" onClick={handleMakeDialySaleOnClick}>
+            <Button variant="outlined" onClick={handleMakeDialySaleOnClickTest}>
               作成
             </Button>
           </Grid>
