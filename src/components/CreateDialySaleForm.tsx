@@ -12,6 +12,14 @@ export const CreateDialySaleForm = () => {
     defaultValues: { day: null, lunchSale: "", dinnerSale: "" },
   });
 
+  //サーバーに送信する前にdayをstringに変換する
+  const dayToString = () => {
+    const dayString = dialySaleForm.getValues("day");
+    if (dayString) {
+      return dayString.toLocaleDateString();
+    }
+  };
+
   //フォームの入力値を更新する関数
   const handleMakeDialySaleOnClick = async (event: FormEvent) => {
     event.preventDefault();
@@ -20,7 +28,7 @@ export const CreateDialySaleForm = () => {
       //apiを呼び出してDialySaleを作成する
       await axios.post("http://localhost:3000/dialy_sales", {
         dialy_sale: {
-          day: dialySaleForm.getValues("day"),
+          day: dayToString(),
           lunch_sales: dialySaleForm.getValues("lunchSale"),
           dinner_sales: dialySaleForm.getValues("dinnerSale"),
         },
@@ -35,6 +43,7 @@ export const CreateDialySaleForm = () => {
       console.log(error);
     }
   };
+
   console.log("createDialySaleForm");
 
   return (
