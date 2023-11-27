@@ -8,6 +8,7 @@ export type ControlledTextFieldProps = Omit<TextFieldProps, "name"> & {
     RegisterOptions,
     "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
   >;
+  helperText?: string;
 };
 
 export type ControlledDatePickerProps = Omit<DatePickerProps<Date>, "name"> & {
