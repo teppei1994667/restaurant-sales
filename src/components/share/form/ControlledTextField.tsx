@@ -6,8 +6,6 @@ export const ControlledTextField = (props: ControlledTextFieldProps) => {
   const { name, rules, helperText, ...restProps } = props;
   const form = useFormContext();
 
-  console.log("ControlledTextField", form.formState.errors?.lunchSale?.message);
-
   return (
     <>
       <Controller
