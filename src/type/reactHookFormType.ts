@@ -17,4 +17,5 @@ export type ControlledDatePickerProps = Omit<DatePickerProps<Date>, "name"> & {
     RegisterOptions,
     "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
   >;
+  helperText?: string;
 };
