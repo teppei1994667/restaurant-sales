@@ -6,10 +6,15 @@ import { DialySaleFormType } from "@/type/DialySale";
 import { ControlledTextField } from "./share/form/ControlledTextField";
 import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 
-//dayのフォームバリデーションルール
-const saleRules = {
+//lunchSale,dinnerSaleのフォームバリデーションルール
+const saleTextFieldRules = {
   required: { value: true, message: "必須入力です" },
   maxLength: { value: 7, message: "最大７桁までの入力にしか対応していません" },
+};
+
+//dayのフォームバリデーションルール
+const saleDatePickerRules = {
+  required: { value: true, message: "必須入力です" },
 };
 
 export const CreateDialySaleForm = () => {
@@ -62,13 +67,18 @@ export const CreateDialySaleForm = () => {
       <FormProvider {...dialySaleForm}>
         <Grid container spacing={0.75} sx={{ alignItems: "center" }}>
           <Grid item>
-            <ControlledDatePicker name="day" label="日付" />
+            <ControlledDatePicker
+              name="day"
+              label="日付"
+              rules={saleDatePickerRules}
+              helperText={dialySaleForm.formState.errors.dinnerSale?.message}
+            />
           </Grid>
           <Grid item className="ml-9">
             <ControlledTextField
               name="lunchSale"
               label="ランチ売り上げ"
-              rules={saleRules}
+              rules={saleTextFieldRules}
               helperText={dialySaleForm.formState.errors.lunchSale?.message}
             />
           </Grid>
@@ -76,7 +86,7 @@ export const CreateDialySaleForm = () => {
             <ControlledTextField
               name="dinnerSale"
               label="ディナー売り上げ"
-              rules={saleRules}
+              rules={saleTextFieldRules}
               helperText={dialySaleForm.formState.errors.dinnerSale?.message}
             />
           </Grid>
