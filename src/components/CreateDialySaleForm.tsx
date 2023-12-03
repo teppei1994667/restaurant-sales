@@ -3,23 +3,18 @@ import { FormProvider, useForm } from "react-hook-form";
 import axios from "axios";
 import { FormEvent } from "react";
 import { DialySaleFormType } from "@/type/DialySale";
-import { ControlledTextField } from "./share/form/ControlledTextField";
 import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
-
-//lunchSale,dinnerSaleのフォームバリデーションルール
-const saleTextFieldRules = {
-  required: { value: true, message: "必須入力です" },
-  maxLength: { value: 7, message: "最大７桁までの入力にしか対応していません" },
-  validate: (data: string) => {
-    if (data.match(/[^0-9]+/)) {
-      return "半角数値のみ入力可能です";
-    }
-  },
-};
+import { ControlledNumberTextField } from "./share/form/ControlledNumberTextField";
 
 //dayのフォームバリデーションルール
 const saleDatePickerRules = {
   required: { value: true, message: "必須入力です" },
+};
+
+const testRules = {
+  maxLength: {
+    message: "テストです",
+  },
 };
 
 export const CreateDialySaleForm = () => {
@@ -80,18 +75,16 @@ export const CreateDialySaleForm = () => {
             />
           </Grid>
           <Grid item className="ml-9">
-            <ControlledTextField
+            <ControlledNumberTextField
               name="lunchSale"
               label="ランチ売り上げ"
-              rules={saleTextFieldRules}
               helperText={dialySaleForm.formState.errors.lunchSale?.message}
             />
           </Grid>
           <Grid item className="ml-9">
-            <ControlledTextField
+            <ControlledNumberTextField
               name="dinnerSale"
               label="ディナー売り上げ"
-              rules={saleTextFieldRules}
               helperText={dialySaleForm.formState.errors.dinnerSale?.message}
             />
           </Grid>
