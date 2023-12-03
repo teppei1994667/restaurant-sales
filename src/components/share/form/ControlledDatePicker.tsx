@@ -8,8 +8,12 @@ import {
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ja } from "date-fns/locale";
 import { TextField } from "@mui/material";
+import { forwardRef } from "react";
 
-export const ControlledDatePicker = (props: ControlledDatePickerProps) => {
+export const ControlledDatePicker = forwardRef<
+  HTMLInputElement,
+  ControlledDatePickerProps
+>((props, ref) => {
   const { name, rules, helperText, ...restProps } = props;
   const form = useFormContext();
   return (
@@ -21,6 +25,7 @@ export const ControlledDatePicker = (props: ControlledDatePickerProps) => {
         render={({ field, formState: { errors } }) => (
           <DatePicker
             {...field}
+            ref={ref}
             slots={{
               textField: (textFieldProps) => (
                 <TextField
@@ -33,7 +38,10 @@ export const ControlledDatePicker = (props: ControlledDatePickerProps) => {
             }}
           />
         )}
+        {...restProps}
       />
     </LocalizationProvider>
   );
-};
+});
+
+ControlledDatePicker.displayName = "ControlledDatePicker";

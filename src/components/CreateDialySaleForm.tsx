@@ -10,6 +10,13 @@ import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 const saleTextFieldRules = {
   required: { value: true, message: "必須入力です" },
   maxLength: { value: 7, message: "最大７桁までの入力にしか対応していません" },
+  validate: (data: string) => {
+    console.log("validate", data);
+    if (data.match(/^[0-9]*$/)) {
+      console.log("数値バリデーション");
+      return "数値のみ入力可能です";
+    }
+  },
 };
 
 //dayのフォームバリデーションルール
