@@ -78,6 +78,7 @@ export const CreateDialySaleForm = () => {
             <ControlledNumberTextField
               name="lunchSale"
               label="ランチ売り上げ"
+              rules={saleDatePickerRules}
               helperText={dialySaleForm.formState.errors.lunchSale?.message}
             />
           </Grid>

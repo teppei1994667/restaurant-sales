@@ -21,7 +21,7 @@ export const ControlledNumberTextField = forwardRef<
         return "半角数値のみ入力可能です";
       }
     },
-    //呼び出し元からの上書きは可能
+    //呼び出し元からの上書き可能
     ...rules,
   };
 
