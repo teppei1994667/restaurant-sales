@@ -71,7 +71,7 @@ export const CreateDialySaleForm = () => {
               name="day"
               label="日付"
               rules={saleDatePickerRules}
-              helperText={dialySaleForm.formState.errors.dinnerSale?.message}
+              helperText={dialySaleForm.formState.errors.day?.message}
             />
           </Grid>
           <Grid item className="ml-9">
