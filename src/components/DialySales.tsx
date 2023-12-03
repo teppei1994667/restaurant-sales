@@ -40,14 +40,14 @@ export const DialySales = () => {
       headerName: "ランチ売り上げ",
       type: "number",
       headerAlign: "center",
-      width: 200,
+      minWidth: 200,
     },
     {
       field: "dinner_sales",
       headerName: "ディナー売り上げ",
       type: "number",
       headerAlign: "center",
-      width: 200,
+      minWidth: 200,
     },
   ];
 
@@ -61,6 +61,9 @@ export const DialySales = () => {
         showCellVerticalBorder
         showColumnVerticalBorder
         sx={{
+          width: "80vw",
+          minHeight: "500px",
+          maxHight: "80vh",
           ".MuiDataGrid-columnHeaders": {
             backgroundColor: "#F7EDE2",
           },

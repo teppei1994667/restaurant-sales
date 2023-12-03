@@ -1,15 +1,40 @@
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid } from "@mui/material";
+import { FormProvider, useForm } from "react-hook-form";
 import axios from "axios";
-import { FormEvent, useState } from "react";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import ja from "date-fns/locale/ja";
+import { FormEvent } from "react";
+import { DialySaleFormType } from "@/type/DialySale";
+import { ControlledTextField } from "./share/form/ControlledTextField";
+import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
+
+//lunchSale,dinnerSaleのフォームバリデーションルール
+const saleTextFieldRules = {
+  required: { value: true, message: "必須入力です" },
+  maxLength: { value: 7, message: "最大７桁までの入力にしか対応していません" },
+  validate: (data: string) => {
+    if (data.match(/[^0-9]+/)) {
+      return "半角数値のみ入力可能です";
+    }
+  },
+};
+
+//dayのフォームバリデーションルール
+const saleDatePickerRules = {
+  required: { value: true, message: "必須入力です" },
+};
 
 export const CreateDialySaleForm = () => {
-  //formの入力値を管理するstate
-  const [day, setDay] = useState<Date | null>();
-  const [lunchSale, setLunchSale] = useState("");
-  const [dinnerSale, setDinnerSale] = useState("");
+  //新規売り上げ作成をformで管理
+  const dialySaleForm = useForm<DialySaleFormType>({
+    defaultValues: { day: null, lunchSale: "", dinnerSale: "" },
+  });
+
+  //サーバーに送信する前にdayをstringに変換する
+  const dayToString = () => {
+    const dayString = dialySaleForm.getValues("day");
+    if (dayString) {
+      return dayString.toLocaleDateString();
+    }
+  };
 
   //フォームの入力値を更新する関数
   const handleMakeDialySaleOnClick = async (event: FormEvent) => {
@@ -19,16 +44,14 @@ export const CreateDialySaleForm = () => {
       //apiを呼び出してDialySaleを作成する
       await axios.post("http://localhost:3000/dialy_sales", {
         dialy_sale: {
-          day,
-          lunch_sales: lunchSale,
-          dinner_sales: dinnerSale,
+          day: dayToString(),
+          lunch_sales: dialySaleForm.getValues("lunchSale"),
+          dinner_sales: dialySaleForm.getValues("dinnerSale"),
         },
       });
 
       //dialySaleの作成に成功したらformの値をリセット
-      setDay(null);
-      setLunchSale("");
-      setDinnerSale("");
+      dialySaleForm.reset;
 
       //dialySaleの作成に成功したら画面を更新する
       window.location.reload();
@@ -37,53 +60,53 @@ export const CreateDialySaleForm = () => {
     }
   };
 
-  //日付の変更時に値をsetStateする
-  const handleDayOnChange = (newValue: Date | null) => {
-    setDay(newValue);
-  };
+  console.log("createDialySaleFormレンダリング");
 
-  //lunchSale(昼の売上)の変更時に値をsetStateする
-  const handleLunchSaleOnChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setLunchSale(event.target.value);
-  };
-
-  //dinnerSale(夜の売上)の変更時に値をsetStateする
-  const handleDinnerSaleOnChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setDinnerSale(event.target.value);
+  //作成ボタン押下時のテスト用関数
+  const handleMakeDialySaleOnClickTest = () => {
+    console.log("作成テスト", dialySaleForm.getValues());
   };
 
   return (
     <>
-      <Grid container spacing={0.75} sx={{ alignItems: "center" }}>
-        <Grid item>
-          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
-            <DatePicker label="日付" value={day} onChange={handleDayOnChange} />
-          </LocalizationProvider>
+      <FormProvider {...dialySaleForm}>
+        <Grid container spacing={0.75} sx={{ alignItems: "center" }}>
+          <Grid item>
+            <ControlledDatePicker
+              name="day"
+              label="日付"
+              rules={saleDatePickerRules}
+              helperText={dialySaleForm.formState.errors.day?.message}
+            />
+          </Grid>
+          <Grid item className="ml-9">
+            <ControlledTextField
+              name="lunchSale"
+              label="ランチ売り上げ"
+              rules={saleTextFieldRules}
+              helperText={dialySaleForm.formState.errors.lunchSale?.message}
+            />
+          </Grid>
+          <Grid item className="ml-9">
+            <ControlledTextField
+              name="dinnerSale"
+              label="ディナー売り上げ"
+              rules={saleTextFieldRules}
+              helperText={dialySaleForm.formState.errors.dinnerSale?.message}
+            />
+          </Grid>
+          <Grid item className="ml-9">
+            <Button
+              variant="outlined"
+              onClick={dialySaleForm.handleSubmit(
+                handleMakeDialySaleOnClickTest
+              )}
+            >
+              作成
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item className="ml-9">
-          <TextField
-            label="ランチ売り上げ"
-            value={lunchSale}
-            onChange={handleLunchSaleOnChange}
-          />
-        </Grid>
-        <Grid item className="ml-9">
-          <TextField
-            label="ディナー売り上げ"
-            value={dinnerSale}
-            onChange={handleDinnerSaleOnChange}
-          />
-        </Grid>
-        <Grid item className="ml-9">
-          <Button variant="outlined" onClick={handleMakeDialySaleOnClick}>
-            作成
-          </Button>
-        </Grid>
-      </Grid>
+      </FormProvider>
     </>
   );
 };
