@@ -16,12 +16,19 @@ export const ControlledDatePicker = forwardRef<
 >((props, ref) => {
   const { name, rules, helperText, ...restProps } = props;
   const form = useFormContext();
+
+  //バリデーションルール
+  const saleDatePickerRules = {
+    required: { value: true, message: "必須入力です" },
+    ...rules,
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ja}>
       <Controller
         name={name}
         control={form.control}
-        rules={rules}
+        rules={saleDatePickerRules}
         render={({ field, formState: { errors } }) => (
           <DatePicker
             {...field}
