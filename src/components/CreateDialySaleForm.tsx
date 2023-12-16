@@ -1,7 +1,6 @@
 import { Button, Grid } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import axios from "axios";
-import { FormEvent } from "react";
 import { DialySaleFormType } from "@/type/DialySale";
 import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 import { ControlledNumberTextField } from "./share/form/ControlledNumberTextField";
@@ -21,9 +20,7 @@ export const CreateDialySaleForm = () => {
   };
 
   //フォームの入力値を更新する関数
-  const handleMakeDialySaleOnClick = async (event: FormEvent) => {
-    event.preventDefault();
-
+  const handleMakeDialySaleOnClick = async () => {
     try {
       //apiを呼び出してDialySaleを作成する
       await axios.post("http://localhost:3000/dialy_sales", {
@@ -56,11 +53,7 @@ export const CreateDialySaleForm = () => {
       <FormProvider {...dialySaleForm}>
         <Grid container spacing={0.75} sx={{ alignItems: "center" }}>
           <Grid item>
-            <ControlledDatePicker
-              name="day"
-              label="日付"
-              helperText={dialySaleForm.formState.errors.day?.message}
-            />
+            <ControlledDatePicker name="day" label="日付" helperText={dialySaleForm.formState.errors.day?.message} />
           </Grid>
           <Grid item className="ml-9">
             <ControlledNumberTextField
@@ -77,12 +70,7 @@ export const CreateDialySaleForm = () => {
             />
           </Grid>
           <Grid item className="ml-9">
-            <Button
-              variant="outlined"
-              onClick={dialySaleForm.handleSubmit(
-                handleMakeDialySaleOnClickTest
-              )}
-            >
+            <Button variant="outlined" onClick={dialySaleForm.handleSubmit(handleMakeDialySaleOnClick)}>
               作成
             </Button>
           </Grid>

@@ -1,21 +1,20 @@
-import { DialySaleType } from "@/type/DialySale";
+import { DialySaleType, ReturnDialySalesType } from "@/type/DialySale";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DialySalesStateContext } from "./DialySalesContext";
 
 //売り上げ一覧を取得し表示するコンポーネント
 export const DialySales = () => {
-  //DialySale一覧を管理するstate
-  const [dialySales, setDialySales] = useState<DialySaleType[]>([]);
+  //DialySale一覧をreducerで管理
+  const { state, dispatch } = useContext(DialySalesStateContext);
 
   //DialySale一覧を取得する関数
   const fetchDialySales = async () => {
     //APIからDialySale一覧を取得する
     try {
-      const res = await axios.get<DialySaleType[]>(
-        "http://localhost:3000/dialy_sales"
-      );
-      setDialySales(res.data);
+      const res = await axios.get<DialySaleType[]>("http://localhost:3000/dialy_sales");
+      dispatch({ type: "returnData", payload: res.data });
     } catch (err) {
       console.log(err);
     }
@@ -51,12 +50,12 @@ export const DialySales = () => {
     },
   ];
 
-  console.log("dialySales", dialySales);
+  console.log("dialySales", state);
 
   return (
     <>
       <DataGrid
-        rows={dialySales}
+        rows={state.dialySales}
         columns={columns}
         showCellVerticalBorder
         showColumnVerticalBorder
