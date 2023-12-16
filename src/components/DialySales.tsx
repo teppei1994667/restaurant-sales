@@ -1,4 +1,4 @@
-import { DialySaleType, ReturnDialySalesType } from "@/type/DialySale";
+import { DialySaleType } from "@/type/DialySale";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";

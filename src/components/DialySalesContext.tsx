@@ -1,11 +1,5 @@
-import { ReactNode, createContext, useReducer } from "react";
-import { DialySaleAction, DialySaleType } from "@/type/DialySale";
+import { ReactNode, createContext } from "react";
 import { defaultDialySalesReducerContext, useDialySalesReducer } from "./DIalySalesReducer";
-
-// export type DialySalesContextType = {
-//   state: DialySaleType[];
-//   dispatch: (value: DialySaleAction) => void;
-// };
 
 type Props = {
   children: ReactNode;

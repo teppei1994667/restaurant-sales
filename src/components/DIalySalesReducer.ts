@@ -1,4 +1,4 @@
-import { DialySaleAction, DialySaleType, ReturnDialySalesType } from "@/type/DialySale";
+import { DialySaleAction, ReturnDialySalesType } from "@/type/DialySale";
 import { useReducer } from "react";
 
 export const dialySalesInitialState: ReturnDialySalesType = { dialySales: [] };
