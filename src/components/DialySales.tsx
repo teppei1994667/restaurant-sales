@@ -48,6 +48,41 @@ export const DialySales = () => {
       headerAlign: "center",
       minWidth: 200,
     },
+    {
+      field: "lunch_visitor",
+      headerName: "ランチ来客数",
+      type: "number",
+      headerAlign: "center",
+      minWidth: 200,
+    },
+    {
+      field: "dinner_visitor",
+      headerName: "ディナー来客数",
+      type: "number",
+      headerAlign: "center",
+      minWidth: 200,
+    },
+    {
+      field: "lunch_personnel_cost",
+      headerName: "ランチ人件費",
+      type: "number",
+      headerAlign: "center",
+      minWidth: 200,
+    },
+    {
+      field: "dinner_personnel_cost",
+      headerName: "ディナー人件費",
+      type: "number",
+      headerAlign: "center",
+      minWidth: 200,
+    },
+    {
+      field: "purchase",
+      headerName: "仕入れ",
+      type: "number",
+      headerAlign: "center",
+      minWidth: 200,
+    },
   ];
 
   console.log("dialySales", state);
