@@ -51,25 +51,64 @@ export const CreateDialySaleForm = () => {
   return (
     <>
       <FormProvider {...dialySaleForm}>
-        <Grid container spacing={0.75} sx={{ alignItems: "center" }}>
+        <Grid container spacing={0.75} className="justify-center">
           <Grid item>
             <ControlledDatePicker name="day" label="日付" helperText={dialySaleForm.formState.errors.day?.message} />
           </Grid>
-          <Grid item className="ml-9">
+          <Grid item className="ml-7">
             <ControlledNumberTextField
               name="lunchSale"
               label="ランチ売り上げ"
               helperText={dialySaleForm.formState.errors.lunchSale?.message}
             />
           </Grid>
-          <Grid item className="ml-9">
+          <Grid item className="ml-7">
+            <ControlledNumberTextField
+              name="lunchSale"
+              label="ランチ来客数"
+              helperText={dialySaleForm.formState.errors.lunchSale?.message}
+            />
+          </Grid>
+          <Grid item className="ml-7">
             <ControlledNumberTextField
               name="dinnerSale"
-              label="ディナー売り上げ"
+              label="ランチー来客数"
               helperText={dialySaleForm.formState.errors.dinnerSale?.message}
             />
           </Grid>
-          <Grid item className="ml-9">
+          <Grid container spacing={0.75} className="justify-center mt-5">
+            <Grid item className="ml-7">
+              <ControlledNumberTextField
+                name="dinnerSale"
+                label="ディナー売り上げ"
+                helperText={dialySaleForm.formState.errors.dinnerSale?.message}
+              />
+            </Grid>
+            <Grid item className="ml-7">
+              <ControlledNumberTextField
+                name="dinnerSale"
+                label="ディナー来客数"
+                helperText={dialySaleForm.formState.errors.dinnerSale?.message}
+              />
+            </Grid>
+            <Grid item className="ml-7">
+              <ControlledNumberTextField
+                name="dinnerSale"
+                label="ディナー人件費"
+                helperText={dialySaleForm.formState.errors.dinnerSale?.message}
+              />
+            </Grid>
+            <Grid item className="ml-7">
+              <ControlledNumberTextField
+                name="dinnerSale"
+                label="仕入れ"
+                helperText={dialySaleForm.formState.errors.dinnerSale?.message}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid container spacing={0.75} className="justify-center mt-5">
+          <Grid item>
             <Button variant="outlined" onClick={dialySaleForm.handleSubmit(handleMakeDialySaleOnClick)}>
               作成
             </Button>
