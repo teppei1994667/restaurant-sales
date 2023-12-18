@@ -37,6 +37,11 @@ export const CreateDialySaleForm = () => {
           day: dayToString(),
           lunch_sales: dialySaleForm.getValues("lunchSale"),
           dinner_sales: dialySaleForm.getValues("dinnerSale"),
+          lunch_visiter: dialySaleForm.getValues("lunchVisitor"),
+          dinner_visiter: dialySaleForm.getValues("dinnerVisitor"),
+          lunch_personnel_cost: dialySaleForm.getValues("lunchPersonnelCost"),
+          dinner_personnel_cost: dialySaleForm.getValues("dinnerPersonnelCost"),
+          purchase: dialySaleForm.getValues("purchase"),
         },
       });
 
