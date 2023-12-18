@@ -17,6 +17,11 @@ export type DialySaleFormType = {
   day: Date | null;
   lunchSale: string;
   dinnerSale: string;
+  lunchVisitor: string;
+  dinnerVisitor: string;
+  lunchPersonnelCost: string;
+  dinnerPersonnelCost: string;
+  purchase: string;
 };
 
 export type DialySaleAction = {

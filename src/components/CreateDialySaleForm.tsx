@@ -8,7 +8,16 @@ import { ControlledNumberTextField } from "./share/form/ControlledNumberTextFiel
 export const CreateDialySaleForm = () => {
   //新規売り上げ作成をformで管理
   const dialySaleForm = useForm<DialySaleFormType>({
-    defaultValues: { day: null, lunchSale: "", dinnerSale: "" },
+    defaultValues: {
+      day: null,
+      lunchSale: "",
+      dinnerSale: "",
+      lunchVisitor: "",
+      dinnerVisitor: "",
+      lunchPersonnelCost: "",
+      dinnerPersonnelCost: "",
+      purchase: "",
+    },
   });
 
   //サーバーに送信する前にdayをstringに変換する
@@ -64,16 +73,16 @@ export const CreateDialySaleForm = () => {
           </Grid>
           <Grid item className="ml-7">
             <ControlledNumberTextField
-              name="lunchSale"
+              name="lunchVisitor"
               label="ランチ来客数"
-              helperText={dialySaleForm.formState.errors.lunchSale?.message}
+              helperText={dialySaleForm.formState.errors.lunchVisitor?.message}
             />
           </Grid>
           <Grid item className="ml-7">
             <ControlledNumberTextField
-              name="dinnerSale"
-              label="ランチー来客数"
-              helperText={dialySaleForm.formState.errors.dinnerSale?.message}
+              name="lunchPersonnelCost"
+              label="ランチー人件費"
+              helperText={dialySaleForm.formState.errors.lunchPersonnelCost?.message}
             />
           </Grid>
           <Grid container spacing={0.75} className="justify-center mt-5">
@@ -86,23 +95,23 @@ export const CreateDialySaleForm = () => {
             </Grid>
             <Grid item className="ml-7">
               <ControlledNumberTextField
-                name="dinnerSale"
+                name="dinnerVisitor"
                 label="ディナー来客数"
-                helperText={dialySaleForm.formState.errors.dinnerSale?.message}
+                helperText={dialySaleForm.formState.errors.dinnerVisitor?.message}
               />
             </Grid>
             <Grid item className="ml-7">
               <ControlledNumberTextField
-                name="dinnerSale"
+                name="dinnerPersonnelCost"
                 label="ディナー人件費"
-                helperText={dialySaleForm.formState.errors.dinnerSale?.message}
+                helperText={dialySaleForm.formState.errors.dinnerPersonnelCost?.message}
               />
             </Grid>
             <Grid item className="ml-7">
               <ControlledNumberTextField
-                name="dinnerSale"
+                name="purchase"
                 label="仕入れ"
-                helperText={dialySaleForm.formState.errors.dinnerSale?.message}
+                helperText={dialySaleForm.formState.errors.purchase?.message}
               />
             </Grid>
           </Grid>
