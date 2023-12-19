@@ -55,6 +55,7 @@ export const DialySales = () => {
       headerAlign: "center",
       minWidth: 150,
       cellClassName: "total-column",
+      headerClassName: "total-header",
     },
     {
       field: "lunch_visitor",
@@ -77,6 +78,7 @@ export const DialySales = () => {
       headerAlign: "center",
       minWidth: 150,
       cellClassName: "total-column",
+      headerClassName: "total-header",
     },
     {
       field: "lunch_personnel_cost",
@@ -99,6 +101,7 @@ export const DialySales = () => {
       headerAlign: "center",
       minWidth: 150,
       cellClassName: "total-column",
+      headerClassName: "total-header",
     },
     {
       field: "purchase",
@@ -123,13 +126,16 @@ export const DialySales = () => {
           minHeight: "500px",
           maxHight: "80vh",
           ".MuiDataGrid-columnHeaders": {
-            backgroundColor: "#F7EDE2",
+            backgroundColor: "#fffaf0",
           },
           ".MuiDataGrid-columnHeader:focus-within": {
             outlineOffset: -3,
           },
           ".total-column": {
             background: "#f8f8ff",
+          },
+          ".total-header": {
+            background: "#faebd7",
           },
         }}
         hideFooter
