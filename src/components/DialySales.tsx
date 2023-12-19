@@ -49,6 +49,14 @@ export const DialySales = () => {
       minWidth: 150,
     },
     {
+      field: "sale_total",
+      headerName: "売り上げ合計",
+      type: "number",
+      headerAlign: "center",
+      minWidth: 150,
+      cellClassName: "total-column",
+    },
+    {
       field: "lunch_visitor",
       headerName: "ランチ来客数",
       type: "number",
@@ -63,6 +71,14 @@ export const DialySales = () => {
       minWidth: 150,
     },
     {
+      field: "visitor_total",
+      headerName: "来客数合計",
+      type: "number",
+      headerAlign: "center",
+      minWidth: 150,
+      cellClassName: "total-column",
+    },
+    {
       field: "lunch_personnel_cost",
       headerName: "ランチ人件費",
       type: "number",
@@ -75,6 +91,14 @@ export const DialySales = () => {
       type: "number",
       headerAlign: "center",
       minWidth: 150,
+    },
+    {
+      field: "personnel_cost_total",
+      headerName: "人件費合計",
+      type: "number",
+      headerAlign: "center",
+      minWidth: 150,
+      cellClassName: "total-column",
     },
     {
       field: "purchase",
@@ -103,6 +127,9 @@ export const DialySales = () => {
           },
           ".MuiDataGrid-columnHeader:focus-within": {
             outlineOffset: -3,
+          },
+          ".total-column": {
+            background: "#f8f8ff",
           },
         }}
         hideFooter
