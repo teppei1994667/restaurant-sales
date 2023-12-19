@@ -20,7 +20,7 @@ export const DialySales = () => {
     }
   };
 
-  //コンポーネントがマウントされたタイミングでDailySale一覧を取得する関数を事項する
+  //コンポーネントがマウントされたタイミングでDailySale一覧を取得する関数を実行する
   useEffect(() => {
     fetchDialySales();
   }, []);
