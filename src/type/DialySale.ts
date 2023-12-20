@@ -7,6 +7,7 @@ export type DialySaleType = {
   lunch_personnel_cost: number;
   dinner_personnel_cost: number;
   purchase: number;
+  total_sale: number;
 };
 
 export type ReturnDialySalesType = {
@@ -35,5 +36,11 @@ export type DialySaleAction = {
     lunch_personnel_cost: number;
     dinner_personnel_cost: number;
     purchase: number;
+    total_sale: number;
   }[];
+};
+
+export type fetchData = {
+  dialy_sales: DialySaleType[];
+  total_sale: number[];
 };

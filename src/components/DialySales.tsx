@@ -14,7 +14,12 @@ export const DialySales = () => {
     //APIからDialySale一覧を取得する
     try {
       const res = await axios.get<DialySaleType[]>("http://localhost:3000/dialy_sales");
-      dispatch({ type: "returnData", payload: res.data });
+      const fetchDialySales: DialySaleType[] = res.data.map((item) => {
+        const totalSale = (item.total_sale = item.lunch_sales + item.dinner_sales);
+        item.total_sale = totalSale;
+        return item;
+      });
+      dispatch({ type: "returnData", payload: fetchDialySales });
     } catch (err) {
       console.log(err);
     }
@@ -49,7 +54,7 @@ export const DialySales = () => {
       minWidth: 150,
     },
     {
-      field: "sale_total",
+      field: "total_sale",
       headerName: "売り上げ合計",
       type: "number",
       headerAlign: "center",
