@@ -8,6 +8,7 @@ export type DialySaleType = {
   dinner_personnel_cost: number;
   purchase: number;
   total_sale: number;
+  total_visitor: number;
 };
 
 export type ReturnDialySalesType = {
@@ -37,6 +38,7 @@ export type DialySaleAction = {
     dinner_personnel_cost: number;
     purchase: number;
     total_sale: number;
+    total_visitor: number;
   }[];
 };
 

@@ -15,8 +15,10 @@ export const DialySales = () => {
     try {
       const res = await axios.get<DialySaleType[]>("http://localhost:3000/dialy_sales");
       const fetchDialySales: DialySaleType[] = res.data.map((item) => {
-        const totalSale = (item.total_sale = item.lunch_sales + item.dinner_sales);
+        const totalSale = item.lunch_sales + item.dinner_sales;
+        const totalVisitor = item.lunch_visitor + item.dinner_visitor;
         item.total_sale = totalSale;
+        item.total_visitor = totalVisitor;
         return item;
       });
       dispatch({ type: "returnData", payload: fetchDialySales });
@@ -77,7 +79,7 @@ export const DialySales = () => {
       minWidth: 150,
     },
     {
-      field: "visitor_total",
+      field: "total_visitor",
       headerName: "来客数合計",
       type: "number",
       headerAlign: "center",
