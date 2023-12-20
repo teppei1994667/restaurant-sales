@@ -17,8 +17,10 @@ export const DialySales = () => {
       const fetchDialySales: DialySaleType[] = res.data.map((item) => {
         const totalSale = item.lunch_sales + item.dinner_sales;
         const totalVisitor = item.lunch_visitor + item.dinner_visitor;
+        const totalPersonalCost = item.lunch_personnel_cost + item.dinner_personnel_cost;
         item.total_sale = totalSale;
         item.total_visitor = totalVisitor;
+        item.total_personal_cost = totalPersonalCost;
         return item;
       });
       dispatch({ type: "returnData", payload: fetchDialySales });
@@ -102,7 +104,7 @@ export const DialySales = () => {
       minWidth: 150,
     },
     {
-      field: "personnel_cost_total",
+      field: "total_personal_cost",
       headerName: "人件費合計",
       type: "number",
       headerAlign: "center",
