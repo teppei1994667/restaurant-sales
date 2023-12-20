@@ -49,6 +49,7 @@ export const CreateDialySaleForm = () => {
       dialySaleForm.reset;
 
       //dialySaleの作成に成功したら画面を更新する
+      console.log("データ作成");
       window.location.reload();
     } catch (error) {
       console.log(error);
