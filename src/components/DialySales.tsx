@@ -9,20 +9,26 @@ export const DialySales = () => {
   //DialySale一覧をreducerで管理
   const { state, dispatch } = useContext(DialySalesStateContext);
 
+  //サーバーから取得した値の各合計値を計算して返却
+  const totalCalculation = (fetchData: DialySaleType[]): DialySaleType[] => {
+    const _dialySales = fetchData.map((item) => {
+      const totalSale = item.lunch_sales + item.dinner_sales;
+      const totalVisitor = item.lunch_visitor + item.dinner_visitor;
+      const totalPersonalCost = item.lunch_personnel_cost + item.dinner_personnel_cost;
+      item.total_sale = totalSale;
+      item.total_visitor = totalVisitor;
+      item.total_personal_cost = totalPersonalCost;
+      return item;
+    });
+    return _dialySales;
+  };
+
   //DialySale一覧を取得する関数
   const fetchDialySales = async () => {
     //APIからDialySale一覧を取得する
     try {
       const res = await axios.get<DialySaleType[]>("http://localhost:3000/dialy_sales");
-      const fetchDialySales: DialySaleType[] = res.data.map((item) => {
-        const totalSale = item.lunch_sales + item.dinner_sales;
-        const totalVisitor = item.lunch_visitor + item.dinner_visitor;
-        const totalPersonalCost = item.lunch_personnel_cost + item.dinner_personnel_cost;
-        item.total_sale = totalSale;
-        item.total_visitor = totalVisitor;
-        item.total_personal_cost = totalPersonalCost;
-        return item;
-      });
+      const fetchDialySales: DialySaleType[] = totalCalculation(res.data);
       dispatch({ type: "returnData", payload: fetchDialySales });
     } catch (err) {
       console.log(err);
