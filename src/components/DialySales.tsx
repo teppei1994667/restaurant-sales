@@ -3,11 +3,13 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { DialySalesStateContext } from "./DialySalesContext";
+import { CirclesWithBar } from "react-loader-spinner";
 
 //売り上げ一覧を取得し表示するコンポーネント
 export const DialySales = () => {
   //DialySale一覧をreducerで管理
   const { state, dispatch } = useContext(DialySalesStateContext);
+  const [isLoading, setIsLoading] = useState(true);
 
   //サーバーから取得した値の各合計値を計算して返却
   const totalCalculation = (fetchData: DialySaleType[]): DialySaleType[] => {
@@ -30,6 +32,9 @@ export const DialySales = () => {
       const res = await axios.get<DialySaleType[]>("http://localhost:3000/dialy_sales");
       const fetchDialySales: DialySaleType[] = totalCalculation(res.data);
       dispatch({ type: "returnData", payload: fetchDialySales });
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 700);
     } catch (err) {
       console.log(err);
     }
@@ -38,6 +43,7 @@ export const DialySales = () => {
   //コンポーネントがマウントされたタイミングでDailySale一覧を取得する関数を実行する
   useEffect(() => {
     fetchDialySales();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //データグリッドのカラム(列)情報
@@ -127,34 +133,36 @@ export const DialySales = () => {
     },
   ];
 
-  console.log("dialySales", state);
-
   return (
     <>
-      <DataGrid
-        rows={state.dialySales}
-        columns={columns}
-        showCellVerticalBorder
-        showColumnVerticalBorder
-        sx={{
-          width: "80vw",
-          minHeight: "500px",
-          maxHight: "80vh",
-          ".MuiDataGrid-columnHeaders": {
-            backgroundColor: "#fffaf0",
-          },
-          ".MuiDataGrid-columnHeader:focus-within": {
-            outlineOffset: -3,
-          },
-          ".total-column": {
-            background: "#f8f8ff",
-          },
-          ".total-header": {
-            background: "#faebd7",
-          },
-        }}
-        hideFooter
-      />
+      {isLoading ? (
+        <CirclesWithBar height="80" width="80" color="gray" ariaLabel="three-dots-loading" wrapperClass="mt-20" />
+      ) : (
+        <DataGrid
+          rows={state.dialySales}
+          columns={columns}
+          showCellVerticalBorder
+          showColumnVerticalBorder
+          sx={{
+            width: "80vw",
+            minHeight: "500px",
+            maxHight: "80vh",
+            ".MuiDataGrid-columnHeaders": {
+              backgroundColor: "#fffaf0",
+            },
+            ".MuiDataGrid-columnHeader:focus-within": {
+              outlineOffset: -3,
+            },
+            ".total-column": {
+              background: "#f8f8ff",
+            },
+            ".total-header": {
+              background: "#faebd7",
+            },
+          }}
+          hideFooter
+        />
+      )}
     </>
   );
 };
