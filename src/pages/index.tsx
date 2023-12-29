@@ -15,7 +15,7 @@ export const Home = () => {
         <Grid container className="justify-center">
           <Grid item>
             <Link href="/AddDialySale">
-              <Button className="mt-20" variant="outlined" sx={{ height: "100px", width: "200px" }}>
+              <Button className="mt-20" variant="outlined" sx={{ height: "70px", width: "200px" }}>
                 売り上げ登録
               </Button>
             </Link>
