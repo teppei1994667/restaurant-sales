@@ -1,13 +1,14 @@
 import { CreateDialySaleForm } from "@/components/CreateDialySaleForm";
 import { DialySales } from "@/components/DialySales";
 import { DialySalesContextProvider } from "@/components/DialySalesContext";
+import { TotalDialySale } from "@/components/TotalDialySale";
 import { Grid, Paper, Typography } from "@mui/material";
 
 export const AddDialySale = () => {
   return (
     <>
       <DialySalesContextProvider>
-        <Paper className="w-screen h-screen pt-5">
+        <Paper className="pt-5">
           <Grid container className="justify-center">
             <Grid item>
               <Typography className="text-gray-700 font-mono" variant="h3">
@@ -20,7 +21,6 @@ export const AddDialySale = () => {
               <CreateDialySaleForm />
             </Grid>
           </Grid>
-
           <Grid container className="justify-center mt-9">
             <Grid item>
               <DialySales />

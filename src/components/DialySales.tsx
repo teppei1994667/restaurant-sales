@@ -4,6 +4,8 @@ import { useContext, useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { DialySalesStateContext } from "./DialySalesContext";
 import { CirclesWithBar } from "react-loader-spinner";
+import { Grid } from "@mui/material";
+import { TotalDialySale } from "./TotalDialySale";
 
 //売り上げ一覧を取得し表示するコンポーネント
 export const DialySales = () => {
@@ -138,30 +140,37 @@ export const DialySales = () => {
       {isLoading ? (
         <CirclesWithBar height="80" width="80" color="gray" ariaLabel="three-dots-loading" wrapperClass="mt-20" />
       ) : (
-        <DataGrid
-          rows={state.dialySales}
-          columns={columns}
-          showCellVerticalBorder
-          showColumnVerticalBorder
-          sx={{
-            width: "80vw",
-            minHeight: "500px",
-            maxHight: "80vh",
-            ".MuiDataGrid-columnHeaders": {
-              backgroundColor: "#fffaf0",
-            },
-            ".MuiDataGrid-columnHeader:focus-within": {
-              outlineOffset: -3,
-            },
-            ".total-column": {
-              background: "#f8f8ff",
-            },
-            ".total-header": {
-              background: "#faebd7",
-            },
-          }}
-          hideFooter
-        />
+        <>
+          <DataGrid
+            rows={state.dialySales}
+            columns={columns}
+            showCellVerticalBorder
+            showColumnVerticalBorder
+            sx={{
+              width: "80vw",
+              minHeight: "500px",
+              maxHight: "80vh",
+              ".MuiDataGrid-columnHeaders": {
+                backgroundColor: "#fffaf0",
+              },
+              ".MuiDataGrid-columnHeader:focus-within": {
+                outlineOffset: -3,
+              },
+              ".total-column": {
+                background: "#f8f8ff",
+              },
+              ".total-header": {
+                background: "#faebd7",
+              },
+            }}
+            hideFooter
+          />
+          <Grid container className="justify-center mt-9">
+            <Grid item>
+              <TotalDialySale />
+            </Grid>
+          </Grid>
+        </>
       )}
     </>
   );
