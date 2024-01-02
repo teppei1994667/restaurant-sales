@@ -59,9 +59,9 @@ export const CreateDialySaleForm = () => {
   console.log("createDialySaleFormレンダリング");
 
   //作成ボタン押下時のテスト用関数
-  const handleMakeDialySaleOnClickTest = () => {
-    console.log("作成テスト", dialySaleForm.getValues());
-  };
+  // const handleMakeDialySaleOnClickTest = () => {
+  //   console.log("作成テスト", dialySaleForm.getValues());
+  // };
 
   return (
     <>
@@ -79,24 +79,17 @@ export const CreateDialySaleForm = () => {
           </Grid>
           <Grid item className="ml-7">
             <ControlledNumberTextField
-              name="lunchVisitor"
-              label="ランチ来客数"
-              helperText={dialySaleForm.formState.errors.lunchVisitor?.message}
-            />
-          </Grid>
-          <Grid item className="ml-7">
-            <ControlledNumberTextField
-              name="lunchPersonnelCost"
-              label="ランチー人件費"
-              helperText={dialySaleForm.formState.errors.lunchPersonnelCost?.message}
+              name="dinnerSale"
+              label="ディナー売り上げ"
+              helperText={dialySaleForm.formState.errors.dinnerSale?.message}
             />
           </Grid>
           <Grid container spacing={0.75} className="justify-center mt-5">
             <Grid item className="ml-7">
               <ControlledNumberTextField
-                name="dinnerSale"
-                label="ディナー売り上げ"
-                helperText={dialySaleForm.formState.errors.dinnerSale?.message}
+                name="lunchVisitor"
+                label="ランチ来客数"
+                helperText={dialySaleForm.formState.errors.lunchVisitor?.message}
               />
             </Grid>
             <Grid item className="ml-7">
@@ -104,6 +97,13 @@ export const CreateDialySaleForm = () => {
                 name="dinnerVisitor"
                 label="ディナー来客数"
                 helperText={dialySaleForm.formState.errors.dinnerVisitor?.message}
+              />
+            </Grid>
+            <Grid item className="ml-7">
+              <ControlledNumberTextField
+                name="lunchPersonnelCost"
+                label="ランチー人件費"
+                helperText={dialySaleForm.formState.errors.lunchPersonnelCost?.message}
               />
             </Grid>
             <Grid item className="ml-7">
