@@ -28,7 +28,11 @@ export const TotalDialySale = () => {
         <Grid item>
           <Typography>ランチ売り上げ合計</Typography>
         </Grid>
-        <Grid item>{totalLunchSale}</Grid>
+        <Grid item>
+          <Typography className="underline underline-offset-4" sx={{ textDecorationStyle: "dashed" }}>
+            {totalLunchSale}円
+          </Typography>
+        </Grid>
       </Grid>
       <Grid container spacing={0.75}>
         <Grid item>
