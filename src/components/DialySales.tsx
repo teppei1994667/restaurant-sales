@@ -136,6 +136,16 @@ export const DialySales = () => {
         columns={columns}
         showCellVerticalBorder
         showColumnVerticalBorder
+        initialState={{
+          sorting: {
+            sortModel: [
+              {
+                field: "day",
+                sort: "asc",
+              },
+            ],
+          },
+        }}
         sx={{
           width: "80vw",
           minHeight: "500px",
