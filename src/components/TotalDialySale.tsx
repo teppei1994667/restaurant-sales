@@ -47,10 +47,12 @@ export const TotalDialySale = () => {
           <Typography>ランチ来客数合計</Typography>
         </Grid>
         <Grid item>{totalLunchVisitor}</Grid>
-        <Grid item>
-          <Typography>ディナー来客数合計</Typography>
+        <Grid container spacing={0.75}>
+          <Grid item>
+            <Typography>ディナー来客数合計</Typography>
+          </Grid>
+          <Grid item>{totalDinnerVisitor}</Grid>
         </Grid>
-        <Grid item>{totalDinnerVisitor}</Grid>
       </Grid>
       <Grid container spacing={0.75}>
         <Grid item>
