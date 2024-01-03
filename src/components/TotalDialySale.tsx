@@ -1,7 +1,6 @@
-import { Grid, Typography } from "@mui/material";
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { useContext } from "react";
 import { DialySalesStateContext } from "./DialySalesContext";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 export const TotalDialySale = () => {
   const { state } = useContext(DialySalesStateContext);
@@ -22,54 +21,48 @@ export const TotalDialySale = () => {
     totalPurchase += dialySale.purchase;
   });
 
+  const createData = (name: string, lunch: string | number, dinner: string | number, total: number) => {
+    return { name, lunch, dinner, total };
+  };
+
+  const totalData = [
+    createData("合計売上額", totalLunchSale, totalDinnerSale, totalLunchSale + totalDinnerSale),
+    createData("合計来客数", totalLunchVisitor, totalDinnerVisitor, totalLunchVisitor + totalDinnerVisitor),
+    createData(
+      "合計人件費",
+      totalLunchPersonnelCost,
+      totalDinnerPersonnelCost,
+      totalLunchPersonnelCost + totalDinnerPersonnelCost
+    ),
+    createData("合計仕入れ額", "-", "-", totalPurchase),
+  ];
+
   return (
     <>
-      <Grid container spacing={0.75}>
-        <Grid item>
-          <Typography>ランチ売り上げ合計</Typography>
-        </Grid>
-        <Grid item>{totalLunchSale}</Grid>
-      </Grid>
-      <Grid container spacing={0.75}>
-        <Grid item>
-          <Typography>ディナー売り上げ合計</Typography>
-        </Grid>
-        <Grid item>
-          <Typography>{totalDinnerSale}</Typography>
-        </Grid>
-      </Grid>
-      <Grid container spacing={0.75}>
-        <Grid item>
-          <Typography>ランチ来客数合計</Typography>
-        </Grid>
-        <Grid item>{totalLunchVisitor}</Grid>
-        <Grid item>
-          <Typography>ディナー来客数合計</Typography>
-        </Grid>
-        <Grid item>{totalDinnerVisitor}</Grid>
-      </Grid>
-      <Grid container spacing={0.75}>
-        <Grid item>
-          <Typography>ランチ人件費合計</Typography>
-        </Grid>
-        <Grid item>
-          <Typography>{totalLunchPersonnelCost}</Typography>
-        </Grid>
-      </Grid>
-      <Grid container spacing={0.75}>
-        <Grid item>
-          <Typography>ディナー人件費合計</Typography>
-        </Grid>
-        <Grid item>{totalDinnerPersonnelCost}</Grid>
-      </Grid>
-      <Grid container spacing={0.75}>
-        <Grid item>
-          <Typography>仕入れ合計</Typography>
-        </Grid>
-        <Grid item>
-          <Typography>{totalPurchase}</Typography>
-        </Grid>
-      </Grid>
+      <Paper elevation={0} className="mb-10">
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell>lunch</TableCell>
+                <TableCell>dinner</TableCell>
+                <TableCell>total</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {totalData.map((item) => (
+                <TableRow key={item.name}>
+                  <TableCell>{item.name}</TableCell>
+                  <TableCell>{item.lunch}</TableCell>
+                  <TableCell>{item.dinner}</TableCell>
+                  <TableCell>{item.total}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
     </>
   );
 };
