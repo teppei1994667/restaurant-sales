@@ -1,14 +1,15 @@
 import { DialySaleType } from "@/type/DialySale";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { DialySalesStateContext } from "./DialySalesContext";
-import { CirclesWithBar } from "react-loader-spinner";
 
 //売り上げ一覧を取得し表示するコンポーネント
 export const DialySales = () => {
   //DialySale一覧をreducerで管理
   const { state, dispatch } = useContext(DialySalesStateContext);
+  const [rowSlectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
+  console.log("rowSlectionModel", rowSlectionModel);
 
   //サーバーから取得した値の各合計値を計算して返却
   const totalCalculation = (fetchData: DialySaleType[]): DialySaleType[] => {
@@ -164,6 +165,11 @@ export const DialySales = () => {
           },
         }}
         hideFooter
+        disableRowSelectionOnClick
+        checkboxSelection
+        onRowSelectionModelChange={(newRowSelectionModel) => {
+          setRowSelectionModel(newRowSelectionModel);
+        }}
       />
     </>
   );
