@@ -3,6 +3,8 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { DialySalesStateContext } from "./DialySalesContext";
+import { Grid, Paper } from "@mui/material";
+import { DeleteButton } from "./share/custom/DeleteButton";
 
 //売り上げ一覧を取得し表示するコンポーネント
 export const DialySales = () => {
@@ -132,45 +134,52 @@ export const DialySales = () => {
 
   return (
     <>
-      <DataGrid
-        rows={state.dialySales}
-        columns={columns}
-        showCellVerticalBorder
-        showColumnVerticalBorder
-        initialState={{
-          sorting: {
-            sortModel: [
-              {
-                field: "day",
-                sort: "asc",
-              },
-            ],
-          },
-        }}
-        sx={{
-          width: "80vw",
-          minHeight: "500px",
-          maxHight: "80vh",
-          ".MuiDataGrid-columnHeaders": {
-            backgroundColor: "#fffaf0",
-          },
-          ".MuiDataGrid-columnHeader:focus-within": {
-            outlineOffset: -3,
-          },
-          ".total-column": {
-            background: "#f8f8ff",
-          },
-          ".total-header": {
-            background: "#faebd7",
-          },
-        }}
-        hideFooter
-        disableRowSelectionOnClick
-        checkboxSelection
-        onRowSelectionModelChange={(newRowSelectionModel) => {
-          setRowSelectionModel(newRowSelectionModel);
-        }}
-      />
+      <Paper elevation={0}>
+        <DataGrid
+          rows={state.dialySales}
+          columns={columns}
+          showCellVerticalBorder
+          showColumnVerticalBorder
+          initialState={{
+            sorting: {
+              sortModel: [
+                {
+                  field: "day",
+                  sort: "asc",
+                },
+              ],
+            },
+          }}
+          sx={{
+            width: "80vw",
+            minHeight: "500px",
+            maxHight: "80vh",
+            ".MuiDataGrid-columnHeaders": {
+              backgroundColor: "#fffaf0",
+            },
+            ".MuiDataGrid-columnHeader:focus-within": {
+              outlineOffset: -3,
+            },
+            ".total-column": {
+              background: "#f8f8ff",
+            },
+            ".total-header": {
+              background: "#faebd7",
+            },
+          }}
+          hideFooter
+          disableRowSelectionOnClick
+          checkboxSelection
+          onRowSelectionModelChange={(newRowSelectionModel) => {
+            setRowSelectionModel(newRowSelectionModel);
+          }}
+        />
+        <Grid container className="justify-center mt-9">
+          <Grid item>
+            <DeleteButton ids={[rowSlectionModel]} />
+          </Grid>
+        </Grid>
+      </Paper>
     </>
   );
 };
