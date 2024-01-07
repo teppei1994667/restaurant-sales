@@ -2,7 +2,7 @@ import { CreateDialySaleForm } from "@/components/CreateDialySaleForm";
 import { DialySales } from "@/components/DialySales";
 import { DialySalesContextProvider } from "@/components/DialySalesContext";
 import { TotalDialySale } from "@/components/TotalDialySale";
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { CirclesWithBar } from "react-loader-spinner";
 
