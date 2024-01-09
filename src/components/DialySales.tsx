@@ -5,12 +5,14 @@ import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { DialySalesStateContext } from "./DialySalesContext";
 import { Grid, Paper } from "@mui/material";
 import { DeleteButton } from "./share/custom/DeleteButton";
+import { SelectDialySalesContext } from "./SelectDialySalesContext";
 
 //売り上げ一覧を取得し表示するコンポーネント
 export const DialySales = () => {
   //DialySale一覧をreducerで管理
   const { state, dispatch } = useContext(DialySalesStateContext);
-  const [rowSlectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
+  const { rowSlectionModel, setRowSelectionModel } = useContext(SelectDialySalesContext);
+  // const [rowSlectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
   console.log("rowSlectionModel", rowSlectionModel);
 
   //サーバーから取得した値の各合計値を計算して返却

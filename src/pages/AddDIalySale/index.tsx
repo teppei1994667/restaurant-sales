@@ -1,6 +1,7 @@
 import { CreateDialySaleForm } from "@/components/CreateDialySaleForm";
 import { DialySales } from "@/components/DialySales";
 import { DialySalesContextProvider } from "@/components/DialySalesContext";
+import { SelectDialySalesContextProvider } from "@/components/SelectDialySalesContext";
 import { TotalDialySale } from "@/components/TotalDialySale";
 import { Grid, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -16,46 +17,48 @@ export const AddDialySale = () => {
   return (
     <>
       <DialySalesContextProvider>
-        <Paper elevation={0} className="pt-5">
-          <Grid container className="justify-center">
-            <Grid item>
-              <Typography className="text-gray-700 font-mono" variant="h3">
-                売り上げ登録
-              </Typography>
+        <SelectDialySalesContextProvider>
+          <Paper elevation={0} className="pt-5">
+            <Grid container className="justify-center">
+              <Grid item>
+                <Typography className="text-gray-700 font-mono" variant="h3">
+                  売り上げ登録
+                </Typography>
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid container className="justify-center mt-9">
-            <Grid item>
-              <CreateDialySaleForm />
-            </Grid>
-          </Grid>
-          {isLoading ? (
             <Grid container className="justify-center mt-9">
               <Grid item>
-                <CirclesWithBar
-                  height="80"
-                  width="80"
-                  color="gray"
-                  ariaLabel="three-dots-loading"
-                  wrapperClass="mt-20"
-                />
+                <CreateDialySaleForm />
               </Grid>
             </Grid>
-          ) : (
-            <>
+            {isLoading ? (
               <Grid container className="justify-center mt-9">
                 <Grid item>
-                  <DialySales />
+                  <CirclesWithBar
+                    height="80"
+                    width="80"
+                    color="gray"
+                    ariaLabel="three-dots-loading"
+                    wrapperClass="mt-20"
+                  />
                 </Grid>
               </Grid>
-              <Grid container className="justify-center mt-9">
-                <Grid item>
-                  <TotalDialySale />
+            ) : (
+              <>
+                <Grid container className="justify-center mt-9">
+                  <Grid item>
+                    <DialySales />
+                  </Grid>
                 </Grid>
-              </Grid>
-            </>
-          )}
-        </Paper>
+                <Grid container className="justify-center mt-9">
+                  <Grid item>
+                    <TotalDialySale />
+                  </Grid>
+                </Grid>
+              </>
+            )}
+          </Paper>
+        </SelectDialySalesContextProvider>
       </DialySalesContextProvider>
     </>
   );
