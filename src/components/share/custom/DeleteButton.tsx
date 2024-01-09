@@ -7,8 +7,6 @@ export type DeleteButtonProps = {
 };
 
 export const DeleteButton = (props: DeleteButtonProps) => {
-  console.log("deleteButton", props.ids);
-
   const sendDelete = (deleteIds: GridRowSelectionModel[]) => {
     deleteIds.map((deleteId) => {
       return axios.delete(`http://localhost:3000/dialy_sales/${deleteId}`);
