@@ -1,19 +1,12 @@
-import { ControlledDatePickerProps } from "@/type/reactHookFormType";
+import { ControlledDatePickerProps } from "@/type/ReactHookFormType";
 import { Controller, useFormContext } from "react-hook-form";
-import {
-  DatePicker,
-  DesktopDatePicker,
-  LocalizationProvider,
-} from "@mui/x-date-pickers";
+import { DatePicker, DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ja } from "date-fns/locale";
 import { TextField } from "@mui/material";
 import { forwardRef } from "react";
 
-export const ControlledDatePicker = forwardRef<
-  HTMLInputElement,
-  ControlledDatePickerProps
->((props, ref) => {
+export const ControlledDatePicker = forwardRef<HTMLInputElement, ControlledDatePickerProps>((props, ref) => {
   const { name, rules, helperText, ...restProps } = props;
   const form = useFormContext();
 
@@ -35,12 +28,7 @@ export const ControlledDatePicker = forwardRef<
             ref={ref}
             slots={{
               textField: (textFieldProps) => (
-                <TextField
-                  {...field}
-                  error={!!errors.message}
-                  helperText={helperText}
-                  {...textFieldProps}
-                />
+                <TextField {...field} error={!!errors.message} helperText={helperText} {...textFieldProps} />
               ),
             }}
           />

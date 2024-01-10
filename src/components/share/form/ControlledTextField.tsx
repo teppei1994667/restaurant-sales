@@ -1,12 +1,9 @@
-import { ControlledTextFieldProps } from "@/type/reactHookFormType";
+import { ControlledTextFieldProps } from "@/type/ReactHookFormType";
 import { TextField } from "@mui/material";
 import { forwardRef } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
-export const ControlledTextField = forwardRef<
-  HTMLInputElement,
-  ControlledTextFieldProps
->((props, ref) => {
+export const ControlledTextField = forwardRef<HTMLInputElement, ControlledTextFieldProps>((props, ref) => {
   const { name, rules, helperText, ...restProps } = props;
   const form = useFormContext();
 
@@ -17,13 +14,7 @@ export const ControlledTextField = forwardRef<
         control={form.control}
         rules={rules}
         render={({ field, formState: { errors } }) => (
-          <TextField
-            {...field}
-            ref={ref}
-            error={!!errors.message}
-            helperText={helperText}
-            {...restProps}
-          />
+          <TextField {...field} ref={ref} error={!!errors.message} helperText={helperText} {...restProps} />
         )}
       />
     </>

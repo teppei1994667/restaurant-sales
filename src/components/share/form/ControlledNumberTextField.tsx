@@ -1,4 +1,4 @@
-import { ControlledTextFieldProps } from "@/type/reactHookFormType";
+import { ControlledTextFieldProps } from "@/type/ReactHookFormType";
 import { forwardRef } from "react";
 import { ControlledTextField } from "./ControlledTextField";
 
