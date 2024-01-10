@@ -5,6 +5,7 @@ import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { DialySalesStateContext } from "./DialySalesContext";
 import { Paper } from "@mui/material";
 import { SelectDialySalesContext } from "./SelectDialySalesContext";
+import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 
 //売り上げ一覧を取得し表示するコンポーネント
 export const DialySales = () => {
@@ -30,7 +31,7 @@ export const DialySales = () => {
   const fetchDialySales = async () => {
     //APIからDialySale一覧を取得する
     try {
-      const res = await axios.get<DialySaleType[]>("http://localhost:3000/dialy_sales");
+      const res = await axios.get<DialySaleType[]>(LOCAL_DIALYSALES_ADDRESS);
       const fetchDialySales: DialySaleType[] = totalCalculation(res.data);
       dispatch({ type: "returnData", payload: fetchDialySales });
     } catch (err) {

@@ -4,6 +4,7 @@ import axios from "axios";
 import { DialySaleFormType } from "@/type/DialySale";
 import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 import { ControlledNumberTextField } from "./share/form/ControlledNumberTextField";
+import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 
 export const CreateDialySaleForm = () => {
   //新規売り上げ作成をformで管理
@@ -32,7 +33,7 @@ export const CreateDialySaleForm = () => {
   const handleMakeDialySaleOnClick = async () => {
     try {
       //apiを呼び出してDialySaleを作成する
-      await axios.post("http://localhost:3000/dialy_sales", {
+      await axios.post(LOCAL_DIALYSALES_ADDRESS, {
         dialy_sale: {
           day: dayToString(),
           lunch_sales: dialySaleForm.getValues("lunchSale"),

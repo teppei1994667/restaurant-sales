@@ -1,4 +1,5 @@
 import { SelectDialySalesContext } from "@/components/SelectDialySalesContext";
+import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { Button } from "@mui/material";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
 import axios from "axios";
@@ -10,7 +11,7 @@ export const DeleteButton = () => {
   //受け取ったidをサーバーへdeleteリクエストを行う
   const sendDelete = (deleteIds: GridRowSelectionModel) => {
     deleteIds.map((deleteId) => {
-      return axios.delete(`http://localhost:3000/dialy_sales/${deleteId}`);
+      return axios.delete(`${LOCAL_DIALYSALES_ADDRESS}/${deleteId}`);
     });
   };
 
