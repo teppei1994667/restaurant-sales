@@ -13,7 +13,7 @@ export const DialySales = () => {
   const { state, dispatch } = useContext(DialySalesStateContext);
   const { rowSlectionModel, setRowSelectionModel } = useContext(SelectDialySalesContext);
   // const [rowSlectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
-  console.log("rowSlectionModel", rowSlectionModel);
+  console.log("DialySales rowSlectionModel", rowSlectionModel);
 
   //サーバーから取得した値の各合計値を計算して返却
   const totalCalculation = (fetchData: DialySaleType[]): DialySaleType[] => {
