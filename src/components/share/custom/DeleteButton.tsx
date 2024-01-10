@@ -1,14 +1,14 @@
+import { SelectDialySalesContext } from "@/components/SelectDialySalesContext";
 import { Button } from "@mui/material";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
 import axios from "axios";
+import { useContext } from "react";
 
-export type DeleteButtonProps = {
-  ids: GridRowSelectionModel[];
-};
+export const DeleteButton = () => {
+  const { rowSlectionModel } = useContext(SelectDialySalesContext);
 
-export const DeleteButton = (props: DeleteButtonProps) => {
-  console.log("DeleteButton", props.ids);
-  const sendDelete = (deleteIds: GridRowSelectionModel[]) => {
+  console.log("DeleteButton", rowSlectionModel);
+  const sendDelete = (deleteIds: GridRowSelectionModel) => {
     deleteIds.map((deleteId) => {
       return axios.delete(`http://localhost:3000/dialy_sales/${deleteId}`);
     });
@@ -20,7 +20,7 @@ export const DeleteButton = (props: DeleteButtonProps) => {
     }
     try {
       //APIを呼び出して、DialySaleを削除する
-      await sendDelete(props.ids);
+      await sendDelete(rowSlectionModel);
       window.location.reload();
     } catch (error) {
       console.error(error);

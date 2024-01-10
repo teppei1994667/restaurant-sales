@@ -3,12 +3,14 @@ import { DialySales } from "@/components/DialySales";
 import { DialySalesContextProvider } from "@/components/DialySalesContext";
 import { SelectDialySalesContextProvider } from "@/components/SelectDialySalesContext";
 import { TotalDialySale } from "@/components/TotalDialySale";
+import { DeleteButton } from "@/components/share/custom/DeleteButton";
 import { Grid, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { CirclesWithBar } from "react-loader-spinner";
 
 export const AddDialySale = () => {
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
@@ -48,6 +50,11 @@ export const AddDialySale = () => {
                 <Grid container className="justify-center mt-9">
                   <Grid item>
                     <DialySales />
+                  </Grid>
+                </Grid>
+                <Grid container className="justify-center mt-9">
+                  <Grid item>
+                    <DeleteButton />
                   </Grid>
                 </Grid>
                 <Grid container className="justify-center mt-9">

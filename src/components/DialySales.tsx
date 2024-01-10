@@ -3,17 +3,14 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { DialySalesStateContext } from "./DialySalesContext";
-import { Grid, Paper } from "@mui/material";
-import { DeleteButton } from "./share/custom/DeleteButton";
+import { Paper } from "@mui/material";
 import { SelectDialySalesContext } from "./SelectDialySalesContext";
 
 //売り上げ一覧を取得し表示するコンポーネント
 export const DialySales = () => {
   //DialySale一覧をreducerで管理
   const { state, dispatch } = useContext(DialySalesStateContext);
-  const { rowSlectionModel, setRowSelectionModel } = useContext(SelectDialySalesContext);
-  // const [rowSlectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
-  console.log("DialySales rowSlectionModel", rowSlectionModel);
+  const { setRowSelectionModel } = useContext(SelectDialySalesContext);
 
   //サーバーから取得した値の各合計値を計算して返却
   const totalCalculation = (fetchData: DialySaleType[]): DialySaleType[] => {
@@ -176,11 +173,6 @@ export const DialySales = () => {
             setRowSelectionModel(newRowSelectionModel);
           }}
         />
-        <Grid container className="justify-center mt-9">
-          <Grid item>
-            <DeleteButton ids={[rowSlectionModel]} />
-          </Grid>
-        </Grid>
       </Paper>
     </>
   );
