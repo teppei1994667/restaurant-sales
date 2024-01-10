@@ -7,13 +7,15 @@ import { useContext } from "react";
 export const DeleteButton = () => {
   const { rowSlectionModel } = useContext(SelectDialySalesContext);
 
-  console.log("DeleteButton", rowSlectionModel);
+  //受け取ったidをサーバーへdeleteリクエストを行う
   const sendDelete = (deleteIds: GridRowSelectionModel) => {
     deleteIds.map((deleteId) => {
       return axios.delete(`http://localhost:3000/dialy_sales/${deleteId}`);
     });
   };
-  const handleDelete = async () => {
+
+  //削除ボタン押下時の処理
+  const handleDeleteOnClick = async () => {
     // 確認のダイアログを表示し「いいえ」を押下した場合処理終了
     if (!confirm("本当に削除しますか")) {
       return;
@@ -27,7 +29,7 @@ export const DeleteButton = () => {
     }
   };
   return (
-    <Button onClick={handleDelete} variant="outlined">
+    <Button onClick={handleDeleteOnClick} variant="outlined">
       削除
     </Button>
   );
