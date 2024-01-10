@@ -1,7 +1,7 @@
 import { DialySaleType } from "@/type/DialySale";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
+import { useContext, useEffect } from "react";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { DialySalesStateContext } from "./DialySalesContext";
 import { Paper } from "@mui/material";
 import { SelectDialySalesContext } from "./SelectDialySalesContext";
