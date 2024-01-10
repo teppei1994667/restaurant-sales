@@ -1,14 +1,16 @@
 import { DialySaleType } from "@/type/DialySale";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRowSelectionModel } from "@mui/x-data-grid";
 import { DialySalesStateContext } from "./DialySalesContext";
-import { CirclesWithBar } from "react-loader-spinner";
+import { Paper } from "@mui/material";
+import { SelectDialySalesContext } from "./SelectDialySalesContext";
 
 //売り上げ一覧を取得し表示するコンポーネント
 export const DialySales = () => {
   //DialySale一覧をreducerで管理
   const { state, dispatch } = useContext(DialySalesStateContext);
+  const { setRowSelectionModel } = useContext(SelectDialySalesContext);
 
   //サーバーから取得した値の各合計値を計算して返却
   const totalCalculation = (fetchData: DialySaleType[]): DialySaleType[] => {
@@ -131,40 +133,47 @@ export const DialySales = () => {
 
   return (
     <>
-      <DataGrid
-        rows={state.dialySales}
-        columns={columns}
-        showCellVerticalBorder
-        showColumnVerticalBorder
-        initialState={{
-          sorting: {
-            sortModel: [
-              {
-                field: "day",
-                sort: "asc",
-              },
-            ],
-          },
-        }}
-        sx={{
-          width: "80vw",
-          minHeight: "500px",
-          maxHight: "80vh",
-          ".MuiDataGrid-columnHeaders": {
-            backgroundColor: "#fffaf0",
-          },
-          ".MuiDataGrid-columnHeader:focus-within": {
-            outlineOffset: -3,
-          },
-          ".total-column": {
-            background: "#f8f8ff",
-          },
-          ".total-header": {
-            background: "#faebd7",
-          },
-        }}
-        hideFooter
-      />
+      <Paper elevation={0}>
+        <DataGrid
+          rows={state.dialySales}
+          columns={columns}
+          showCellVerticalBorder
+          showColumnVerticalBorder
+          initialState={{
+            sorting: {
+              sortModel: [
+                {
+                  field: "day",
+                  sort: "asc",
+                },
+              ],
+            },
+          }}
+          sx={{
+            width: "80vw",
+            minHeight: "500px",
+            maxHight: "80vh",
+            ".MuiDataGrid-columnHeaders": {
+              backgroundColor: "#fffaf0",
+            },
+            ".MuiDataGrid-columnHeader:focus-within": {
+              outlineOffset: -3,
+            },
+            ".total-column": {
+              background: "#f8f8ff",
+            },
+            ".total-header": {
+              background: "#faebd7",
+            },
+          }}
+          hideFooter
+          disableRowSelectionOnClick
+          checkboxSelection
+          onRowSelectionModelChange={(newRowSelectionModel) => {
+            setRowSelectionModel(newRowSelectionModel);
+          }}
+        />
+      </Paper>
     </>
   );
 };
