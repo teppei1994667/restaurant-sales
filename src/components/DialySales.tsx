@@ -27,11 +27,27 @@ export const DialySales = () => {
     return _dialySales;
   };
 
+  //サーバーに関数を使用してパラメータを送ると関数そのものが送信されてうまくいかないのでとりあえず直接実装
+  // const thisMonthString = () => {
+  //   const today = new Date();
+  //   return today.toLocaleDateString("ja-JP", {
+  //     year: "numeric",
+  //     month: "2-digit",
+  //   });
+  // };
+
   //DialySale一覧を取得する関数
   const fetchDialySales = async () => {
     //APIからDialySale一覧を取得する
     try {
-      const res = await axios.get<DialySaleType[]>(LOCAL_DIALYSALES_ADDRESS);
+      const res = await axios.get<DialySaleType[]>(LOCAL_DIALYSALES_ADDRESS, {
+        params: {
+          day: new Date().toLocaleDateString("ja-JP", {
+            year: "numeric",
+            month: "2-digit",
+          }),
+        },
+      });
       const fetchDialySales: DialySaleType[] = totalCalculation(res.data);
       dispatch({ type: "returnData", payload: fetchDialySales });
     } catch (err) {
