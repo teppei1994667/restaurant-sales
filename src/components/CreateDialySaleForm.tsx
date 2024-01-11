@@ -31,9 +31,9 @@ export const CreateDialySaleForm = () => {
 
   //サーバーに送信する前にdayをstringに変換する
   const dayToString = () => {
-    const dayString = dialySaleForm.getValues("day");
-    if (dayString) {
-      return dayString.toLocaleDateString("ja-JP", {
+    const _day = dialySaleForm.getValues("day");
+    if (_day) {
+      return _day.toLocaleDateString("ja-JP", {
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
