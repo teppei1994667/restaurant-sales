@@ -21,11 +21,24 @@ export const CreateDialySaleForm = () => {
     },
   });
 
+  //toLocaleDateStringのオプションを別で定義すると型エラーになるのでとりあえず直接実装
+  // const dayToStringOptions = {
+  //   year: "numeric",
+  //   month: "2-digit",
+  //   day: "2-digit",
+  //   weekday: "short",
+  // };
+
   //サーバーに送信する前にdayをstringに変換する
   const dayToString = () => {
     const dayString = dialySaleForm.getValues("day");
     if (dayString) {
-      return dayString.toLocaleDateString();
+      return dayString.toLocaleDateString("ja-JP", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        weekday: "short",
+      });
     }
   };
 
