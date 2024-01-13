@@ -6,7 +6,7 @@ import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 import { ControlledNumberTextField } from "./share/form/ControlledNumberTextField";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 
-export const CreateDialySaleForm = () => {
+export const CreateDialySale = () => {
   //新規売り上げ作成をformで管理
   const dialySaleForm = useForm<DialySaleFormType>({
     defaultValues: {

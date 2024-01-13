@@ -1,4 +1,4 @@
-import { CreateDialySaleForm } from "@/components/CreateDialySaleForm";
+import { CreateDialySale } from "@/components/CreateDialySale";
 import { DialySales } from "@/components/DialySales";
 import { DialySalesContextProvider } from "@/components/DialySalesContext";
 import { SelectDialySalesContextProvider } from "@/components/SelectDialySalesContext";
@@ -36,7 +36,7 @@ export const AddDialySale = () => {
             </Grid>
             <Grid container className="justify-center mt-9">
               <Grid item>
-                <CreateDialySaleForm />
+                <CreateDialySale />
               </Grid>
             </Grid>
             {isLoading ? (
