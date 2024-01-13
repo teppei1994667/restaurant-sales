@@ -11,6 +11,12 @@ import { CirclesWithBar } from "react-loader-spinner";
 export const AddDialySale = () => {
   const [isLoading, setIsLoading] = useState(true);
 
+  //レンダリング当日の年と月を文字列で取得
+  const thisMonthStiring = new Date().toLocaleDateString("ja-JP", {
+    year: "numeric",
+    month: "2-digit",
+  });
+
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
@@ -49,7 +55,7 @@ export const AddDialySale = () => {
               <>
                 <Grid container className="justify-center mt-9">
                   <Grid item>
-                    <DialySales />
+                    <DialySales dayParams={thisMonthStiring} />
                   </Grid>
                 </Grid>
                 <Grid container className="justify-center mt-9">
