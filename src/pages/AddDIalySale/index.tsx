@@ -1,7 +1,7 @@
 import { CreateDialySale } from "@/components/CreateDialySale";
 import { DialySales } from "@/components/DialySales";
-import { DialySalesContextProvider } from "@/components/DialySalesContext";
-import { SelectDialySalesContextProvider } from "@/components/SelectDialySalesContext";
+import { DialySalesContextProvider } from "@/constants/DialySalesContext";
+import { SelectDialySalesContextProvider } from "@/context/SelectDialySalesContext";
 import { TotalDialySale } from "@/components/TotalDialySale";
 import { DeleteButton } from "@/components/share/custom/DeleteButton";
 import { Grid, Paper, Typography } from "@mui/material";

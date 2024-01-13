@@ -2,9 +2,9 @@ import { DialySaleType } from "@/type/DialySale";
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { DialySalesStateContext } from "./DialySalesContext";
+import { DialySalesStateContext } from "../constants/DialySalesContext";
 import { Paper } from "@mui/material";
-import { SelectDialySalesContext } from "./SelectDialySalesContext";
+import { SelectDialySalesContext } from "../context/SelectDialySalesContext";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 
 export type DialySalesProps = {

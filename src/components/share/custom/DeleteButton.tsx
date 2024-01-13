@@ -1,4 +1,4 @@
-import { SelectDialySalesContext } from "@/components/SelectDialySalesContext";
+import { SelectDialySalesContext } from "@/context/SelectDialySalesContext";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { Button } from "@mui/material";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
