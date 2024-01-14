@@ -17,7 +17,7 @@ export const DialySales = (props: DialySalesProps) => {
   const { state, dispatch } = useContext(DialySalesStateContext);
   const { setRowSelectionModel } = useContext(SelectDialySalesContext);
 
-  //サーバーから取得した値の各合計値を計算して返却
+  //サーバーから取得した値とその各合計値を計算して返却
   const totalCalculation = (fetchData: DialySaleType[]): DialySaleType[] => {
     const _dialySales = fetchData.map((item) => {
       const totalSale = item.lunch_sales + item.dinner_sales;
@@ -68,7 +68,6 @@ export const DialySales = (props: DialySalesProps) => {
       type: "number",
       headerAlign: "center",
       minWidth: 120,
-      editable: true,
     },
     {
       field: "dinner_sales",
