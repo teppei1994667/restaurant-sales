@@ -45,8 +45,3 @@ export type DialySaleAction = {
     total_personal_cost: number;
   }[];
 };
-
-export type fetchData = {
-  dialy_sales: DialySaleType[];
-  total_sale: number[];
-};
