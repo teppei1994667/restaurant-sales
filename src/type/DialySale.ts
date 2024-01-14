@@ -19,13 +19,24 @@ export type ReturnDialySalesType = {
 
 export type DialySaleFormType = {
   day: Date | null;
-  lunchSale: string;
+  lunchSale?: string;
   dinnerSale: string;
   lunchVisitor: string;
   dinnerVisitor: string;
   lunchPersonnelCost: string;
   dinnerPersonnelCost: string;
   purchase: string;
+};
+
+export type DialySaleEditFormType = {
+  day?: Date | null;
+  lunchSale?: number;
+  dinnerSale?: number;
+  lunchVisitor?: number;
+  dinnerVisitor?: number;
+  lunchPersonnelCost?: number;
+  dinnerPersonnelCost?: number;
+  purchase?: number;
 };
 
 export type DialySaleAction = {
