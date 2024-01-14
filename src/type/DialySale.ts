@@ -1,4 +1,5 @@
 export type DialySaleType = {
+  id: number;
   day: string;
   lunch_sales: number;
   dinner_sales: number;
@@ -30,6 +31,7 @@ export type DialySaleFormType = {
 export type DialySaleAction = {
   type: "returnData";
   payload: {
+    id: number;
     day: string;
     lunch_sales: number;
     dinner_sales: number;
