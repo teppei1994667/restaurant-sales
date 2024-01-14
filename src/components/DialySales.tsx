@@ -3,7 +3,6 @@ import axios from "axios";
 import { useContext, useEffect } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { DialySalesStateContext } from "../constants/DialySalesContext";
-import { Paper } from "@mui/material";
 import { SelectDialySalesContext } from "../context/SelectDialySalesContext";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 
@@ -144,50 +143,48 @@ export const DialySales = (props: DialySalesProps) => {
 
   return (
     <>
-      <Paper elevation={0}>
-        <DataGrid
-          rows={state.dialySales}
-          columns={columns}
-          checkboxSelection //チェックボックス表示
-          disableRowSelectionOnClick //セルまたは行クリック時に選択状態(チックボックスにチェックをいれる)を無効化
-          //初期状態
-          initialState={{
-            //並び順を日付の若い順に設定
-            sorting: {
-              sortModel: [
-                {
-                  field: "day",
-                  sort: "asc",
-                },
-              ],
-            },
-          }}
-          //選択状態を検知
-          onRowSelectionModelChange={(newRowSelectionModel) => {
-            setRowSelectionModel(newRowSelectionModel);
-          }}
-          sx={{
-            width: "80vw",
-            minHeight: "500px",
-            maxHight: "80vh",
-            ".MuiDataGrid-columnHeaders": {
-              backgroundColor: "#fffaf0",
-            },
-            ".MuiDataGrid-columnHeader:focus-within": {
-              outlineOffset: -3,
-            },
-            ".total-column": {
-              background: "#f8f8ff",
-            },
-            ".total-header": {
-              background: "#faebd7",
-            },
-          }}
-          showCellVerticalBorder //ボーダー調整
-          showColumnVerticalBorder //ボーダー調整
-          hideFooter //フッター非表示
-        />
-      </Paper>
+      <DataGrid
+        rows={state.dialySales}
+        columns={columns}
+        checkboxSelection //チェックボックス表示
+        disableRowSelectionOnClick //セルまたは行クリック時に選択状態(チックボックスにチェックをいれる)を無効化
+        //初期状態
+        initialState={{
+          //並び順を日付の若い順に設定
+          sorting: {
+            sortModel: [
+              {
+                field: "day",
+                sort: "asc",
+              },
+            ],
+          },
+        }}
+        //選択状態を検知
+        onRowSelectionModelChange={(newRowSelectionModel) => {
+          setRowSelectionModel(newRowSelectionModel);
+        }}
+        sx={{
+          width: "80vw",
+          minHeight: "500px",
+          maxHight: "80vh",
+          ".MuiDataGrid-columnHeaders": {
+            backgroundColor: "#fffaf0",
+          },
+          ".MuiDataGrid-columnHeader:focus-within": {
+            outlineOffset: -3,
+          },
+          ".total-column": {
+            background: "#f8f8ff",
+          },
+          ".total-header": {
+            background: "#faebd7",
+          },
+        }}
+        showCellVerticalBorder //ボーダー調整
+        showColumnVerticalBorder //ボーダー調整
+        hideFooter //フッター非表示
+      />
     </>
   );
 };
