@@ -69,6 +69,7 @@ export const DialySales = (props: DialySalesProps) => {
       type: "number",
       headerAlign: "center",
       minWidth: 120,
+      editable: true,
     },
     {
       field: "dinner_sales",
@@ -147,9 +148,11 @@ export const DialySales = (props: DialySalesProps) => {
         <DataGrid
           rows={state.dialySales}
           columns={columns}
-          showCellVerticalBorder
-          showColumnVerticalBorder
+          checkboxSelection //チェックボックス表示
+          disableRowSelectionOnClick //セルまたは行クリック時に選択状態(チックボックスにチェックをいれる)を無効化
+          //初期状態
           initialState={{
+            //並び順を日付の若い順に設定
             sorting: {
               sortModel: [
                 {
@@ -158,6 +161,10 @@ export const DialySales = (props: DialySalesProps) => {
                 },
               ],
             },
+          }}
+          //選択状態を検知
+          onRowSelectionModelChange={(newRowSelectionModel) => {
+            setRowSelectionModel(newRowSelectionModel);
           }}
           sx={{
             width: "80vw",
@@ -176,12 +183,9 @@ export const DialySales = (props: DialySalesProps) => {
               background: "#faebd7",
             },
           }}
-          hideFooter
-          disableRowSelectionOnClick
-          checkboxSelection
-          onRowSelectionModelChange={(newRowSelectionModel) => {
-            setRowSelectionModel(newRowSelectionModel);
-          }}
+          showCellVerticalBorder //ボーダー調整
+          showColumnVerticalBorder //ボーダー調整
+          hideFooter //フッター非表示
         />
       </Paper>
     </>
