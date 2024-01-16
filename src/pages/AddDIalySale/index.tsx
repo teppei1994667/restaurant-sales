@@ -7,9 +7,14 @@ import { DeleteButton } from "@/components/share/custom/DeleteButton";
 import { Grid, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { CirclesWithBar } from "react-loader-spinner";
+import { EditButton } from "@/components/share/custom/EditButton";
+import { EditDialog } from "@/components/EditDialog";
+import { DialySaleType } from "@/type/DialySale";
 
 export const AddDialySale = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DialySaleType>();
 
   //レンダリング当日の年と月を文字列で取得
   const thisMonthStiring = new Date().toLocaleDateString("ja-JP", {
@@ -59,6 +64,12 @@ export const AddDialySale = () => {
                   </Grid>
                 </Grid>
                 <Grid container className="justify-center mt-9">
+                  <Grid item>
+                    <EditButton
+                      setIsEditDialogOpen={setIsEditDialogOpen}
+                      setRowSelectionModelValue={setRowSelectionModelValue}
+                    />
+                  </Grid>
                   <Grid item>
                     <DeleteButton />
                   </Grid>

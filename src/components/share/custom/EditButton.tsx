@@ -2,12 +2,17 @@ import { DialySalesStateContext } from "@/constants/DialySalesContext";
 import { SelectDialySalesContext } from "@/context/SelectDialySalesContext";
 import { DialySaleType } from "@/type/DialySale";
 import { Button } from "@mui/material";
-import { useContext, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 
-export const EditButton = () => {
+export type EditButtonProps = {
+  setIsEditDialogOpen: Dispatch<SetStateAction<boolean>>;
+  setRowSelectionModelValue: Dispatch<SetStateAction<DialySaleType | undefined>>;
+};
+
+export const EditButton = (props: EditButtonProps) => {
+  const { setIsEditDialogOpen, setRowSelectionModelValue } = props;
   const { state } = useContext(DialySalesStateContext);
   const { rowSlectionModel } = useContext(SelectDialySalesContext);
-  const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DialySaleType>();
 
   //変更ボタン押下時
   const handleEditBtnOnClick = () => {
@@ -21,10 +26,9 @@ export const EditButton = () => {
         setRowSelectionModelValue(dialySale);
       }
     });
-    //TODO: ダイアログ実装後そのオープン処理実装
+    setIsEditDialogOpen(true);
   };
 
-  console.log("EditButton rowSelectionModelValue", rowSelectionModelValue);
   return (
     <Button onClick={handleEditBtnOnClick} variant="outlined">
       変更
