@@ -58,7 +58,7 @@ export const AddDialySale = () => {
               </Grid>
             ) : (
               <>
-                <Grid container className="justify-center mt-9">
+                <Grid container spacing={0.75} className="justify-center mt-9">
                   <Grid item>
                     <DialySales dayParams={thisMonthStiring} />
                   </Grid>
@@ -70,7 +70,7 @@ export const AddDialySale = () => {
                       setRowSelectionModelValue={setRowSelectionModelValue}
                     />
                   </Grid>
-                  <Grid item>
+                  <Grid item className="ml-5">
                     <DeleteButton />
                   </Grid>
                 </Grid>
