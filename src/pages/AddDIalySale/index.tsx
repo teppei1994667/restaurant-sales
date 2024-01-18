@@ -82,6 +82,11 @@ export const AddDialySale = () => {
               </>
             )}
           </Paper>
+          <EditDialog
+            isEditDialogOpen={isEditDialogOpen}
+            setIsEditDialogOpen={setIsEditDialogOpen}
+            rowSelectionModelValue={rowSelectionModelValue}
+          />
         </SelectDialySalesContextProvider>
       </DialySalesContextProvider>
     </>
