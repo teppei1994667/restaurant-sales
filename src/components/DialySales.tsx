@@ -146,7 +146,7 @@ export const DialySales = (props: DialySalesProps) => {
           setRowSelectionModel(newRowSelectionModel);
         }}
         sx={{
-          width: "1310pxs",
+          width: "1310px",
           minHeight: "500px",
           maxHight: "80vh",
           ".MuiDataGrid-columnHeaders": {
