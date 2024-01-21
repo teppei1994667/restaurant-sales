@@ -52,20 +52,9 @@ export const EditDialog = (props: EditDialogProps) => {
     <FormProvider {...dialySaleEditForm}>
       <Dialog open={isEditDialogOpen} fullWidth maxWidth="xl" sx={{ textAlign: "center" }}>
         <DialogTitle>
-          <Grid container justifyContent="space-between">
+          <Grid container spacing={0.75} justifyContent="center">
             <Grid item>
-              <Grid container spacing={0.75}>
-                <Grid item>
-                  <Typography variant="h3">編集画面</Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item>
-              <Grid container spacing={0.75}>
-                <Grid item>
-                  <Button onClick={handleEditButtonOnClick}>×</Button>
-                </Grid>
-              </Grid>
+              <Typography variant="h3">編集画面</Typography>
             </Grid>
           </Grid>
         </DialogTitle>
@@ -97,6 +86,11 @@ export const EditDialog = (props: EditDialogProps) => {
           </Grid>
           <Grid container className="justify-center mt-10">
             <Grid item>
+              <Button variant="outlined" onClick={handleEditButtonOnClick}>
+                閉じる
+              </Button>
+            </Grid>
+            <Grid item className="ml-5">
               <Button variant="outlined">保存</Button>
             </Grid>
           </Grid>
