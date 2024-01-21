@@ -26,8 +26,7 @@ export const EditDialog = (props: EditDialogProps) => {
       dinnerSale: undefined,
       lunchVisitor: undefined,
       dinnerVisitor: undefined,
-      lunchPersonnelCost: undefined,
-      dinnerPersonnelCost: undefined,
+      personnelCost: undefined,
       purchase: undefined,
     },
   });
@@ -39,8 +38,7 @@ export const EditDialog = (props: EditDialogProps) => {
     dialySaleEditForm.setValue("dinnerSale", rowSelectionModelValue?.dinner_sales);
     dialySaleEditForm.setValue("lunchVisitor", rowSelectionModelValue?.lunch_visitor);
     dialySaleEditForm.setValue("dinnerVisitor", rowSelectionModelValue?.dinner_visitor);
-    dialySaleEditForm.setValue("lunchPersonnelCost", rowSelectionModelValue?.lunch_personnel_cost);
-    dialySaleEditForm.setValue("dinnerPersonnelCost", rowSelectionModelValue?.dinner_personnel_cost);
+    dialySaleEditForm.setValue("personnelCost", rowSelectionModelValue?.personnel_cost);
     dialySaleEditForm.setValue("purchase", rowSelectionModelValue?.purchase);
   }, [dialySaleEditForm, stringDayToDate, rowSelectionModelValue]);
 
@@ -90,10 +88,7 @@ export const EditDialog = (props: EditDialogProps) => {
                 <ControlledNumberTextField name="dinnerVisitor" label="ディナー来客数" />
               </Grid>
               <Grid item className="ml-7 w-52">
-                <ControlledNumberTextField name="lunchPersonnelCost" label="ランチー人件費" />
-              </Grid>
-              <Grid item className="ml-7 w-52">
-                <ControlledNumberTextField name="dinnerPersonnelCost" label="ディナー人件費" />
+                <ControlledNumberTextField name="personnelCost" label="人件費" />
               </Grid>
               <Grid item className="ml-7 w-52">
                 <ControlledNumberTextField name="purchase" label="仕入れ" />

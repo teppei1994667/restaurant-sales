@@ -15,8 +15,7 @@ export const CreateDialySale = () => {
       dinnerSale: "",
       lunchVisitor: "",
       dinnerVisitor: "",
-      lunchPersonnelCost: "",
-      dinnerPersonnelCost: "",
+      personnelCost: "",
       purchase: "",
     },
   });
@@ -53,8 +52,7 @@ export const CreateDialySale = () => {
           dinner_sales: dialySaleForm.getValues("dinnerSale"),
           lunch_visitor: dialySaleForm.getValues("lunchVisitor"),
           dinner_visitor: dialySaleForm.getValues("dinnerVisitor"),
-          lunch_personnel_cost: dialySaleForm.getValues("lunchPersonnelCost"),
-          dinner_personnel_cost: dialySaleForm.getValues("dinnerPersonnelCost"),
+          personnel_cost: dialySaleForm.getValues("personnelCost"),
           purchase: dialySaleForm.getValues("purchase"),
         },
       });
@@ -112,16 +110,9 @@ export const CreateDialySale = () => {
             </Grid>
             <Grid item className="ml-7">
               <ControlledNumberTextField
-                name="lunchPersonnelCost"
-                label="ランチー人件費"
-                helperText={dialySaleForm.formState.errors.lunchPersonnelCost?.message}
-              />
-            </Grid>
-            <Grid item className="ml-7">
-              <ControlledNumberTextField
-                name="dinnerPersonnelCost"
-                label="ディナー人件費"
-                helperText={dialySaleForm.formState.errors.dinnerPersonnelCost?.message}
+                name="personnelCost"
+                label="人件費"
+                helperText={dialySaleForm.formState.errors.personnelCost?.message}
               />
             </Grid>
             <Grid item className="ml-7">

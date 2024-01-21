@@ -8,16 +8,14 @@ export const TotalDialySale = () => {
   let totalDinnerSale = 0;
   let totalLunchVisitor = 0;
   let totalDinnerVisitor = 0;
-  let totalLunchPersonnelCost = 0;
-  let totalDinnerPersonnelCost = 0;
+  let totalPersonnelCost = 0;
   let totalPurchase = 0;
   state.dialySales.map((dialySale) => {
     totalLunchSale += dialySale.lunch_sales;
     totalDinnerSale += dialySale.dinner_sales;
     totalLunchVisitor += dialySale.lunch_visitor;
     totalDinnerVisitor += dialySale.dinner_visitor;
-    totalLunchPersonnelCost += dialySale.lunch_personnel_cost;
-    totalDinnerPersonnelCost += dialySale.dinner_personnel_cost;
+    totalPersonnelCost += dialySale.personnel_cost;
     totalPurchase += dialySale.purchase;
   });
 
@@ -28,12 +26,7 @@ export const TotalDialySale = () => {
   const totalData = [
     createData("合計売上額", totalLunchSale, totalDinnerSale, totalLunchSale + totalDinnerSale),
     createData("合計来客数", totalLunchVisitor, totalDinnerVisitor, totalLunchVisitor + totalDinnerVisitor),
-    createData(
-      "合計人件費",
-      totalLunchPersonnelCost,
-      totalDinnerPersonnelCost,
-      totalLunchPersonnelCost + totalDinnerPersonnelCost
-    ),
+    createData("合計人件費", "-", "-", totalPersonnelCost),
     createData("合計仕入れ額", "-", "-", totalPurchase),
   ];
 

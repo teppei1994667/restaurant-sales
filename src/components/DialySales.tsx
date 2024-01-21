@@ -22,10 +22,8 @@ export const DialySales = (props: DialySalesProps) => {
     const _dialySales = fetchData.map((item) => {
       const totalSale = item.lunch_sales + item.dinner_sales;
       const totalVisitor = item.lunch_visitor + item.dinner_visitor;
-      const totalPersonalCost = item.lunch_personnel_cost + item.dinner_personnel_cost;
       item.total_sale = totalSale;
       item.total_visitor = totalVisitor;
-      item.total_personal_cost = totalPersonalCost;
       return item;
     });
     return _dialySales;
@@ -58,7 +56,7 @@ export const DialySales = (props: DialySalesProps) => {
     {
       field: "day",
       headerName: "日",
-      width: 130,
+      width: 140,
       headerAlign: "center",
       align: "center",
     },
@@ -67,21 +65,21 @@ export const DialySales = (props: DialySalesProps) => {
       headerName: "ランチ売り上げ",
       type: "number",
       headerAlign: "center",
-      minWidth: 120,
+      minWidth: 140,
     },
     {
       field: "dinner_sales",
       headerName: "ディナー売り上げ",
       type: "number",
       headerAlign: "center",
-      minWidth: 130,
+      minWidth: 140,
     },
     {
       field: "total_sale",
       headerName: "売り上げ合計",
       type: "number",
       headerAlign: "center",
-      minWidth: 120,
+      minWidth: 140,
       cellClassName: "total-column",
       headerClassName: "total-header",
     },
@@ -90,53 +88,37 @@ export const DialySales = (props: DialySalesProps) => {
       headerName: "ランチ来客数",
       type: "number",
       headerAlign: "center",
-      minWidth: 120,
+      minWidth: 140,
     },
     {
       field: "dinner_visitor",
       headerName: "ディナー来客数",
       type: "number",
       headerAlign: "center",
-      minWidth: 120,
+      minWidth: 140,
     },
     {
       field: "total_visitor",
       headerName: "来客数合計",
       type: "number",
       headerAlign: "center",
-      minWidth: 120,
+      minWidth: 140,
       cellClassName: "total-column",
       headerClassName: "total-header",
     },
     {
-      field: "lunch_personnel_cost",
-      headerName: "ランチ人件費",
+      field: "personnel_cost",
+      headerName: "人件費",
       type: "number",
       headerAlign: "center",
-      minWidth: 120,
-    },
-    {
-      field: "dinner_personnel_cost",
-      headerName: "ディナー人件費",
-      type: "number",
-      headerAlign: "center",
-      minWidth: 120,
-    },
-    {
-      field: "total_personal_cost",
-      headerName: "人件費合計",
-      type: "number",
-      headerAlign: "center",
-      minWidth: 120,
-      cellClassName: "total-column",
-      headerClassName: "total-header",
+      minWidth: 140,
     },
     {
       field: "purchase",
       headerName: "仕入れ",
       type: "number",
       headerAlign: "center",
-      minWidth: 120,
+      minWidth: 140,
     },
   ];
 
@@ -164,7 +146,7 @@ export const DialySales = (props: DialySalesProps) => {
           setRowSelectionModel(newRowSelectionModel);
         }}
         sx={{
-          width: "80vw",
+          width: "1310pxs",
           minHeight: "500px",
           maxHight: "80vh",
           ".MuiDataGrid-columnHeaders": {
