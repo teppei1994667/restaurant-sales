@@ -3,7 +3,7 @@ import { ControlledNumberTextField } from "./share/form/ControlledNumberTextFiel
 import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 import { FormProvider, useForm } from "react-hook-form";
 import { DialySaleEditFormType, DialySaleType } from "@/type/DialySale";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
 
 export type EditDialogProps = {
   isEditDialogOpen: boolean;
@@ -15,7 +15,9 @@ export const EditDialog = (props: EditDialogProps) => {
   const { isEditDialogOpen, setIsEditDialogOpen, rowSelectionModelValue } = props;
 
   //ReactHookForm以外ではdayをstringで管理しているので再度Date型に変換する
-  const stringDayToDate = rowSelectionModelValue ? new Date(rowSelectionModelValue.day.substring(0, 10)) : null;
+  const stringDayToDate = useMemo(() => {
+    return rowSelectionModelValue ? new Date(rowSelectionModelValue.day.substring(0, 10)) : null;
+  }, [rowSelectionModelValue]);
 
   const dialySaleEditForm = useForm<DialySaleEditFormType>({
     defaultValues: {
@@ -40,8 +42,7 @@ export const EditDialog = (props: EditDialogProps) => {
     dialySaleEditForm.setValue("lunchPersonnelCost", rowSelectionModelValue?.lunch_personnel_cost);
     dialySaleEditForm.setValue("dinnerPersonnelCost", rowSelectionModelValue?.dinner_personnel_cost);
     dialySaleEditForm.setValue("purchase", rowSelectionModelValue?.purchase);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dialySaleEditForm.getValues(), rowSelectionModelValue]);
+  }, [dialySaleEditForm, stringDayToDate, rowSelectionModelValue]);
 
   //EditDialog ×ボタン押下時
   const handleEditButtonOnClick = () => {
