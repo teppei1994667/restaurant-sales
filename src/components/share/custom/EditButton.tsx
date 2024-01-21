@@ -16,9 +16,15 @@ export const EditButton = (props: EditButtonProps) => {
 
   //変更ボタン押下時
   const handleEditBtnOnClick = () => {
-    if (rowSlectionModel.length > 1) {
-      alert("同時に複数のデータの変更はできません。変更したいデータを１つだけ選択してください。");
-      return;
+    if (rowSlectionModel.length !== 1) {
+      if (rowSlectionModel.length > 1) {
+        alert("同時に複数のデータの変更はできません。変更したいデータを１つだけ選択してください。");
+        return;
+      }
+      if (rowSlectionModel.length < 1) {
+        alert("編集するデータを選択してください。");
+        return;
+      }
     }
     //選ばれている行のデータをstateにセット
     state.dialySales.map((dialySale) => {
