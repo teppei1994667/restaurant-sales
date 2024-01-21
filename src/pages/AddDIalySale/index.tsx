@@ -17,7 +17,7 @@ export const AddDialySale = () => {
   const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DialySaleType>();
 
   //レンダリング当日の年と月を文字列で取得
-  const thisMonthStiring = new Date().toLocaleDateString("ja-JP", {
+  const thisMonthString = new Date().toLocaleDateString("ja-JP", {
     year: "numeric",
     month: "2-digit",
   });
@@ -60,7 +60,7 @@ export const AddDialySale = () => {
               <>
                 <Grid container spacing={0.75} className="justify-center mt-9">
                   <Grid item>
-                    <DialySales dayParams={thisMonthStiring} />
+                    <DialySales dayParams={thisMonthString} />
                   </Grid>
                 </Grid>
                 <Grid container className="justify-center mt-9">
