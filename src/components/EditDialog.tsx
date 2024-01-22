@@ -42,7 +42,7 @@ export const EditDialog = (props: EditDialogProps) => {
     dialySaleEditForm.setValue("purchase", rowSelectionModelValue?.purchase);
   }, [dialySaleEditForm, stringDayToDate, rowSelectionModelValue]);
 
-  //EditDialog ×ボタン押下時
+  // 閉じるボタン押下時
   const handleEditButtonOnClick = () => {
     setIsEditDialogOpen(false);
     dialySaleEditForm.reset;
