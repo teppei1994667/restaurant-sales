@@ -28,7 +28,7 @@ export const CreateDialySale = () => {
   //   weekday: "short",
   // };
 
-  //サーバーに送信する前にdayをstringに変換する
+  //サーバーに送信する前にdayをstringに変換する(Todo: 要共通化)
   const dayToString = () => {
     const _day = dialySaleForm.getValues("day");
     if (_day) {

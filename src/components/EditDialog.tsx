@@ -4,6 +4,8 @@ import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 import { FormProvider, useForm } from "react-hook-form";
 import { DialySaleEditFormType, DialySaleType } from "@/type/DialySale";
 import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
+import axios from "axios";
+import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 
 export type EditDialogProps = {
   isEditDialogOpen: boolean;
@@ -31,7 +33,7 @@ export const EditDialog = (props: EditDialogProps) => {
     },
   });
 
-  //選択した行のデータをformにセットする
+  // 選択した行のデータをformにセットする
   useEffect(() => {
     dialySaleEditForm.setValue("day", stringDayToDate);
     dialySaleEditForm.setValue("lunchSale", rowSelectionModelValue?.lunch_sales);
@@ -41,6 +43,44 @@ export const EditDialog = (props: EditDialogProps) => {
     dialySaleEditForm.setValue("personnelCost", rowSelectionModelValue?.personnel_cost);
     dialySaleEditForm.setValue("purchase", rowSelectionModelValue?.purchase);
   }, [dialySaleEditForm, stringDayToDate, rowSelectionModelValue]);
+
+  //サーバーに送信する前にdayをstringに変換する(Todo: 要共通化)
+  const dayToString = () => {
+    const _day = dialySaleEditForm.getValues("day");
+    if (_day) {
+      return _day.toLocaleDateString("ja-JP", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        weekday: "short",
+      });
+    }
+  };
+
+  // 保存ボタン押下時
+  const handleUpdateDIalySaleOnClick = async () => {
+    if (rowSelectionModelValue) {
+      const updateId = rowSelectionModelValue.id;
+      try {
+        await axios.put(`${LOCAL_DIALYSALES_ADDRESS}/${updateId}`, {
+          dialy_sale: {
+            day: dayToString(),
+            lunch_sales: dialySaleEditForm.getValues("lunchSale"),
+            dinner_sales: dialySaleEditForm.getValues("dinnerSale"),
+            lunch_visitor: dialySaleEditForm.getValues("lunchVisitor"),
+            dinner_visitor: dialySaleEditForm.getValues("dinnerVisitor"),
+            personnel_cost: dialySaleEditForm.getValues("personnelCost"),
+            purchase: dialySaleEditForm.getValues("purchase"),
+          },
+        });
+      } catch (error) {
+        console.error(error);
+      }
+      dialySaleEditForm.reset;
+      setIsEditDialogOpen(false);
+      window.location.reload();
+    }
+  };
 
   // 閉じるボタン押下時
   const handleEditButtonOnClick = () => {
@@ -91,7 +131,9 @@ export const EditDialog = (props: EditDialogProps) => {
               </Button>
             </Grid>
             <Grid item className="ml-5">
-              <Button variant="outlined">保存</Button>
+              <Button variant="outlined" onClick={handleUpdateDIalySaleOnClick}>
+                保存
+              </Button>
             </Grid>
           </Grid>
         </DialogContent>
