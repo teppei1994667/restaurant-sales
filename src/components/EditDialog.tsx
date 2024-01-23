@@ -42,7 +42,7 @@ export const EditDialog = (props: EditDialogProps) => {
     dialySaleEditForm.setValue("dinnerVisitor", rowSelectionModelValue?.dinner_visitor);
     dialySaleEditForm.setValue("personnelCost", rowSelectionModelValue?.personnel_cost);
     dialySaleEditForm.setValue("purchase", rowSelectionModelValue?.purchase);
-  }, [dialySaleEditForm, stringDayToDate, rowSelectionModelValue]);
+  }, [dialySaleEditForm, stringDayToDate, rowSelectionModelValue, isEditDialogOpen]);
 
   //サーバーに送信する前にdayをstringに変換する(Todo: 要共通化)
   const dayToString = () => {
@@ -76,6 +76,7 @@ export const EditDialog = (props: EditDialogProps) => {
       } catch (error) {
         console.error(error);
       }
+      setIsEditDialogOpen(false);
       window.location.reload();
       dialySaleEditForm.reset();
     }
