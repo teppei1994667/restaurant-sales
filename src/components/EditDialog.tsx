@@ -76,16 +76,15 @@ export const EditDialog = (props: EditDialogProps) => {
       } catch (error) {
         console.error(error);
       }
-      dialySaleEditForm.reset;
-      setIsEditDialogOpen(false);
       window.location.reload();
+      dialySaleEditForm.reset();
     }
   };
 
   // 閉じるボタン押下時
   const handleEditButtonOnClick = () => {
     setIsEditDialogOpen(false);
-    dialySaleEditForm.reset;
+    dialySaleEditForm.reset();
   };
 
   return (
