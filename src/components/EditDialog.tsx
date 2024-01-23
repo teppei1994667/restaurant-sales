@@ -78,6 +78,7 @@ export const EditDialog = (props: EditDialogProps) => {
       }
       setIsEditDialogOpen(false);
       window.location.reload();
+      //TODO: 画面がリロードされてるから意味ないかもやけどいつかのされ無い実装の為に
       dialySaleEditForm.reset();
     }
   };

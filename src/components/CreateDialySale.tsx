@@ -58,7 +58,8 @@ export const CreateDialySale = () => {
       });
 
       //dialySaleの作成に成功したらformの値をリセット
-      dialySaleForm.reset;
+      //TODO: 画面がリロードされてるから意味ないかもやけどいつかのされ無い実装の為に
+      dialySaleForm.reset();
 
       //dialySaleの作成に成功したら画面を更新する
       window.location.reload();
