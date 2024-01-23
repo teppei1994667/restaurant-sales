@@ -103,23 +103,47 @@ export const EditDialog = (props: EditDialogProps) => {
               <ControlledDatePicker name="day" label="日付" />
             </Grid>
             <Grid item className="ml-7 w-52">
-              <ControlledNumberTextField name="lunchSale" label="ランチ売り上げ" />
+              <ControlledNumberTextField
+                name="lunchSale"
+                label="ランチ売り上げ"
+                helperText={dialySaleEditForm.formState.errors.lunchSale?.message}
+              />
             </Grid>
             <Grid item className="ml-7 w-52">
-              <ControlledNumberTextField name="dinnerSale" label="ディナー売り上げ" />
+              <ControlledNumberTextField
+                name="dinnerSale"
+                label="ディナー売り上げ"
+                helperText={dialySaleEditForm.formState.errors.dinnerSale?.message}
+              />
             </Grid>
             <Grid container spacing={0.75} className="justify-center mt-5">
               <Grid item className="ml-7 w-52">
-                <ControlledNumberTextField name="lunchVisitor" label="ランチ来客数" />
+                <ControlledNumberTextField
+                  name="lunchVisitor"
+                  label="ランチ来客数"
+                  helperText={dialySaleEditForm.formState.errors.lunchVisitor?.message}
+                />
               </Grid>
               <Grid item className="ml-7 w-52">
-                <ControlledNumberTextField name="dinnerVisitor" label="ディナー来客数" />
+                <ControlledNumberTextField
+                  name="dinnerVisitor"
+                  label="ディナー来客数"
+                  helperText={dialySaleEditForm.formState.errors.dinnerVisitor?.message}
+                />
               </Grid>
               <Grid item className="ml-7 w-52">
-                <ControlledNumberTextField name="personnelCost" label="人件費" />
+                <ControlledNumberTextField
+                  name="personnelCost"
+                  label="人件費"
+                  helperText={dialySaleEditForm.formState.errors.personnelCost?.message}
+                />
               </Grid>
               <Grid item className="ml-7 w-52">
-                <ControlledNumberTextField name="purchase" label="仕入れ" />
+                <ControlledNumberTextField
+                  name="purchase"
+                  label="仕入れ"
+                  helperText={dialySaleEditForm.formState.errors.purchase?.message}
+                />
               </Grid>
             </Grid>
           </Grid>
@@ -130,7 +154,7 @@ export const EditDialog = (props: EditDialogProps) => {
               </Button>
             </Grid>
             <Grid item className="ml-5">
-              <Button variant="outlined" onClick={handleUpdateDIalySaleOnClick}>
+              <Button variant="outlined" onClick={dialySaleEditForm.handleSubmit(handleUpdateDIalySaleOnClick)}>
                 保存
               </Button>
             </Grid>
