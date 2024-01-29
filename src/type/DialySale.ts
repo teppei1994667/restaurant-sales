@@ -1,6 +1,20 @@
+export type FetchDialySaleType = {
+  id: number;
+  sales_day: string;
+  lunch_sales: number;
+  dinner_sales: number;
+  lunch_visitor: number;
+  dinner_visitor: number;
+  personnel_cost: number;
+  purchase: number;
+  total_sale: number;
+  total_visitor: number;
+  total_personnel_cost: number;
+};
+
 export type DialySaleType = {
   id: number;
-  day: string;
+  sales_day: Date;
   lunch_sales: number;
   dinner_sales: number;
   lunch_visitor: number;
@@ -13,11 +27,11 @@ export type DialySaleType = {
 };
 
 export type ReturnDialySalesType = {
-  dialySales: DialySaleType[];
+  dialySales: FetchDialySaleType[];
 };
 
 export type DialySaleFormType = {
-  day: Date | null;
+  salesDay: Date | null;
   lunchSale: string;
   dinnerSale: string;
   lunchVisitor: string;
@@ -27,7 +41,7 @@ export type DialySaleFormType = {
 };
 
 export type DialySaleEditFormType = {
-  day?: Date | null;
+  salesDay?: Date | null;
   lunchSale?: number;
   dinnerSale?: number;
   lunchVisitor?: number;
@@ -40,7 +54,7 @@ export type DialySaleAction = {
   type: "returnData";
   payload: {
     id: number;
-    day: string;
+    sales_day: string;
     lunch_sales: number;
     dinner_sales: number;
     lunch_visitor: number;

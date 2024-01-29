@@ -1,6 +1,6 @@
 import { CreateDialySale } from "@/components/CreateDialySale";
 import { DialySales } from "@/components/DialySales";
-import { DialySalesContextProvider } from "@/constants/DialySalesContext";
+import { DialySalesContextProvider } from "@/context/DialySalesContext";
 import { SelectDialySalesContextProvider } from "@/context/SelectDialySalesContext";
 import { TotalDialySale } from "@/components/TotalDialySale";
 import { DeleteButton } from "@/components/share/custom/DeleteButton";
@@ -9,12 +9,12 @@ import { useEffect, useState } from "react";
 import { CirclesWithBar } from "react-loader-spinner";
 import { EditButton } from "@/components/share/custom/EditButton";
 import { EditDialog } from "@/components/EditDialog";
-import { DialySaleType } from "@/type/DialySale";
+import { DialySaleType, FetchDialySaleType } from "@/type/DialySale";
 
 export const AddDialySale = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DialySaleType>();
+  const [rowSelectionModelValue, setRowSelectionModelValue] = useState<FetchDialySaleType>();
 
   //レンダリング当日の年と月を文字列で取得
   const thisMonthString = new Date().toLocaleDateString("ja-JP", {

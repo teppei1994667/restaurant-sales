@@ -10,7 +10,7 @@ export const CreateDialySale = () => {
   //新規売り上げ作成をformで管理
   const dialySaleForm = useForm<DialySaleFormType>({
     defaultValues: {
-      day: null,
+      salesDay: null,
       lunchSale: "",
       dinnerSale: "",
       lunchVisitor: "",
@@ -20,34 +20,13 @@ export const CreateDialySale = () => {
     },
   });
 
-  //toLocaleDateStringのオプションを別で定義すると型エラーになるのでとりあえず直接実装
-  // const dayToStringOptions = {
-  //   year: "numeric",
-  //   month: "2-digit",
-  //   day: "2-digit",
-  //   weekday: "short",
-  // };
-
-  //サーバーに送信する前にdayをstringに変換する(Todo: 要共通化)
-  const dayToString = () => {
-    const _day = dialySaleForm.getValues("day");
-    if (_day) {
-      return _day.toLocaleDateString("ja-JP", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        weekday: "short",
-      });
-    }
-  };
-
   //フォームの入力値を更新する関数
   const handleMakeDialySaleOnClick = async () => {
     try {
       //apiを呼び出してDialySaleを作成する
       await axios.post(LOCAL_DIALYSALES_ADDRESS, {
         dialy_sale: {
-          day: dayToString(),
+          sales_day: dialySaleForm.getValues("salesDay"),
           lunch_sales: dialySaleForm.getValues("lunchSale"),
           dinner_sales: dialySaleForm.getValues("dinnerSale"),
           lunch_visitor: dialySaleForm.getValues("lunchVisitor"),
@@ -78,7 +57,11 @@ export const CreateDialySale = () => {
       <FormProvider {...dialySaleForm}>
         <Grid container spacing={0.75} className="justify-center">
           <Grid item>
-            <ControlledDatePicker name="day" label="日付" helperText={dialySaleForm.formState.errors.day?.message} />
+            <ControlledDatePicker
+              name="salesDay"
+              label="日付"
+              helperText={dialySaleForm.formState.errors.salesDay?.message}
+            />
           </Grid>
           <Grid item className="ml-7">
             <ControlledNumberTextField

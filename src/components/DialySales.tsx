@@ -1,8 +1,8 @@
-import { DialySaleType } from "@/type/DialySale";
+import { DialySaleType, FetchDialySaleType } from "@/type/DialySale";
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { DialySalesStateContext } from "../constants/DialySalesContext";
+import { DialySalesStateContext } from "../context/DialySalesContext";
 import { SelectDialySalesContext } from "../context/SelectDialySalesContext";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 
@@ -17,28 +17,45 @@ export const DialySales = (props: DialySalesProps) => {
   const { state, dispatch } = useContext(DialySalesStateContext);
   const { setRowSelectionModel } = useContext(SelectDialySalesContext);
 
-  //サーバーから取得した値とその各合計値を計算して返却
-  const totalCalculation = (fetchData: DialySaleType[]): DialySaleType[] => {
-    const _dialySales = fetchData.map((item) => {
+  //サーバーから取得したISO8601規格のsalesDayをDialySalesでの表示形式に変換して返却する
+  const salesDayFormatToDisplay = (_saleDay: Date): string => {
+    const salesDayToDate = new Date(_saleDay);
+    return salesDayToDate.toLocaleDateString("ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      weekday: "short",
+    });
+  };
+
+  //サーバーから取得した値とsalesDayをDate型に変換した値とその各合計値を計算して返却
+  const totalCalculation = (fetchData: DialySaleType[]): FetchDialySaleType[] => {
+    console.log("fetchData", fetchData);
+    const newDialySales = fetchData.map((item) => {
+      const sales_day = salesDayFormatToDisplay(item.sales_day);
       const totalSale = item.lunch_sales + item.dinner_sales;
       const totalVisitor = item.lunch_visitor + item.dinner_visitor;
       item.total_sale = totalSale;
       item.total_visitor = totalVisitor;
-      return item;
+      const newFetchData: FetchDialySaleType = { ...item, sales_day };
+      return newFetchData;
     });
-    return _dialySales;
+    return newDialySales;
   };
 
   //DialySale一覧を取得する関数
   const fetchDialySales = async () => {
     //APIからDialySale一覧を取得する
     try {
-      const res = await axios.get<DialySaleType[]>(LOCAL_DIALYSALES_ADDRESS, {
-        params: {
-          day: dayParams,
-        },
-      });
-      const fetchDialySales: DialySaleType[] = totalCalculation(res.data);
+      const res = await axios.get<DialySaleType[]>(
+        LOCAL_DIALYSALES_ADDRESS
+        //   , {
+        //   params: {
+        //     day: dayParams,
+        //   },
+        // }
+      );
+      const fetchDialySales: FetchDialySaleType[] = totalCalculation(res.data);
       dispatch({ type: "returnData", payload: fetchDialySales });
     } catch (err) {
       console.log(err);
@@ -54,7 +71,7 @@ export const DialySales = (props: DialySalesProps) => {
   //データグリッドのカラム(列)情報
   const columns: GridColDef[] = [
     {
-      field: "day",
+      field: "sales_day",
       headerName: "日",
       width: 140,
       headerAlign: "center",

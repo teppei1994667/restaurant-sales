@@ -2,7 +2,7 @@ import { Button, Dialog, DialogContent, DialogTitle, Grid, Typography } from "@m
 import { ControlledNumberTextField } from "./share/form/ControlledNumberTextField";
 import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 import { FormProvider, useForm } from "react-hook-form";
-import { DialySaleEditFormType, DialySaleType } from "@/type/DialySale";
+import { DialySaleEditFormType, FetchDialySaleType } from "@/type/DialySale";
 import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
 import axios from "axios";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
@@ -10,7 +10,7 @@ import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 export type EditDialogProps = {
   isEditDialogOpen: boolean;
   setIsEditDialogOpen: Dispatch<SetStateAction<boolean>>;
-  rowSelectionModelValue?: DialySaleType;
+  rowSelectionModelValue?: FetchDialySaleType;
 };
 
 export const EditDialog = (props: EditDialogProps) => {
@@ -18,12 +18,12 @@ export const EditDialog = (props: EditDialogProps) => {
 
   //ReactHookForm以外ではdayをstringで管理しているので再度Date型に変換する
   const stringDayToDate = useMemo(() => {
-    return rowSelectionModelValue ? new Date(rowSelectionModelValue.day.substring(0, 10)) : null;
+    return rowSelectionModelValue ? new Date(rowSelectionModelValue.sales_day.substring(0, 10)) : null;
   }, [rowSelectionModelValue]);
 
   const dialySaleEditForm = useForm<DialySaleEditFormType>({
     defaultValues: {
-      day: null,
+      salesDay: null,
       lunchSale: undefined,
       dinnerSale: undefined,
       lunchVisitor: undefined,
@@ -35,27 +35,14 @@ export const EditDialog = (props: EditDialogProps) => {
 
   // 選択した行のデータをformにセットする
   useEffect(() => {
-    dialySaleEditForm.setValue("day", stringDayToDate);
+    dialySaleEditForm.setValue("salesDay", stringDayToDate);
     dialySaleEditForm.setValue("lunchSale", rowSelectionModelValue?.lunch_sales);
     dialySaleEditForm.setValue("dinnerSale", rowSelectionModelValue?.dinner_sales);
     dialySaleEditForm.setValue("lunchVisitor", rowSelectionModelValue?.lunch_visitor);
     dialySaleEditForm.setValue("dinnerVisitor", rowSelectionModelValue?.dinner_visitor);
     dialySaleEditForm.setValue("personnelCost", rowSelectionModelValue?.personnel_cost);
     dialySaleEditForm.setValue("purchase", rowSelectionModelValue?.purchase);
-  }, [dialySaleEditForm, stringDayToDate, rowSelectionModelValue, isEditDialogOpen]);
-
-  //サーバーに送信する前にdayをstringに変換する(Todo: 要共通化)
-  const dayToString = () => {
-    const _day = dialySaleEditForm.getValues("day");
-    if (_day) {
-      return _day.toLocaleDateString("ja-JP", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        weekday: "short",
-      });
-    }
-  };
+  }, [dialySaleEditForm, rowSelectionModelValue, isEditDialogOpen, stringDayToDate]);
 
   // 保存ボタン押下時
   const handleUpdateDIalySaleOnClick = async () => {
@@ -64,7 +51,7 @@ export const EditDialog = (props: EditDialogProps) => {
       try {
         await axios.put(`${LOCAL_DIALYSALES_ADDRESS}/${updateId}`, {
           dialy_sale: {
-            day: dayToString(),
+            sales_day: dialySaleEditForm.getValues("salesDay"),
             lunch_sales: dialySaleEditForm.getValues("lunchSale"),
             dinner_sales: dialySaleEditForm.getValues("dinnerSale"),
             lunch_visitor: dialySaleEditForm.getValues("lunchVisitor"),
@@ -102,7 +89,7 @@ export const EditDialog = (props: EditDialogProps) => {
         <DialogContent className="h-72">
           <Grid container spacing={0.75} className="justify-center mt-2">
             <Grid item className="w-52">
-              <ControlledDatePicker name="day" label="日付" />
+              <ControlledDatePicker name="salesDay" label="日付" />
             </Grid>
             <Grid item className="ml-7 w-52">
               <ControlledNumberTextField
