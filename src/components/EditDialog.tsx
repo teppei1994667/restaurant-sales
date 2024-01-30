@@ -2,7 +2,7 @@ import { Button, Dialog, DialogContent, DialogTitle, Grid, Typography } from "@m
 import { ControlledNumberTextField } from "./share/form/ControlledNumberTextField";
 import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 import { FormProvider, useForm } from "react-hook-form";
-import { DialySaleEditFormType, FetchDialySaleType } from "@/type/DialySale";
+import { DialySaleFormType, DisplayDialySale } from "@/type/DialySale";
 import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
 import axios from "axios";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
@@ -10,7 +10,7 @@ import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 export type EditDialogProps = {
   isEditDialogOpen: boolean;
   setIsEditDialogOpen: Dispatch<SetStateAction<boolean>>;
-  rowSelectionModelValue?: FetchDialySaleType;
+  rowSelectionModelValue?: DisplayDialySale;
 };
 
 export const EditDialog = (props: EditDialogProps) => {
@@ -21,7 +21,7 @@ export const EditDialog = (props: EditDialogProps) => {
     return rowSelectionModelValue ? new Date(rowSelectionModelValue.sales_day.substring(0, 10)) : null;
   }, [rowSelectionModelValue]);
 
-  const dialySaleEditForm = useForm<DialySaleEditFormType>({
+  const dialySaleEditForm = useForm<DialySaleFormType>({
     defaultValues: {
       salesDay: null,
       lunchSale: undefined,

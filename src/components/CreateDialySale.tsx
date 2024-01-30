@@ -11,30 +11,31 @@ export const CreateDialySale = () => {
   const dialySaleForm = useForm<DialySaleFormType>({
     defaultValues: {
       salesDay: null,
-      lunchSale: "",
-      dinnerSale: "",
-      lunchVisitor: "",
-      dinnerVisitor: "",
-      personnelCost: "",
-      purchase: "",
+      lunchSale: undefined,
+      dinnerSale: undefined,
+      lunchVisitor: undefined,
+      dinnerVisitor: undefined,
+      personnelCost: undefined,
+      purchase: undefined,
     },
   });
 
-  //フォームの入力値を更新する関数
+  //フォームの入力値を更新する関数(TODO: 各textFieldから返却される値がstringの為サーバーに送信する前にnumberに変換する)
   const handleMakeDialySaleOnClick = async () => {
     try {
       //apiを呼び出してDialySaleを作成する
       await axios.post(LOCAL_DIALYSALES_ADDRESS, {
         dialy_sale: {
           sales_day: dialySaleForm.getValues("salesDay"),
-          lunch_sales: dialySaleForm.getValues("lunchSale"),
-          dinner_sales: dialySaleForm.getValues("dinnerSale"),
-          lunch_visitor: dialySaleForm.getValues("lunchVisitor"),
-          dinner_visitor: dialySaleForm.getValues("dinnerVisitor"),
-          personnel_cost: dialySaleForm.getValues("personnelCost"),
-          purchase: dialySaleForm.getValues("purchase"),
+          lunch_sales: Number(dialySaleForm.getValues("lunchSale")),
+          dinner_sales: Number(dialySaleForm.getValues("dinnerSale")),
+          lunch_visitor: Number(dialySaleForm.getValues("lunchVisitor")),
+          dinner_visitor: Number(dialySaleForm.getValues("dinnerVisitor")),
+          personnel_cost: Number(dialySaleForm.getValues("personnelCost")),
+          purchase: Number(dialySaleForm.getValues("purchase")),
         },
       });
+      console.log("createDialySale lunchSale", typeof Number(dialySaleForm.getValues("lunchSale")));
 
       //dialySaleの作成に成功したらformの値をリセット
       //TODO: 画面がリロードされてるから意味ないかもやけどいつかのされ無い実装の為に

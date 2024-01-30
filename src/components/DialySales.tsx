@@ -1,4 +1,4 @@
-import { DialySaleType, FetchDialySaleType } from "@/type/DialySale";
+import { GetFromSeverDialySale, DisplayDialySale } from "@/type/DialySale";
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -28,16 +28,15 @@ export const DialySales = (props: DialySalesProps) => {
     });
   };
 
-  //サーバーから取得した値とsalesDayをDate型に変換した値とその各合計値を計算して返却
-  const totalCalculation = (fetchData: DialySaleType[]): FetchDialySaleType[] => {
-    console.log("fetchData", fetchData);
+  //サーバーから取得した値とsalesDayをDate型に変換した値とその各合計値を計算して画面表示の形式に変換
+  const totalCalculation = (fetchData: GetFromSeverDialySale[]): DisplayDialySale[] => {
     const newDialySales = fetchData.map((item) => {
       const sales_day = salesDayFormatToDisplay(item.sales_day);
       const totalSale = item.lunch_sales + item.dinner_sales;
       const totalVisitor = item.lunch_visitor + item.dinner_visitor;
       item.total_sale = totalSale;
       item.total_visitor = totalVisitor;
-      const newFetchData: FetchDialySaleType = { ...item, sales_day };
+      const newFetchData: DisplayDialySale = { ...item, sales_day };
       return newFetchData;
     });
     return newDialySales;
@@ -47,7 +46,7 @@ export const DialySales = (props: DialySalesProps) => {
   const fetchDialySales = async () => {
     //APIからDialySale一覧を取得する
     try {
-      const res = await axios.get<DialySaleType[]>(
+      const res = await axios.get<GetFromSeverDialySale[]>(
         LOCAL_DIALYSALES_ADDRESS
         //   , {
         //   params: {
@@ -55,7 +54,7 @@ export const DialySales = (props: DialySalesProps) => {
         //   },
         // }
       );
-      const fetchDialySales: FetchDialySaleType[] = totalCalculation(res.data);
+      const fetchDialySales: DisplayDialySale[] = totalCalculation(res.data);
       dispatch({ type: "returnData", payload: fetchDialySales });
     } catch (err) {
       console.log(err);

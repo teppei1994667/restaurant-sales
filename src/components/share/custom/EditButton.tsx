@@ -1,12 +1,12 @@
 import { DialySalesStateContext } from "@/context/DialySalesContext";
 import { SelectDialySalesContext } from "@/context/SelectDialySalesContext";
-import { DialySaleType, FetchDialySaleType } from "@/type/DialySale";
+import { DisplayDialySale } from "@/type/DialySale";
 import { Button } from "@mui/material";
 import { Dispatch, SetStateAction, useContext, useState } from "react";
 
 export type EditButtonProps = {
   setIsEditDialogOpen: Dispatch<SetStateAction<boolean>>;
-  setRowSelectionModelValue: Dispatch<SetStateAction<FetchDialySaleType | undefined>>;
+  setRowSelectionModelValue: Dispatch<SetStateAction<DisplayDialySale | undefined>>;
 };
 
 export const EditButton = (props: EditButtonProps) => {
