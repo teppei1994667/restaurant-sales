@@ -1,14 +1,14 @@
 import { Button, Grid } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import axios from "axios";
-import { DialySaleFormType } from "@/type/DialySale";
+import { FormDialySale } from "@/type/DialySale";
 import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 import { ControlledNumberTextField } from "./share/form/ControlledNumberTextField";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 
 export const CreateDialySale = () => {
   //新規売り上げ作成をformで管理
-  const dialySaleForm = useForm<DialySaleFormType>({
+  const dialySaleForm = useForm<FormDialySale>({
     defaultValues: {
       salesDay: null,
       lunchSale: undefined,

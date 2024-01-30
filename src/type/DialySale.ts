@@ -29,7 +29,7 @@ export type DisplayDialySale = {
 };
 
 //ReactHookFormでDialySaleを管理する為の型
-export type DialySaleFormType = {
+export type FormDialySale = {
   salesDay: Date | null;
   lunchSale?: number;
   dinnerSale?: number;
