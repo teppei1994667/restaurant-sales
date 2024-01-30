@@ -151,7 +151,7 @@ export const DialySales = (props: DialySalesProps) => {
           sorting: {
             sortModel: [
               {
-                field: "day",
+                field: "sales_day",
                 sort: "asc",
               },
             ],
