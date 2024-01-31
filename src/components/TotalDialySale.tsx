@@ -11,11 +11,11 @@ export const TotalDialySale = () => {
   let totalPersonnelCost = 0;
   let totalPurchase = 0;
   state.dialySales.map((dialySale) => {
-    totalLunchSale += dialySale.lunch_sales;
-    totalDinnerSale += dialySale.dinner_sales;
-    totalLunchVisitor += dialySale.lunch_visitor;
-    totalDinnerVisitor += dialySale.dinner_visitor;
-    totalPersonnelCost += dialySale.personnel_cost;
+    totalLunchSale += dialySale.lunchSales;
+    totalDinnerSale += dialySale.dinnerSales;
+    totalLunchVisitor += dialySale.lunchVisitor;
+    totalDinnerVisitor += dialySale.dinnerVisitor;
+    totalPersonnelCost += dialySale.personnelCost;
     totalPurchase += dialySale.purchase;
   });
 

@@ -29,17 +29,22 @@ export const DialySales = (props: DialySalesProps) => {
   };
 
   //サーバーから取得した値とsalesDayをDate型に変換した値とその各合計値を計算して画面表示の形式に変換
-  const totalCalculation = (fetchData: GetFromSeverDialySale[]): DisplayDialySale[] => {
-    const newDialySales = fetchData.map((item) => {
-      const sales_day = salesDayFormatToDisplay(item.sales_day);
-      const totalSale = item.lunch_sales + item.dinner_sales;
-      const totalVisitor = item.lunch_visitor + item.dinner_visitor;
-      item.total_sale = totalSale;
-      item.total_visitor = totalVisitor;
-      const newFetchData: DisplayDialySale = { ...item, sales_day };
-      return newFetchData;
+  const convertDisplayDialySales = (fetchData: GetFromSeverDialySale[]): DisplayDialySale[] => {
+    const displayDialySales = fetchData.map((data) => {
+      const convertFetchData: DisplayDialySale = {} as DisplayDialySale;
+      convertFetchData.id = data.id;
+      convertFetchData.salesDay = salesDayFormatToDisplay(data.sales_day);
+      convertFetchData.lunchSales = data.lunch_sales;
+      convertFetchData.dinnerSales = data.dinner_sales;
+      convertFetchData.lunchVisitor = data.lunch_visitor;
+      convertFetchData.dinnerVisitor = data.dinner_visitor;
+      convertFetchData.personnelCost = data.personnel_cost;
+      convertFetchData.purchase = data.purchase;
+      convertFetchData.totalSale = data.lunch_sales + data.dinner_sales;
+      convertFetchData.totalVisitor = data.lunch_visitor + data.dinner_visitor;
+      return convertFetchData;
     });
-    return newDialySales;
+    return displayDialySales;
   };
 
   //DialySale一覧を取得する関数
@@ -54,7 +59,7 @@ export const DialySales = (props: DialySalesProps) => {
         //   },
         // }
       );
-      const fetchDialySales: DisplayDialySale[] = totalCalculation(res.data);
+      const fetchDialySales: DisplayDialySale[] = convertDisplayDialySales(res.data);
       dispatch({ type: "returnData", payload: fetchDialySales });
     } catch (err) {
       console.log(err);
@@ -70,28 +75,28 @@ export const DialySales = (props: DialySalesProps) => {
   //データグリッドのカラム(列)情報
   const columns: GridColDef[] = [
     {
-      field: "sales_day",
+      field: "salesDay",
       headerName: "日",
       width: 140,
       headerAlign: "center",
       align: "center",
     },
     {
-      field: "lunch_sales",
+      field: "lunchSales",
       headerName: "ランチ売り上げ",
       type: "number",
       headerAlign: "center",
       minWidth: 140,
     },
     {
-      field: "dinner_sales",
+      field: "dinnerSales",
       headerName: "ディナー売り上げ",
       type: "number",
       headerAlign: "center",
       minWidth: 140,
     },
     {
-      field: "total_sale",
+      field: "totalSale",
       headerName: "売り上げ合計",
       type: "number",
       headerAlign: "center",
@@ -100,21 +105,21 @@ export const DialySales = (props: DialySalesProps) => {
       headerClassName: "total-header",
     },
     {
-      field: "lunch_visitor",
+      field: "lunchVisitor",
       headerName: "ランチ来客数",
       type: "number",
       headerAlign: "center",
       minWidth: 140,
     },
     {
-      field: "dinner_visitor",
+      field: "dinnerVisitor",
       headerName: "ディナー来客数",
       type: "number",
       headerAlign: "center",
       minWidth: 140,
     },
     {
-      field: "total_visitor",
+      field: "totalVisitor",
       headerName: "来客数合計",
       type: "number",
       headerAlign: "center",
@@ -123,7 +128,7 @@ export const DialySales = (props: DialySalesProps) => {
       headerClassName: "total-header",
     },
     {
-      field: "personnel_cost",
+      field: "personnelCost",
       headerName: "人件費",
       type: "number",
       headerAlign: "center",
@@ -151,7 +156,7 @@ export const DialySales = (props: DialySalesProps) => {
           sorting: {
             sortModel: [
               {
-                field: "sales_day",
+                field: "salesDay",
                 sort: "asc",
               },
             ],
