@@ -13,7 +13,7 @@ export type DialySalesProps = {
 //売り上げ一覧を取得し表示するコンポーネント
 export const DialySales = (props: DialySalesProps) => {
   const { dayParams } = props;
-  //DialySale一覧をreducerで管理
+
   const { state, dispatch } = useContext(DialySalesStateContext);
   const { setRowSelectionModel } = useContext(SelectDialySalesContext);
 
