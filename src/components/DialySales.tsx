@@ -18,8 +18,8 @@ export const DialySales = (props: DialySalesProps) => {
   const { setRowSelectionModel } = useContext(SelectDialySalesContext);
 
   //サーバーから取得したISO8601規格のsalesDayをDialySalesでの表示形式に変換して返却する
-  const salesDayFormatToDisplay = (_saleDay: Date): string => {
-    const salesDayToDate = new Date(_saleDay);
+  const salesDayFormatToDisplay = (_salesDay: Date): string => {
+    const salesDayToDate = new Date(_salesDay);
     return salesDayToDate.toLocaleDateString("ja-JP", {
       year: "numeric",
       month: "2-digit",
