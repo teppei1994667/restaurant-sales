@@ -1,7 +1,7 @@
 //サーバーから取得したDialySaleデータの型
 export type GetFromSeverDialySale = {
   id: number;
-  sales_day: Date;
+  sales_day: string;
   lunch_sales: number;
   dinner_sales: number;
   lunch_visitor: number;

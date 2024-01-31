@@ -18,7 +18,7 @@ export const DialySales = (props: DialySalesProps) => {
   const { setRowSelectionModel } = useContext(SelectDialySalesContext);
 
   //サーバーから取得したISO8601規格のsalesDayをDialySalesでの表示形式に変換して返却する
-  const salesDayFormatToDisplay = (_salesDay: Date): string => {
+  const salesDayFormatToDisplay = (_salesDay: string): string => {
     const salesDayToDate = new Date(_salesDay);
     return salesDayToDate.toLocaleDateString("ja-JP", {
       year: "numeric",
@@ -28,7 +28,7 @@ export const DialySales = (props: DialySalesProps) => {
     });
   };
 
-  //サーバーから取得した値とsalesDayをDate型に変換した値とその各合計値を計算して画面表示の形式に変換
+  //サーバーから取得した値を画面表示形式に変換する
   const convertDisplayDialySales = (fetchData: GetFromSeverDialySale[]): DisplayDialySale[] => {
     const displayDialySales = fetchData.map((data) => {
       const convertFetchData: DisplayDialySale = {} as DisplayDialySale;
