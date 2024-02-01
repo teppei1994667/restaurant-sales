@@ -10,17 +10,20 @@ import { CirclesWithBar } from "react-loader-spinner";
 import { EditButton } from "@/components/share/custom/EditButton";
 import { EditDialog } from "@/components/EditDialog";
 import { DisplayDialySale } from "@/type/DialySale";
+import dayjs from "dayjs";
+import ja from "dayjs/locale/ja";
 
 export const AddDialySale = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DisplayDialySale>();
 
-  //レンダリング当日の年と月を文字列で取得
-  const thisMonthString = new Date().toLocaleDateString("ja-JP", {
-    year: "numeric",
-    month: "2-digit",
-  });
+  //DialySalesを期間ごとに取得する為の値
+  dayjs.locale(ja);
+  const TODAY = dayjs().format("YYYY-MM-DD"); //当日日付文字列
+  const BEGINING_OF_THE_MONTH = dayjs().startOf("month").format("YYYY-MM-DD"); //当月１日文字列
+  const BEGINING_OF_THE_YEAR = dayjs().startOf("year").format("YYYY-MM-DD"); //当年１日文字列
+  console.log(TODAY, BEGINING_OF_THE_MONTH, BEGINING_OF_THE_YEAR);
 
   useEffect(() => {
     setTimeout(() => {
@@ -60,7 +63,7 @@ export const AddDialySale = () => {
               <>
                 <Grid container spacing={0.75} className="justify-center mt-9">
                   <Grid item>
-                    <DialySales dayParams={thisMonthString} />
+                    <DialySales firstDialySaleDay={BEGINING_OF_THE_YEAR} lastDialySaleDay={TODAY} />
                   </Grid>
                 </Grid>
                 <Grid container className="justify-center mt-9">

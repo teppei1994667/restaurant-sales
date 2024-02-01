@@ -5,14 +5,16 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { DialySalesStateContext } from "../context/DialySalesContext";
 import { SelectDialySalesContext } from "../context/SelectDialySalesContext";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
+import { Dayjs } from "dayjs";
 
 export type DialySalesProps = {
-  dayParams?: string;
+  firstDialySaleDay?: string;
+  lastDialySaleDay?: string;
 };
 
 //売り上げ一覧を取得し表示するコンポーネント
 export const DialySales = (props: DialySalesProps) => {
-  const { dayParams } = props;
+  const { firstDialySaleDay, lastDialySaleDay } = props;
 
   const { state, dispatch } = useContext(DialySalesStateContext);
   const { setRowSelectionModel } = useContext(SelectDialySalesContext);
@@ -51,14 +53,13 @@ export const DialySales = (props: DialySalesProps) => {
   const fetchDialySales = async () => {
     //APIからDialySale一覧を取得する
     try {
-      const res = await axios.get<GetFromSeverDialySale[]>(
-        LOCAL_DIALYSALES_ADDRESS
-        //   , {
-        //   params: {
-        //     day: dayParams,
-        //   },
-        // }
-      );
+      const res = await axios.get<GetFromSeverDialySale[]>(LOCAL_DIALYSALES_ADDRESS, {
+        //サーバーから取得するDialySaleの期間をparamsに設定
+        params: {
+          first_day: firstDialySaleDay,
+          last_day: lastDialySaleDay,
+        },
+      });
       const fetchDialySales: DisplayDialySale[] = convertDisplayDialySales(res.data);
       dispatch({ type: "returnData", payload: fetchDialySales });
     } catch (err) {
