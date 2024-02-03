@@ -5,7 +5,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { DialySalesStateContext } from "../context/DialySalesContext";
 import { SelectDialySalesContext } from "../context/SelectDialySalesContext";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
-import { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 
 export type DialySalesProps = {
   firstDialySaleDay?: string;
@@ -21,13 +21,9 @@ export const DialySales = (props: DialySalesProps) => {
 
   //サーバーから取得したISO8601規格のsalesDayをDialySalesでの表示形式に変換して返却する
   const salesDayFormatToDisplay = (_salesDay: string): string => {
-    const salesDayToDate = new Date(_salesDay);
-    return salesDayToDate.toLocaleDateString("ja-JP", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      weekday: "short",
-    });
+    const salesDayToDate = dayjs(_salesDay);
+    console.log("salesDayToDate", salesDayToDate);
+    return salesDayToDate.format("YYYY/MM/DD(ddd)");
   };
 
   //サーバーから取得した値を画面表示形式に変換する
