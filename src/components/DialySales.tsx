@@ -22,7 +22,6 @@ export const DialySales = (props: DialySalesProps) => {
   //サーバーから取得したISO8601規格のsalesDayをDialySalesでの表示形式に変換して返却する
   const salesDayFormatToDisplay = (_salesDay: string): string => {
     const salesDayToDate = dayjs(_salesDay);
-    console.log("salesDayToDate", salesDayToDate);
     return salesDayToDate.format("YYYY/MM/DD(ddd)");
   };
 

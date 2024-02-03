@@ -16,8 +16,8 @@ export type EditDialogProps = {
 export const EditDialog = (props: EditDialogProps) => {
   const { isEditDialogOpen, setIsEditDialogOpen, rowSelectionModelValue } = props;
 
-  //ReactHookForm以外ではdayをstringで管理しているので再度Date型に変換する
-  const stringDayToDate = useMemo(() => {
+  //ReactHookForm以外ではsalesDayをstringで管理しているので再度Date型に変換する
+  const stringSalesDayToDate = useMemo(() => {
     return rowSelectionModelValue ? new Date(rowSelectionModelValue.salesDay.substring(0, 10)) : null;
   }, [rowSelectionModelValue]);
 
@@ -35,14 +35,14 @@ export const EditDialog = (props: EditDialogProps) => {
 
   // 選択した行のデータをformにセットする
   useEffect(() => {
-    dialySaleEditForm.setValue("salesDay", stringDayToDate);
+    dialySaleEditForm.setValue("salesDay", stringSalesDayToDate);
     dialySaleEditForm.setValue("lunchSale", rowSelectionModelValue?.lunchSales);
     dialySaleEditForm.setValue("dinnerSale", rowSelectionModelValue?.dinnerSales);
     dialySaleEditForm.setValue("lunchVisitor", rowSelectionModelValue?.lunchVisitor);
     dialySaleEditForm.setValue("dinnerVisitor", rowSelectionModelValue?.dinnerVisitor);
     dialySaleEditForm.setValue("personnelCost", rowSelectionModelValue?.personnelCost);
     dialySaleEditForm.setValue("purchase", rowSelectionModelValue?.purchase);
-  }, [dialySaleEditForm, rowSelectionModelValue, isEditDialogOpen, stringDayToDate]);
+  }, [dialySaleEditForm, rowSelectionModelValue, isEditDialogOpen, stringSalesDayToDate]);
 
   // 保存ボタン押下時
   const handleUpdateDIalySaleOnClick = async () => {
