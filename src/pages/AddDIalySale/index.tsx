@@ -16,6 +16,8 @@ import ja from "dayjs/locale/ja";
 export const AddDialySale = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
+  //チェックボックスで選択した行のデータを保持
   const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DisplayDialySale>();
 
   //DialySalesを期間ごとに取得する為の値
@@ -23,7 +25,6 @@ export const AddDialySale = () => {
   const TODAY = dayjs().format("YYYY-MM-DD"); //当日日付文字列
   const BEGINING_OF_THE_MONTH = dayjs().startOf("month").format("YYYY-MM-DD"); //当月１日文字列
   const BEGINING_OF_THE_YEAR = dayjs().startOf("year").format("YYYY-MM-DD"); //当年１日文字列
-  console.log(TODAY, BEGINING_OF_THE_MONTH, BEGINING_OF_THE_YEAR);
 
   useEffect(() => {
     setTimeout(() => {
