@@ -12,6 +12,7 @@ import { EditDialog } from "@/components/EditDialog";
 import { DisplayDialySale } from "@/type/DialySale";
 import dayjs from "dayjs";
 import ja from "dayjs/locale/ja";
+import { InfomationDialog } from "@/components/share/custom/InfomationDialog";
 
 export const AddDialySale = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -93,6 +94,7 @@ export const AddDialySale = () => {
           />
         </SelectDialySalesContextProvider>
       </DialySalesContextProvider>
+      <InfomationDialog isInfomationDialogOpen={true} />
     </>
   );
 };
