@@ -6,11 +6,12 @@ import { Dispatch, SetStateAction, useContext, useState } from "react";
 
 export type EditButtonProps = {
   setIsEditDialogOpen: Dispatch<SetStateAction<boolean>>;
+  setIsInfomationDialogOpen: Dispatch<SetStateAction<boolean>>;
   setRowSelectionModelValue: Dispatch<SetStateAction<DisplayDialySale | undefined>>;
 };
 
 export const EditButton = (props: EditButtonProps) => {
-  const { setIsEditDialogOpen, setRowSelectionModelValue } = props;
+  const { setIsEditDialogOpen, setIsInfomationDialogOpen, setRowSelectionModelValue } = props;
   const { state } = useContext(DialySalesStateContext);
   const { rowSlectionModel } = useContext(SelectDialySalesContext);
 
@@ -18,7 +19,7 @@ export const EditButton = (props: EditButtonProps) => {
   const handleEditBtnOnClick = () => {
     if (rowSlectionModel.length !== 1) {
       if (rowSlectionModel.length > 1) {
-        alert("同時に複数のデータの変更はできません。変更したいデータを１つだけ選択してください。");
+        setIsInfomationDialogOpen(true);
         return;
       }
       if (rowSlectionModel.length < 1) {

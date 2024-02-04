@@ -1,29 +1,60 @@
-import { Button, Dialog, DialogContent, DialogTitle, Grid, Paper, Typography } from "@mui/material";
+import { Button, Dialog, DialogContent, DialogTitle, Grid, Typography } from "@mui/material";
+import { Dispatch, ReactNode, SetStateAction, useEffect, useRef } from "react";
 
 export type InfomationDialogProps = {
   isInfomationDialogOpen: boolean;
+  setIsInfomationDialogOpen: Dispatch<SetStateAction<boolean>>;
+  infomationKinds: string;
+  infomationMessage: string;
 };
 
 export const InfomationDialog = (props: InfomationDialogProps) => {
-  const { isInfomationDialogOpen } = props;
+  const { isInfomationDialogOpen, setIsInfomationDialogOpen, infomationKinds, infomationMessage } = props;
+
+  //表示するDialogTitleを保持
+  const dialogTitle = useRef<ReactNode>();
+
+  //初期表示時にinfomationKindsの値で表示するDialogTitleを変更
+  useEffect(() => {
+    switch (infomationKinds) {
+      case "confirmation":
+        dialogTitle.current = <Typography variant="h5">confirmation</Typography>;
+        break;
+      case "warning":
+        dialogTitle.current = (
+          <Typography variant="h5" className="text-red-500">
+            warning
+          </Typography>
+        );
+        break;
+      default:
+        dialogTitle.current = <Typography variant="h5"></Typography>;
+    }
+  }, [infomationKinds]);
+
+  //「閉じる」押下時
+  const handleCloseOnClick = () => {
+    setIsInfomationDialogOpen(false);
+  };
+  console.log("dialogTitle", dialogTitle);
   return (
     <Dialog open={isInfomationDialogOpen} fullWidth maxWidth="md" sx={{ textAlign: "center" }}>
-      <DialogTitle>
+      <DialogTitle className="border-solid border-red-900">
         <Grid container spacing={0.75} justifyContent="center">
-          <Grid item>
-            <Typography variant="h5">confirmation</Typography>
-          </Grid>
+          <Grid item>{dialogTitle.current}</Grid>
         </Grid>
       </DialogTitle>
       <DialogContent className="h-52">
         <Grid container spacing={0.75} className="justify-center">
           <Grid item>
-            <Typography className="mt-10 whitespace-pre-wrap">{`同時に複数のデータの変更はできません。\n変更したいデータを１つだけ選択してください。`}</Typography>
+            <Typography className="mt-10 whitespace-pre-wrap">{infomationMessage}</Typography>
           </Grid>
         </Grid>
-        <Grid container spacing={0.75} className="justify-center mt-">
+        <Grid container spacing={0.75} className="justify-center mt-12">
           <Grid item>
-            <Button variant="outlined">閉じる</Button>
+            <Button variant="outlined" onClick={handleCloseOnClick}>
+              閉じる
+            </Button>
           </Grid>
         </Grid>
       </DialogContent>
