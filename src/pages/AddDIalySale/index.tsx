@@ -18,7 +18,6 @@ export const AddDialySale = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isInfomationDialogOpen, setIsInfomationDialogOpen] = useState(false);
-  const [infomationKinds, setInfomationKinds] = useState("");
   const [infomationMessage, setInfomationMessage] = useState("");
 
   //チェックボックスで選択した行のデータを保持
@@ -77,7 +76,6 @@ export const AddDialySale = () => {
                       setIsEditDialogOpen={setIsEditDialogOpen}
                       setIsInfomationDialogOpen={setIsInfomationDialogOpen}
                       setRowSelectionModelValue={setRowSelectionModelValue}
-                      setInfomationKinds={setInfomationKinds}
                       setInfomationMessage={setInfomationMessage}
                     />
                   </Grid>
@@ -103,7 +101,7 @@ export const AddDialySale = () => {
       <InfomationDialog
         isInfomationDialogOpen={isInfomationDialogOpen}
         setIsInfomationDialogOpen={setIsInfomationDialogOpen}
-        infomationKinds={infomationKinds}
+        infomationKinds="warning"
         infomationMessage={infomationMessage}
       />
     </>

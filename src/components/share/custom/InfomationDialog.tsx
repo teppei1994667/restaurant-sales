@@ -3,23 +3,35 @@ import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react"
 
 export type InfomationDialogProps = {
   isInfomationDialogOpen: boolean;
-  setIsInfomationDialogOpen: Dispatch<SetStateAction<boolean>>;
   infomationKinds: string;
   infomationMessage: string;
+  setIsInfomationDialogOpen: Dispatch<SetStateAction<boolean>>;
+  setClickedButton?: Dispatch<SetStateAction<string>>;
 };
 
 export const InfomationDialog = (props: InfomationDialogProps) => {
-  const { isInfomationDialogOpen, setIsInfomationDialogOpen, infomationKinds, infomationMessage } = props;
+  const { isInfomationDialogOpen, infomationKinds, infomationMessage, setIsInfomationDialogOpen, setClickedButton } =
+    props;
 
   //表示するDialogTitleを保持
   const [dialogTitle, setDialogTitle] = useState<ReactNode>();
+  const [buttonKind, setButtonKind] = useState<ReactNode>();
   const [borderColor, setBorderColor] = useState("");
 
-  //初期表示時にinfomationKindsの値で表示するDialogTitleを変更
+  //初期表示時にinfomationKindsの値で表示する内容を変更
   useEffect(() => {
     switch (infomationKinds) {
       case "confirmation":
         setDialogTitle(<Typography variant="h4">confirmation</Typography>);
+        setButtonKind(
+          <Grid container spacing={0.75} className="justify-center mt-5">
+            <Grid item>
+              <Button variant="outlined" onClick={handleCloseOnClick}>
+                閉じる
+              </Button>
+            </Grid>
+          </Grid>
+        );
         setBorderColor("border-stone-700");
         break;
       case "warning":
@@ -28,17 +40,49 @@ export const InfomationDialog = (props: InfomationDialogProps) => {
             warning
           </Typography>
         );
+        setButtonKind(
+          <Grid container spacing={0.75} className="justify-center mt-5">
+            <Grid item>
+              <Button variant="outlined" onClick={handleYesOnClick}>
+                はい
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button variant="outlined" onClick={handleNoOnClick}>
+                いいえ
+              </Button>
+            </Grid>
+          </Grid>
+        );
         setBorderColor("border-red-600");
         break;
       default:
         setDialogTitle(<Typography variant="h4"></Typography>);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [infomationKinds]);
 
   //「閉じる」押下時
   const handleCloseOnClick = () => {
     setIsInfomationDialogOpen(false);
   };
+
+  //「はい」押下時
+  const handleYesOnClick = () => {
+    if (setClickedButton) {
+      setClickedButton("はい");
+    }
+    setIsInfomationDialogOpen(false);
+  };
+
+  //「いいえ」押下時
+  const handleNoOnClick = () => {
+    if (setClickedButton) {
+      setClickedButton("いいえ");
+    }
+    setIsInfomationDialogOpen(false);
+  };
+
   return (
     <Dialog open={isInfomationDialogOpen} fullWidth maxWidth="md" className="text-center">
       <DialogTitle>
@@ -54,14 +98,7 @@ export const InfomationDialog = (props: InfomationDialogProps) => {
             </Grid>
           </Grid>
         </Paper>
-
-        <Grid container spacing={0.75} className="justify-center mt-5">
-          <Grid item>
-            <Button variant="outlined" onClick={handleCloseOnClick}>
-              閉じる
-            </Button>
-          </Grid>
-        </Grid>
+        {buttonKind}
       </DialogContent>
     </Dialog>
   );
