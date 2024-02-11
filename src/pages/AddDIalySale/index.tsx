@@ -17,7 +17,7 @@ export const AddDialySale = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
-  //チェックボックスで選択した行のidを保持
+  //チェックボックスで選択した行のデータを保持
   const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DisplayDialySale>();
 
   //DialySalesを期間ごとに取得する為の値
