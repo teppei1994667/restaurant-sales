@@ -6,16 +6,16 @@ type Props = {
 };
 
 type SelectDialySalesContextType = {
-  rowSlectionModel: GridRowSelectionModel;
+  rowSelectionModel: GridRowSelectionModel;
   setRowSelectionModel: Dispatch<SetStateAction<GridRowSelectionModel>>;
 };
 
 export const SelectDialySalesContext = createContext({} as SelectDialySalesContextType);
 
 export const SelectDialySalesContextProvider = (props: Props) => {
-  const [rowSlectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
+  const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
   return (
-    <SelectDialySalesContext.Provider value={{ rowSlectionModel, setRowSelectionModel }}>
+    <SelectDialySalesContext.Provider value={{ rowSelectionModel, setRowSelectionModel }}>
       {props.children}
     </SelectDialySalesContext.Provider>
   );

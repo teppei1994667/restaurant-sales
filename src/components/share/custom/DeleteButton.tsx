@@ -6,7 +6,7 @@ import axios from "axios";
 import { useContext } from "react";
 
 export const DeleteButton = () => {
-  const { rowSlectionModel } = useContext(SelectDialySalesContext);
+  const { rowSelectionModel } = useContext(SelectDialySalesContext);
 
   //受け取ったidをサーバーへdeleteリクエストを行う
   const sendDelete = (deleteIds: GridRowSelectionModel) => {
@@ -18,13 +18,13 @@ export const DeleteButton = () => {
   //削除ボタン押下時の処理
   const handleDeleteOnClick = () => {
     // 確認のダイアログを表示し「いいえ」を押下した場合処理終了
-    if (rowSlectionModel.length !== 0) {
+    if (rowSelectionModel.length !== 0) {
       if (!confirm("本当に削除しますか")) {
         return;
       }
       try {
         //APIを呼び出して、DialySaleを削除する
-        sendDelete(rowSlectionModel);
+        sendDelete(rowSelectionModel);
         window.location.reload();
       } catch (error) {
         console.error(error);
