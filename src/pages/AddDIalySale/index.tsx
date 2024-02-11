@@ -12,14 +12,10 @@ import { EditDialog } from "@/components/EditDialog";
 import { DisplayDialySale } from "@/type/DialySale";
 import dayjs from "dayjs";
 import ja from "dayjs/locale/ja";
-import { InfomationDialog } from "@/components/share/custom/InfomationDialog";
 
 export const AddDialySale = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [isInfomationDialogOpen, setIsInfomationDialogOpen] = useState(false);
-  const [infomationKinds, setInfomationKinds] = useState("");
-  const [infomationMessage, setInfomationMessage] = useState("");
 
   //チェックボックスで選択した行のデータを保持
   const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DisplayDialySale>();
@@ -75,10 +71,7 @@ export const AddDialySale = () => {
                   <Grid item>
                     <EditButton
                       setIsEditDialogOpen={setIsEditDialogOpen}
-                      setIsInfomationDialogOpen={setIsInfomationDialogOpen}
                       setRowSelectionModelValue={setRowSelectionModelValue}
-                      setInfomationKinds={setInfomationKinds}
-                      setInfomationMessage={setInfomationMessage}
                     />
                   </Grid>
                   <Grid item className="ml-5">
@@ -100,12 +93,6 @@ export const AddDialySale = () => {
           />
         </SelectDialySalesContextProvider>
       </DialySalesContextProvider>
-      <InfomationDialog
-        isInfomationDialogOpen={isInfomationDialogOpen}
-        setIsInfomationDialogOpen={setIsInfomationDialogOpen}
-        infomationKinds={infomationKinds}
-        infomationMessage={infomationMessage}
-      />
     </>
   );
 };
