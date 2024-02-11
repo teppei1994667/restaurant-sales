@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogContent, DialogTitle, Grid, Typography } from "@mui/material";
-import { Dispatch, ReactNode, SetStateAction, useEffect, useRef } from "react";
+import { Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
 
 export type InfomationDialogProps = {
   isInfomationDialogOpen: boolean;
@@ -12,23 +12,23 @@ export const InfomationDialog = (props: InfomationDialogProps) => {
   const { isInfomationDialogOpen, setIsInfomationDialogOpen, infomationKinds, infomationMessage } = props;
 
   //表示するDialogTitleを保持
-  const dialogTitle = useRef<ReactNode>();
+  const [dialogTitle, setDialogTitle] = useState<ReactNode>();
 
   //初期表示時にinfomationKindsの値で表示するDialogTitleを変更
   useEffect(() => {
     switch (infomationKinds) {
       case "confirmation":
-        dialogTitle.current = <Typography variant="h5">confirmation</Typography>;
+        setDialogTitle(<Typography variant="h5">confirmation</Typography>);
         break;
       case "warning":
-        dialogTitle.current = (
+        setDialogTitle(
           <Typography variant="h5" className="text-red-500">
             warning
           </Typography>
         );
         break;
       default:
-        dialogTitle.current = <Typography variant="h5"></Typography>;
+        setDialogTitle(<Typography variant="h5"></Typography>);
     }
   }, [infomationKinds]);
 
@@ -36,12 +36,11 @@ export const InfomationDialog = (props: InfomationDialogProps) => {
   const handleCloseOnClick = () => {
     setIsInfomationDialogOpen(false);
   };
-  console.log("dialogTitle", dialogTitle);
   return (
     <Dialog open={isInfomationDialogOpen} fullWidth maxWidth="md" sx={{ textAlign: "center" }}>
       <DialogTitle className="border-solid border-red-900">
         <Grid container spacing={0.75} justifyContent="center">
-          <Grid item>{dialogTitle.current}</Grid>
+          <Grid item>{dialogTitle}</Grid>
         </Grid>
       </DialogTitle>
       <DialogContent className="h-52">
