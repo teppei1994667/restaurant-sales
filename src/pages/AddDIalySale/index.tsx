@@ -12,6 +12,7 @@ import { EditDialog } from "@/components/EditDialog";
 import { DisplayDialySale } from "@/type/DialySale";
 import dayjs from "dayjs";
 import ja from "dayjs/locale/ja";
+import { SearchDailySales } from "@/components/SearchDailySales";
 
 export const AddDialySale = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -46,6 +47,11 @@ export const AddDialySale = () => {
             <Grid container className="justify-center mt-9">
               <Grid item>
                 <CreateDialySale />
+              </Grid>
+            </Grid>
+            <Grid container className="justify-center mt-9">
+              <Grid item>
+                <SearchDailySales />
               </Grid>
             </Grid>
             {isLoading ? (
