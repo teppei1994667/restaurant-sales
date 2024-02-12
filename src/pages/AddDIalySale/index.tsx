@@ -54,7 +54,7 @@ export const AddDialySale = () => {
                 <CreateDialySale />
               </Grid>
             </Grid>
-            <Grid container className="justify-center mt-9">
+            <Grid container className="justify-center mt-5">
               <Grid item>
                 <Button onClick={handleKikanShiteiOnClick}>
                   {isSearchDialySalesDispalay ? "隠す" : "期間を指定して表示する"}
