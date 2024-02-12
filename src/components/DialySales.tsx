@@ -26,8 +26,8 @@ export const DialySales = (props: DialySalesProps) => {
       const res = await axios.get<GetFromSeverDialySale[]>(LOCAL_DIALYSALES_ADDRESS, {
         //サーバーから取得するDialySaleの期間をparamsに設定
         params: {
-          first_day: firstDialySaleDay,
-          last_day: lastDialySaleDay,
+          start_day: firstDialySaleDay,
+          end_day: lastDialySaleDay,
         },
       });
       const fetchDialySales: DisplayDialySale[] = convertDisplayDialySales(res.data);
