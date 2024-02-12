@@ -35,7 +35,6 @@ export const CreateDialySale = () => {
           purchase: Number(dialySaleForm.getValues("purchase")),
         },
       });
-      console.log("createDialySale lunchSale", typeof Number(dialySaleForm.getValues("lunchSale")));
 
       //dialySaleの作成に成功したらformの値をリセット
       //TODO: 画面がリロードされてるから意味ないかもやけどいつかのされ無い実装の為に
