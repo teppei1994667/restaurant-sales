@@ -8,13 +8,13 @@ import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { convertDisplayDialySales } from "@/util/convertDisplayDialySales";
 
 export type DialySalesProps = {
-  firstDialySaleDay?: string;
-  lastDialySaleDay?: string;
+  startDialySaleDay?: string;
+  endDialySaleDay?: string;
 };
 
 //売り上げ一覧を取得し表示するコンポーネント
 export const DialySales = (props: DialySalesProps) => {
-  const { firstDialySaleDay, lastDialySaleDay } = props;
+  const { startDialySaleDay, endDialySaleDay } = props;
 
   const { state, dispatch } = useContext(DialySalesStateContext);
   const { setRowSelectionModel } = useContext(SelectDialySalesContext);
@@ -26,8 +26,8 @@ export const DialySales = (props: DialySalesProps) => {
       const res = await axios.get<GetFromSeverDialySale[]>(LOCAL_DIALYSALES_ADDRESS, {
         //サーバーから取得するDialySaleの期間をparamsに設定
         params: {
-          start_day: firstDialySaleDay,
-          end_day: lastDialySaleDay,
+          start_day: startDialySaleDay,
+          end_day: endDialySaleDay,
         },
       });
       const fetchDialySales: DisplayDialySale[] = convertDisplayDialySales(res.data);

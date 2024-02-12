@@ -69,7 +69,7 @@ export const AddDialySale = () => {
               <>
                 <Grid container spacing={0.75} className="justify-center mt-9">
                   <Grid item>
-                    <DialySales firstDialySaleDay={BEGINING_OF_THE_MONTH} lastDialySaleDay={TODAY} />
+                    <DialySales startDialySaleDay={BEGINING_OF_THE_MONTH} endDialySaleDay={TODAY} />
                   </Grid>
                 </Grid>
                 <Grid container className="justify-center mt-9">
