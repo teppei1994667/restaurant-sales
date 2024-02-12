@@ -21,11 +21,10 @@ export const AddDialySale = () => {
   //チェックボックスで選択した行のデータを保持
   const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DisplayDialySale>();
 
-  //DialySalesを期間ごとに取得する為の値
+  //DialySalesを当月分のみ取得する為の値
   dayjs.locale(ja);
   const TODAY = dayjs().format("YYYY-MM-DD"); //当日日付文字列
   const BEGINING_OF_THE_MONTH = dayjs().startOf("month").format("YYYY-MM-DD"); //当月１日文字列
-  const BEGINING_OF_THE_YEAR = dayjs().startOf("year").format("YYYY-MM-DD"); //当年１日文字列
 
   useEffect(() => {
     setTimeout(() => {
@@ -70,7 +69,7 @@ export const AddDialySale = () => {
               <>
                 <Grid container spacing={0.75} className="justify-center mt-9">
                   <Grid item>
-                    <DialySales firstDialySaleDay={BEGINING_OF_THE_YEAR} lastDialySaleDay={TODAY} />
+                    <DialySales firstDialySaleDay={BEGINING_OF_THE_MONTH} lastDialySaleDay={TODAY} />
                   </Grid>
                 </Grid>
                 <Grid container className="justify-center mt-9">
