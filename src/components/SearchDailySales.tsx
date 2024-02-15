@@ -1,13 +1,14 @@
 import { Button, Grid, Typography } from "@mui/material";
 import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 import { FormProvider, useForm } from "react-hook-form";
-import { DisplayDialySale, GetFromSeverDialySale, SearchDialySales } from "@/type/DialySale";
+import { DialySale, SearchDialySales } from "@/type/DialySale";
 import axios from "axios";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { useContext } from "react";
 import { DialySalesStateContext } from "@/context/DialySalesContext";
 import { convertDisplayDialySales } from "@/util/convertDisplayDialySales";
 import dayjs from "dayjs";
+import applyCaseMiddleware from "axios-case-converter";
 
 export const SearchDailySales = () => {
   const { dispatch } = useContext(DialySalesStateContext);
@@ -20,17 +21,20 @@ export const SearchDailySales = () => {
     },
   });
 
+  //axiosによるサーバー通信時のスネークケース、キャメルケースの変換を自動化する
+  const convertAxios = applyCaseMiddleware(axios.create());
+
   const handleSearchDialySalesOnClick = async () => {
     //APIから指定した期間のDialySale一覧を取得する
     try {
-      const res = await axios.get<GetFromSeverDialySale[]>(LOCAL_DIALYSALES_ADDRESS, {
+      const res = await convertAxios.get<DialySale[]>(LOCAL_DIALYSALES_ADDRESS, {
         //サーバーから取得するDialySaleの期間をparamsに設定
         params: {
-          start_day: dayjs(searchDialySalesForm.getValues("startDay")).format("YYYY-MM-DD"),
-          end_day: dayjs(searchDialySalesForm.getValues("endDay")).format("YYYY-MM-DD"),
+          startDay: dayjs(searchDialySalesForm.getValues("startDay")).format("YYYY-MM-DD"),
+          endDay: dayjs(searchDialySalesForm.getValues("endDay")).format("YYYY-MM-DD"),
         },
       });
-      const fetchDialySales: DisplayDialySale[] = convertDisplayDialySales(res.data);
+      const fetchDialySales: DialySale[] = convertDisplayDialySales(res.data);
       dispatch({ type: "returnData", payload: fetchDialySales });
       //dialySaleの取得に成功したらformの値をリセット
       searchDialySalesForm.reset();

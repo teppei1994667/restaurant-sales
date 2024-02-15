@@ -2,15 +2,16 @@ import { Button, Dialog, DialogContent, DialogTitle, Grid, Typography } from "@m
 import { ControlledNumberTextField } from "./share/form/ControlledNumberTextField";
 import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 import { FormProvider, useForm } from "react-hook-form";
-import { FormDialySale, DisplayDialySale } from "@/type/DialySale";
+import { FormDialySale, DialySale } from "@/type/DialySale";
 import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
 import axios from "axios";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
+import applyCaseMiddleware from "axios-case-converter";
 
 export type EditDialogProps = {
   isEditDialogOpen: boolean;
   setIsEditDialogOpen: Dispatch<SetStateAction<boolean>>;
-  rowSelectionModelValue?: DisplayDialySale;
+  rowSelectionModelValue?: DialySale;
 };
 
 export const EditDialog = (props: EditDialogProps) => {
@@ -44,19 +45,22 @@ export const EditDialog = (props: EditDialogProps) => {
     dialySaleEditForm.setValue("purchase", rowSelectionModelValue?.purchase);
   }, [dialySaleEditForm, rowSelectionModelValue, isEditDialogOpen, stringSalesDayToDate]);
 
+  //axiosによるサーバー通信時のスネークケース、キャメルケースの変換を自動化する
+  const convertAxios = applyCaseMiddleware(axios.create());
+
   // 保存ボタン押下時
   const handleUpdateDIalySaleOnClick = async () => {
     if (rowSelectionModelValue) {
       const updateId = rowSelectionModelValue.id;
       try {
-        await axios.put(`${LOCAL_DIALYSALES_ADDRESS}/${updateId}`, {
-          dialy_sale: {
-            sales_day: dialySaleEditForm.getValues("salesDay"),
-            lunch_sales: dialySaleEditForm.getValues("lunchSale"),
-            dinner_sales: dialySaleEditForm.getValues("dinnerSale"),
-            lunch_visitor: dialySaleEditForm.getValues("lunchVisitor"),
-            dinner_visitor: dialySaleEditForm.getValues("dinnerVisitor"),
-            personnel_cost: dialySaleEditForm.getValues("personnelCost"),
+        await convertAxios.put(`${LOCAL_DIALYSALES_ADDRESS}/${updateId}`, {
+          dialySale: {
+            salesDay: dialySaleEditForm.getValues("salesDay"),
+            lunchSales: dialySaleEditForm.getValues("lunchSale"),
+            dinnerSales: dialySaleEditForm.getValues("dinnerSale"),
+            lunchVisitor: dialySaleEditForm.getValues("lunchVisitor"),
+            dinnerVisitor: dialySaleEditForm.getValues("dinnerVisitor"),
+            personnelCost: dialySaleEditForm.getValues("personnelCost"),
             purchase: dialySaleEditForm.getValues("purchase"),
           },
         });

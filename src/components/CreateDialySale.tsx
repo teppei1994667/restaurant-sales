@@ -5,6 +5,7 @@ import { FormDialySale } from "@/type/DialySale";
 import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 import { ControlledNumberTextField } from "./share/form/ControlledNumberTextField";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
+import applyCaseMiddleware from "axios-case-converter";
 
 export const CreateDialySale = () => {
   //新規売り上げ作成をformで管理
@@ -20,18 +21,21 @@ export const CreateDialySale = () => {
     },
   });
 
+  //axiosによるサーバー通信時のスネークケース、キャメルケースの変換を自動化する
+  const convertAxios = applyCaseMiddleware(axios.create());
+
   //フォームの入力値を更新する関数(TODO: 各textFieldから返却される値がstringの為サーバーに送信する前にnumberに変換する)
   const handleMakeDialySaleOnClick = async () => {
     try {
       //apiを呼び出してDialySaleを作成する
-      await axios.post(LOCAL_DIALYSALES_ADDRESS, {
-        dialy_sale: {
-          sales_day: dialySaleForm.getValues("salesDay"),
-          lunch_sales: Number(dialySaleForm.getValues("lunchSale")),
-          dinner_sales: Number(dialySaleForm.getValues("dinnerSale")),
-          lunch_visitor: Number(dialySaleForm.getValues("lunchVisitor")),
-          dinner_visitor: Number(dialySaleForm.getValues("dinnerVisitor")),
-          personnel_cost: Number(dialySaleForm.getValues("personnelCost")),
+      await convertAxios.post(LOCAL_DIALYSALES_ADDRESS, {
+        dialySale: {
+          salesDay: dialySaleForm.getValues("salesDay"),
+          lunchSales: Number(dialySaleForm.getValues("lunchSale")),
+          dinnerSales: Number(dialySaleForm.getValues("dinnerSale")),
+          lunchVisitor: Number(dialySaleForm.getValues("lunchVisitor")),
+          dinnerVisitor: Number(dialySaleForm.getValues("dinnerVisitor")),
+          personnelCost: Number(dialySaleForm.getValues("personnelCost")),
           purchase: Number(dialySaleForm.getValues("purchase")),
         },
       });

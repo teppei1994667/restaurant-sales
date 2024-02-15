@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { CirclesWithBar } from "react-loader-spinner";
 import { EditButton } from "@/components/share/custom/EditButton";
 import { EditDialog } from "@/components/EditDialog";
-import { DisplayDialySale } from "@/type/DialySale";
+import { DialySale } from "@/type/DialySale";
 import dayjs from "dayjs";
 import ja from "dayjs/locale/ja";
 import { SearchDailySales } from "@/components/SearchDailySales";
@@ -20,7 +20,7 @@ export const AddDialySale = () => {
   const [isSearchDialySalesDispalay, setIsSearchDialySalesDispalay] = useState(false);
 
   //チェックボックスで選択した行のデータを保持
-  const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DisplayDialySale>();
+  const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DialySale>();
 
   //DialySalesを当月分のみ取得する為の値
   dayjs.locale(ja);

@@ -1,4 +1,4 @@
-import { GetFromSeverDialySale, DisplayDialySale } from "@/type/DialySale";
+import { DialySale } from "@/type/DialySale";
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -6,6 +6,7 @@ import { DialySalesStateContext } from "../context/DialySalesContext";
 import { SelectDialySalesContext } from "../context/SelectDialySalesContext";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { convertDisplayDialySales } from "@/util/convertDisplayDialySales";
+import applyCaseMiddleware from "axios-case-converter";
 
 export type DialySalesProps = {
   startDialySaleDay?: string;
@@ -19,18 +20,21 @@ export const DialySales = (props: DialySalesProps) => {
   const { state, dispatch } = useContext(DialySalesStateContext);
   const { setRowSelectionModel } = useContext(SelectDialySalesContext);
 
-  //DialySale一覧を取得する関数
+  //axiosによるサーバー通信時のスネークケース、キャメルケースの変換を自動化する
+  const convertAxios = applyCaseMiddleware(axios.create());
+
+  //DialySale一覧を取得する関数DialySale
   const fetchDialySales = async () => {
     //APIからDialySale一覧を取得する
     try {
-      const res = await axios.get<GetFromSeverDialySale[]>(LOCAL_DIALYSALES_ADDRESS, {
+      const res = await convertAxios.get<DialySale[]>(LOCAL_DIALYSALES_ADDRESS, {
         //サーバーから取得するDialySaleの期間をparamsに設定
         params: {
-          start_day: startDialySaleDay,
-          end_day: endDialySaleDay,
+          startDay: startDialySaleDay,
+          endDay: endDialySaleDay,
         },
       });
-      const fetchDialySales: DisplayDialySale[] = convertDisplayDialySales(res.data);
+      const fetchDialySales: DialySale[] = convertDisplayDialySales(res.data);
       dispatch({ type: "returnData", payload: fetchDialySales });
     } catch (err) {
       console.log(err);
