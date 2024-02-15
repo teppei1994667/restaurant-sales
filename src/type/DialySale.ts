@@ -36,3 +36,9 @@ export type FormDialySale = {
   personnelCost?: number;
   purchase?: number;
 };
+
+//SearchDialySalesをformで管理する為の型
+export type SearchDialySales = {
+  startDay: Date | null;
+  endDay: Date | null;
+};

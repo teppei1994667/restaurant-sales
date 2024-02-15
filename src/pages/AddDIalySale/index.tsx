@@ -4,7 +4,7 @@ import { DialySalesContextProvider } from "@/context/DialySalesContext";
 import { SelectDialySalesContextProvider } from "@/context/SelectDialySalesContext";
 import { TotalDialySale } from "@/components/TotalDialySale";
 import { DeleteButton } from "@/components/share/custom/DeleteButton";
-import { Grid, Paper, Typography } from "@mui/material";
+import { Button, Grid, Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { CirclesWithBar } from "react-loader-spinner";
 import { EditButton } from "@/components/share/custom/EditButton";
@@ -12,19 +12,25 @@ import { EditDialog } from "@/components/EditDialog";
 import { DisplayDialySale } from "@/type/DialySale";
 import dayjs from "dayjs";
 import ja from "dayjs/locale/ja";
+import { SearchDailySales } from "@/components/SearchDailySales";
 
 export const AddDialySale = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isSearchDialySalesDispalay, setIsSearchDialySalesDispalay] = useState(false);
 
   //チェックボックスで選択した行のデータを保持
   const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DisplayDialySale>();
 
-  //DialySalesを期間ごとに取得する為の値
+  //DialySalesを当月分のみ取得する為の値
   dayjs.locale(ja);
   const TODAY = dayjs().format("YYYY-MM-DD"); //当日日付文字列
   const BEGINING_OF_THE_MONTH = dayjs().startOf("month").format("YYYY-MM-DD"); //当月１日文字列
-  const BEGINING_OF_THE_YEAR = dayjs().startOf("year").format("YYYY-MM-DD"); //当年１日文字列
+
+  //「期間を指定して表示する」押下時
+  const handleKikanShiteiOnClick = () => {
+    setIsSearchDialySalesDispalay((prev) => !prev);
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -48,6 +54,20 @@ export const AddDialySale = () => {
                 <CreateDialySale />
               </Grid>
             </Grid>
+            <Grid container className="justify-center mt-5">
+              <Grid item>
+                <Button onClick={handleKikanShiteiOnClick}>
+                  {isSearchDialySalesDispalay ? "隠す" : "期間を指定して表示する"}
+                </Button>
+              </Grid>
+            </Grid>
+            {isSearchDialySalesDispalay ? (
+              <Grid container className="justify-center mt-3">
+                <Grid item>
+                  <SearchDailySales />
+                </Grid>
+              </Grid>
+            ) : null}
             {isLoading ? (
               <Grid container className="justify-center mt-9">
                 <Grid item>
@@ -62,9 +82,9 @@ export const AddDialySale = () => {
               </Grid>
             ) : (
               <>
-                <Grid container spacing={0.75} className="justify-center mt-9">
+                <Grid container spacing={0.75} className="justify-center mt-3">
                   <Grid item>
-                    <DialySales firstDialySaleDay={BEGINING_OF_THE_YEAR} lastDialySaleDay={TODAY} />
+                    <DialySales startDialySaleDay={BEGINING_OF_THE_MONTH} endDialySaleDay={TODAY} />
                   </Grid>
                 </Grid>
                 <Grid container className="justify-center mt-9">
