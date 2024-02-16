@@ -1,12 +1,11 @@
 import { DialySale } from "@/type/DialySale";
-import axios from "axios";
 import { useContext, useEffect } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { DialySalesStateContext } from "../context/DialySalesContext";
 import { SelectDialySalesContext } from "../context/SelectDialySalesContext";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { convertDisplayDialySales } from "@/util/convertDisplayDialySales";
-import applyCaseMiddleware from "axios-case-converter";
+import { convertAxios } from "@/util/convertAxios";
 
 export type DialySalesProps = {
   startDialySaleDay?: string;
@@ -19,9 +18,6 @@ export const DialySales = (props: DialySalesProps) => {
 
   const { state, dispatch } = useContext(DialySalesStateContext);
   const { setRowSelectionModel } = useContext(SelectDialySalesContext);
-
-  //axiosによるサーバー通信時のスネークケース、キャメルケースの変換を自動化する
-  const convertAxios = applyCaseMiddleware(axios.create());
 
   //DialySale一覧を取得する関数DialySale
   const fetchDialySales = async () => {

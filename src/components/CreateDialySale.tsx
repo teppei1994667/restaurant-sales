@@ -1,11 +1,10 @@
 import { Button, Grid } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
-import axios from "axios";
 import { FormDialySale } from "@/type/DialySale";
 import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 import { ControlledNumberTextField } from "./share/form/ControlledNumberTextField";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
-import applyCaseMiddleware from "axios-case-converter";
+import { convertAxios } from "@/util/convertAxios";
 
 export const CreateDialySale = () => {
   //新規売り上げ作成をformで管理
@@ -20,9 +19,6 @@ export const CreateDialySale = () => {
       purchase: undefined,
     },
   });
-
-  //axiosによるサーバー通信時のスネークケース、キャメルケースの変換を自動化する
-  const convertAxios = applyCaseMiddleware(axios.create());
 
   //フォームの入力値を更新する関数(TODO: 各textFieldから返却される値がstringの為サーバーに送信する前にnumberに変換する)
   const handleMakeDialySaleOnClick = async () => {

@@ -4,9 +4,8 @@ import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormDialySale, DialySale } from "@/type/DialySale";
 import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
-import axios from "axios";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
-import applyCaseMiddleware from "axios-case-converter";
+import { convertAxios } from "@/util/convertAxios";
 
 export type EditDialogProps = {
   isEditDialogOpen: boolean;
@@ -44,9 +43,6 @@ export const EditDialog = (props: EditDialogProps) => {
     dialySaleEditForm.setValue("personnelCost", rowSelectionModelValue?.personnelCost);
     dialySaleEditForm.setValue("purchase", rowSelectionModelValue?.purchase);
   }, [dialySaleEditForm, rowSelectionModelValue, isEditDialogOpen, stringSalesDayToDate]);
-
-  //axiosによるサーバー通信時のスネークケース、キャメルケースの変換を自動化する
-  const convertAxios = applyCaseMiddleware(axios.create());
 
   // 保存ボタン押下時
   const handleUpdateDIalySaleOnClick = async () => {
