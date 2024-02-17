@@ -30,8 +30,7 @@ export const DialySales = (props: DialySalesProps) => {
           endDay: endDialySaleDay,
         },
       });
-      const fetchDialySales: DialySale[] = convertDisplayDialySales(res.data);
-      dispatch({ type: "returnData", payload: fetchDialySales });
+      dispatch({ type: "returnData", payload: res.data });
     } catch (err) {
       console.log(err);
     }

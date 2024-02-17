@@ -30,8 +30,7 @@ export const SearchDailySales = () => {
           endDay: dayjs(searchDialySalesForm.getValues("endDay")).format("YYYY-MM-DD"),
         },
       });
-      const fetchDialySales: DialySale[] = convertDisplayDialySales(res.data);
-      dispatch({ type: "returnData", payload: fetchDialySales });
+      dispatch({ type: "returnData", payload: res.data });
       //dialySaleの取得に成功したらformの値をリセット
       searchDialySalesForm.reset();
     } catch (err) {

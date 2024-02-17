@@ -1,6 +1,8 @@
 import { DialySale } from "@/type/DialySale";
 import dayjs from "dayjs";
 
+//TODO: サーバー側でcnvertする仕様に変更の為削除予定
+
 //サーバーから取得したISO8601規格のsalesDayをDialySalesでの表示形式に変換して返却する
 const salesDayFormatToDisplay = (_salesDay: string): string => {
   const salesDayToDate = dayjs(_salesDay);
