@@ -11,5 +11,6 @@ const options = {
 export const convertAxios = applyCaseMiddleware(
   axios.create({
     baseURL: LOCAL_DIALYSALES_ADDRESS,
-  })
+  }),
+  options
 );
