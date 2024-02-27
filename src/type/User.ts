@@ -1,3 +1,4 @@
+// サインアップ
 export type SignUpParams = {
   name: string;
   email: string;
@@ -5,11 +6,13 @@ export type SignUpParams = {
   passwardConfirmation: string;
 };
 
+// サインイン
 export type SignInParams = {
   email: string;
   password: string;
 };
 
+// ユーザー
 export type User = {
   id: number;
   uid: string;
