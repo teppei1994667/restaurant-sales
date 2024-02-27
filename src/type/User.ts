@@ -5,6 +5,11 @@ export type SignUpParams = {
   passwardConfirmation: string;
 };
 
+export type SignInParams = {
+  email: string;
+  password: string;
+};
+
 export type User = {
   id: number;
   uid: string;
