@@ -22,3 +22,5 @@ export const Shop = () => {
     </Paper>
   );
 };
+
+export default Shop;
