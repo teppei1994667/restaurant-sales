@@ -1,9 +1,6 @@
 import { Header } from "@/components/Header";
-import { User } from "@/type/User";
-import { getCurrentUser } from "@/util/auth";
 import { Button, Grid, Paper, Typography } from "@mui/material";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 export const Home = () => {
   return (
