@@ -14,7 +14,7 @@ type Props = {
   children: ReactNode;
 };
 
-export const SelectDialySalesContext = createContext({} as AuthContextType);
+export const AuthContext = createContext({} as AuthContextType);
 
 export const AuthContextProvider = (props: Props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,8 +22,8 @@ export const AuthContextProvider = (props: Props) => {
   // const [currentUser, setCurrentUser] = useState<User | undefined>()
 
   return (
-    <SelectDialySalesContext.Provider value={{ isLoading, setIsLoading, isSignedIn, setIsSignedIn }}>
+    <AuthContext.Provider value={{ isLoading, setIsLoading, isSignedIn, setIsSignedIn }}>
       {props.children}
-    </SelectDialySalesContext.Provider>
+    </AuthContext.Provider>
   );
 };
