@@ -17,8 +17,8 @@ type Props = {
 export const AuthContext = createContext({} as AuthContextType);
 
 export const AuthContextProvider = (props: Props) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(true);
   // const [currentUser, setCurrentUser] = useState<User | undefined>()
 
   return (
