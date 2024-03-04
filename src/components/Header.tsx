@@ -20,8 +20,8 @@ export const Header = () => {
           <IconButton edge="start" color="inherit">
             <MenuIcon />
           </IconButton>
-          <Link href="/">
-            <Typography variant="h6">Sample</Typography>
+          <Link className="text-inherit ml-10" href="/" sx={{ flexGrow: "1" }}>
+            <Typography variant="h6">Dialy Sales</Typography>
           </Link>
           <AuthButtons />
         </Toolbar>
