@@ -6,8 +6,8 @@ type AuthContextType = {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   isSignedIn: boolean;
   setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  // currentUser: User | undefined;
-  // setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+  currentUser: User | undefined;
+  setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 };
 
 type Props = {
@@ -17,12 +17,12 @@ type Props = {
 export const AuthContext = createContext({} as AuthContextType);
 
 export const AuthContextProvider = (props: Props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSignedIn, setIsSignedIn] = useState(true);
-  // const [currentUser, setCurrentUser] = useState<User | undefined>()
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState<User | undefined>();
 
   return (
-    <AuthContext.Provider value={{ isLoading, setIsLoading, isSignedIn, setIsSignedIn }}>
+    <AuthContext.Provider value={{ isLoading, setIsLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
       {props.children}
     </AuthContext.Provider>
   );
