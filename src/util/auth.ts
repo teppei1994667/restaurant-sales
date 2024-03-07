@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 // サインアップ
 export const signUp = (params: SignUpParams) => {
-  return authUserAxios.post("sign_up", params);
+  return authUserAxios.post("/", params);
 };
 
 // サインイン
