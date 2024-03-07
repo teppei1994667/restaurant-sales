@@ -3,7 +3,7 @@ export type SignUpParams = {
   name: string;
   email: string;
   password: string;
-  passwardConfirmation: string;
+  passwordConfirmation: string;
 };
 
 // サインイン
