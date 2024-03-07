@@ -4,17 +4,17 @@ import Cookies from "js-cookie";
 
 // サインアップ
 export const signUp = (params: SignUpParams) => {
-  return authUserAxios.post("auth/sign_up", params);
+  return authUserAxios.post("sign_up", params);
 };
 
 // サインイン
 export const signIn = (params: SignInParams) => {
-  return authUserAxios.post("auth/sign_in", params);
+  return authUserAxios.post("sign_in", params);
 };
 
 // サインアウト
 export const signOut = () => {
-  return authUserAxios.delete("auth/sign_out", {
+  return authUserAxios.delete("sign_out", {
     headers: {
       "access-token": Cookies.get("_access-toke"),
       client: Cookies.get("_client"),
@@ -26,7 +26,7 @@ export const signOut = () => {
 // 認証済みのユーザーを取得
 export const getCurrentUser = () => {
   if (!Cookies.get("_access-toke") || !Cookies.get("_client") || !Cookies.get("_uid")) {
-    return authUserAxios.get("auth/sign_in", {
+    return authUserAxios.get("sign_in", {
       headers: {
         "access-token": Cookies.get("_access_token"),
         client: Cookies.get("_client"),
