@@ -1,13 +1,13 @@
-import { ReactNode, createContext, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, createContext, useState } from "react";
 import { User } from "@/type/User";
 
-type AuthContextType = {
+export type AuthContextType = {
   isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
   isSignedIn: boolean;
-  setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSignedIn: Dispatch<SetStateAction<boolean>>;
   currentUser: User | undefined;
-  setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+  setCurrentUser: Dispatch<SetStateAction<User | undefined>>;
 };
 
 type Props = {
@@ -20,6 +20,10 @@ export const AuthContextProvider = (props: Props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState<User | undefined>();
+
+  console.log("AuthContext isLoading", isLoading);
+  console.log("AuthContext isSignedIn", isSignedIn);
+  console.log("AuthContext currentUser", currentUser);
 
   return (
     <AuthContext.Provider value={{ isLoading, setIsLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser }}>
