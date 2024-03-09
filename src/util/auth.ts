@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 
 // サインアップ
 export const signUp = (params: SignUpParams) => {
+  console.log("signUp", params);
   return authUserAxios.post("/", params);
 };
 
