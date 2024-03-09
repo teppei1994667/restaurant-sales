@@ -2,11 +2,11 @@ import { ControlledTextFieldProps } from "@/type/ReactHookFormType";
 import { ControlledTextField } from "../form/ControlledTextField";
 import { forwardRef } from "react";
 
-export const EmailTextFiled = forwardRef<HTMLInputElement, ControlledTextFieldProps>((props, ref) => {
+export const EmailTextField = forwardRef<HTMLInputElement, ControlledTextFieldProps>((props, ref) => {
   const { rules, ...restProps } = props;
   const emailRegExp = /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
 
-  //ControlledNumberTextField標準のバリデーションルール
+  //EmailTextField標準のバリデーションルール
   const emailTextFieldRules = {
     required: { value: true, message: "必須入力です" },
     maxLength: {
@@ -27,4 +27,4 @@ export const EmailTextFiled = forwardRef<HTMLInputElement, ControlledTextFieldPr
   );
 });
 
-EmailTextFiled.displayName = "EmailTextFiled";
+EmailTextField.displayName = "EmailTextField";
