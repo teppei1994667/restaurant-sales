@@ -32,9 +32,7 @@ export const SignUpForm = () => {
 
     try {
       const res = await signUp(params);
-      console.log("signUp実行", res);
       if (res.status === 200) {
-        console.log("signUp処理成功");
         // アカウント作成と同時にログインさせてしまう
         // メール確認実装
         Cookies.set("_access_toke", res.headers["acces-token"]);
@@ -48,8 +46,7 @@ export const SignUpForm = () => {
         alert(`${res.status}エラー`);
       }
     } catch (err) {
-      console.log("サーバー通信エラー", err);
-      alert("通信エラー");
+      alert("サーバー通信エラー");
     }
   };
 
@@ -62,7 +59,13 @@ export const SignUpForm = () => {
       <Paper elevation={0} sx={{ height: "100vh" }}>
         <Grid container>
           <Grid item className="w-96">
-            <ControlledTextField name="name" label="ユーザー名" fullWidth />
+            <ControlledTextField
+              rules={{ required: { value: true, message: "必須入力です" } }}
+              name="name"
+              label="ユーザー名"
+              fullWidth
+              helperText={signUpForm.formState.errors.name?.message}
+            />
           </Grid>
         </Grid>
         <Grid container className="mt-10">
