@@ -7,6 +7,8 @@ import { signUp } from "@/util/auth";
 import router from "next/router";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
+import { EmailTextField } from "@/components/share/authUser/EmailTextField";
+import { PassWordTextField } from "@/components/share/authUser/PasswordTextField";
 
 export type FormSignUp = {
   name: string;
@@ -16,7 +18,7 @@ export type FormSignUp = {
 };
 
 export const SignUpForm = () => {
-  const signUpForm = useForm<FormSignUp>();
+  const signUpForm = useForm<FormSignUp>({ mode: "onSubmit", reValidateMode: "onChange" });
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
 
   // 新規登録ボタン押下時
@@ -65,17 +67,32 @@ export const SignUpForm = () => {
         </Grid>
         <Grid container className="mt-10">
           <Grid item className="w-96">
-            <ControlledTextField name="email" label="メールアドレス" fullWidth />
+            <EmailTextField
+              name="email"
+              label="メールアドレス"
+              fullWidth
+              helperText={signUpForm.formState.errors.email?.message}
+            />
           </Grid>
         </Grid>
         <Grid container className="mt-10">
           <Grid item className="w-96">
-            <ControlledTextField name="password" label="パスワード" fullWidth />
+            <PassWordTextField
+              name="password"
+              label="パスワード"
+              fullWidth
+              helperText={signUpForm.formState.errors.password?.message}
+            />
           </Grid>
         </Grid>
         <Grid container className="mt-10">
           <Grid item className="w-96">
-            <ControlledTextField name="passwordConfirmation" label="パスワード確認" fullWidth />
+            <PassWordTextField
+              name="passwordConfirmation"
+              label="パスワード確認"
+              fullWidth
+              helperText={signUpForm.formState.errors.passwordConfirmation?.message}
+            />
           </Grid>
         </Grid>
         <Grid container className="justify-center mt-10">
