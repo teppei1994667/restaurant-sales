@@ -33,9 +33,10 @@ export const SignUpForm = () => {
     try {
       const res = await signUp(params);
       if (res.status === 200) {
+        console.log("res", res.headers);
         // アカウント作成と同時にログインさせてしまう
         // メール確認実装
-        Cookies.set("_access_toke", res.headers["acces-token"]);
+        Cookies.set("_access_toke", res.headers["access-token"]);
         Cookies.set("_client", res.headers["client"]);
         Cookies.set("_uid", res.headers["uid"]);
         setIsSignedIn(true);
