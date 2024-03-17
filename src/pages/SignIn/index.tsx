@@ -1,14 +1,23 @@
-import { Grid, Paper, Typography } from "@mui/material";
+import { Header } from "@/components/Header";
+import { AuthContextProvider } from "@/context/AuthContext";
+import { Grid, Typography } from "@mui/material";
+import { SignInForm } from "./components/SignInForm";
 
 export const SignIn = () => {
   return (
-    <Paper elevation={0} sx={{ height: "100vh" }}>
+    <AuthContextProvider>
+      <Header />
       <Grid container className="justify-center mt-10">
         <Grid item>
-          <Typography variant="h4">ログインページです</Typography>
+          <Typography variant="h4">ログイン</Typography>
         </Grid>
       </Grid>
-    </Paper>
+      <Grid container className="justify-center mt-10">
+        <Grid item>
+          <SignInForm />
+        </Grid>
+      </Grid>
+    </AuthContextProvider>
   );
 };
 
