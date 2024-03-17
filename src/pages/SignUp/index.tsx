@@ -1,9 +1,24 @@
 import { Header } from "@/components/Header";
 import { Grid, Typography } from "@mui/material";
 import { SignUpForm } from "./components/SignUpForm";
-import { AuthContextProvider } from "@/context/AuthContext";
+import { AuthContext, AuthContextProvider } from "@/context/AuthContext";
+import { useCallback, useContext, useEffect } from "react";
+import router from "next/router";
 
 export const SignUp = () => {
+  console.log("SignUp");
+  const { isSignedIn, currentUser } = useContext(AuthContext);
+  const isAuthenticatedRedirect = useCallback(() => {
+    console.log("ログイン済みです", isSignedIn, currentUser);
+    if (isSignedIn && currentUser) {
+      router.push("/User");
+    }
+  }, [isSignedIn, currentUser]);
+
+  useEffect(() => {
+    isAuthenticatedRedirect;
+  }, [isAuthenticatedRedirect]);
+
   return (
     <>
       <AuthContextProvider>

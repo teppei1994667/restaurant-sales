@@ -43,7 +43,7 @@ export const SignUpForm = () => {
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
 
-        router.push("/User");
+        router.push("/SignUp");
       } else {
         alert(`新規登録${res.status}エラー`);
       }
