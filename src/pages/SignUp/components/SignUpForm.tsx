@@ -23,7 +23,7 @@ export const SignUpForm = () => {
 
   // 新規登録ボタン押下時
   const handleSignUpOnClick = async () => {
-    const params: SignUpParams = {
+    const signUpParams: SignUpParams = {
       name: signUpForm.getValues("name"),
       email: signUpForm.getValues("email"),
       password: signUpForm.getValues("password"),
@@ -31,22 +31,24 @@ export const SignUpForm = () => {
     };
 
     try {
-      const res = await signUp(params);
+      const res = await signUp(signUpParams);
+      console.log("新規登録実行");
       if (res.status === 200) {
+        console.log("新規登録成功", res);
         // アカウント作成と同時にログインさせてしまう
-        // メール確認実装
-        Cookies.set("_access_token", res.headers["access-token"]);
+        Cookies.set("_access-token", res.headers["access-token"]);
         Cookies.set("_client", res.headers["client"]);
         Cookies.set("_uid", res.headers["uid"]);
+
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
 
         router.push("/User");
       } else {
-        alert(`${res.status}エラー`);
+        alert(`新規登録${res.status}エラー`);
       }
     } catch (err) {
-      alert("サーバー通信エラー");
+      alert("新規登録サーバー通信エラー");
     }
   };
 
