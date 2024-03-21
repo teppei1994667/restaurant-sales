@@ -34,7 +34,6 @@ export const SignUpForm = () => {
       const res = await signUp(signUpParams);
       console.log("新規登録実行");
       if (res.status === 200) {
-        console.log("新規登録成功", res);
         // アカウント作成と同時にログインさせてしまう
         Cookies.set("_access-token", res.headers["access-token"]);
         Cookies.set("_client", res.headers["client"]);
@@ -44,6 +43,10 @@ export const SignUpForm = () => {
         setCurrentUser(res.data.data);
 
         router.push("/User");
+      } else if (res.status === 401) {
+        alert("認証エラー");
+      } else if (res.status === 500) {
+        alert("500 Internal Server Error");
       } else {
         alert(`新規登録${res.status}エラー`);
       }
