@@ -1,3 +1,4 @@
+import { Header } from "@/components/Header";
 import { withAuthServerSideProps } from "@/util/authRedirect";
 import { Typography } from "@mui/material";
 import Cookies from "js-cookie";
@@ -11,6 +12,7 @@ export const User = () => {
   console.log("Cookies._uid", Cookies.get("_uid"));
   return (
     <>
+      <Header />
       <Typography variant="h2">ここはユーザページです</Typography>
     </>
   );
