@@ -8,7 +8,7 @@ export const getServerSideProps: GetServerSideProps = noPossibleAuthServerSidePr
 export const User = () => {
   return (
     <>
-      <Header />
+      <Header loginStatus={true} />
       <Typography variant="h2">ここはユーザページです</Typography>
     </>
   );
