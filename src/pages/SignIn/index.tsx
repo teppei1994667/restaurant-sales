@@ -2,6 +2,10 @@ import { Header } from "@/components/Header";
 import { AuthContextProvider } from "@/context/AuthContext";
 import { Grid, Typography } from "@mui/material";
 import { SignInForm } from "./components/SignInForm";
+import { GetServerSideProps } from "next";
+import { possibleAuthServerSideProps } from "@/util/authRedirect";
+
+export const getServerSideProps: GetServerSideProps = possibleAuthServerSideProps("users");
 
 export const SignIn = () => {
   return (

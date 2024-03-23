@@ -4,6 +4,10 @@ import { SignUpForm } from "./components/SignUpForm";
 import { AuthContext, AuthContextProvider } from "@/context/AuthContext";
 import { useCallback, useContext, useEffect } from "react";
 import router from "next/router";
+import { GetServerSideProps } from "next";
+import { possibleAuthServerSideProps } from "@/util/authRedirect";
+
+export const getServerSideProps: GetServerSideProps = possibleAuthServerSideProps("users");
 
 export const SignUp = () => {
   console.log("SignUp");
