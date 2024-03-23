@@ -4,15 +4,6 @@ import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 
 export const Header = () => {
-  const { isLoading, isSignedIn, setIsSignedIn } = useContext(AuthContext);
-
-  const AuthButtons = () => {
-    // 認証完了後はサインアウト用のボタンを表示
-    // 未認証時は何も表示しない
-    if (!isLoading && isSignedIn) {
-      return <Button color="inherit">Sign out</Button>;
-    }
-  };
   return (
     <>
       <AppBar position="static">
@@ -23,7 +14,7 @@ export const Header = () => {
           <Link className="text-inherit ml-10" href="/" sx={{ flexGrow: "1" }}>
             <Typography variant="h6">Dialy Sales</Typography>
           </Link>
-          <AuthButtons />
+          <Button color="inherit">Sign out</Button>
         </Toolbar>
       </AppBar>
     </>
