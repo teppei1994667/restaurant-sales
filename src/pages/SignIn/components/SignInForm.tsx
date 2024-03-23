@@ -1,6 +1,5 @@
 import { EmailTextField } from "@/components/share/authUser/EmailTextField";
 import { PassWordTextField } from "@/components/share/authUser/PasswordTextField";
-import { AuthContext } from "@/context/AuthContext";
 import { signIn } from "@/util/auth";
 import { Button, Grid, Paper } from "@mui/material";
 import { useContext } from "react";
@@ -17,7 +16,6 @@ export type SignInForm = {
 
 export const SignInForm = () => {
   const signInForm = useForm<SignInForm>({ mode: "onSubmit", reValidateMode: "onChange" });
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
 
   const handleSignInOnClick = async () => {
     const signInParams = {
@@ -32,9 +30,6 @@ export const SignInForm = () => {
         Cookies.set("_access-token", res.headers["access-token"]);
         Cookies.set("_client", res.headers["client"]);
         Cookies.set("_uid", res.headers["uid"]);
-
-        setIsSignedIn(true);
-        setCurrentUser(res.data.data);
 
         router.push("/User");
       } else {

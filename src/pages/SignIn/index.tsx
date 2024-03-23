@@ -1,5 +1,4 @@
 import { Header } from "@/components/Header";
-import { AuthContextProvider } from "@/context/AuthContext";
 import { Grid, Typography } from "@mui/material";
 import { SignInForm } from "./components/SignInForm";
 import { GetServerSideProps } from "next";
@@ -9,7 +8,7 @@ export const getServerSideProps: GetServerSideProps = possibleAuthServerSideProp
 
 export const SignIn = () => {
   return (
-    <AuthContextProvider>
+    <>
       <Header />
       <Grid container className="justify-center mt-10">
         <Grid item>
@@ -21,7 +20,7 @@ export const SignIn = () => {
           <SignInForm />
         </Grid>
       </Grid>
-    </AuthContextProvider>
+    </>
   );
 };
 

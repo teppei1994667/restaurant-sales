@@ -6,7 +6,6 @@ import Cookies from "js-cookie";
 import { signUp } from "@/util/auth";
 import router from "next/router";
 import { useContext } from "react";
-import { AuthContext } from "@/context/AuthContext";
 import { EmailTextField } from "@/components/share/authUser/EmailTextField";
 import { PassWordTextField } from "@/components/share/authUser/PasswordTextField";
 
@@ -19,7 +18,6 @@ export type FormSignUp = {
 
 export const SignUpForm = () => {
   const signUpForm = useForm<FormSignUp>({ mode: "onSubmit", reValidateMode: "onChange" });
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
 
   // 新規登録ボタン押下時
   const handleSignUpOnClick = async () => {
@@ -38,9 +36,6 @@ export const SignUpForm = () => {
         Cookies.set("_access-token", res.headers["access-token"]);
         Cookies.set("_client", res.headers["client"]);
         Cookies.set("_uid", res.headers["uid"]);
-
-        setIsSignedIn(true);
-        setCurrentUser(res.data.data);
 
         router.push("/User");
       } else if (res.status === 401) {
