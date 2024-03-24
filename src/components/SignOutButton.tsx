@@ -23,12 +23,8 @@ export const SignOutButton = (props: SignOutButtonProps) => {
 
   return (
     <>
-      <Button
-        color="inherit"
-        onClick={handleSignOutButtonOnClick}
-        sx={{ visibility: visibility, textTransform: "none" }}
-      >
-        Sign out
+      <Button onClick={handleSignOutButtonOnClick} sx={{ visibility: visibility, color: "#666699" }}>
+        ログアウト
       </Button>
     </>
   );
