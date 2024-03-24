@@ -26,7 +26,6 @@ export const SignInForm = () => {
     try {
       const res = await signIn(signInParams);
       if (res.status === 200) {
-        console.log("ログイン成功");
         Cookies.set("_access-token", res.headers["access-token"]);
         Cookies.set("_client", res.headers["client"]);
         Cookies.set("_uid", res.headers["uid"]);

@@ -9,8 +9,6 @@ import { possibleAuthServerSideProps } from "@/util/authRedirect";
 export const getServerSideProps: GetServerSideProps = possibleAuthServerSideProps("users");
 
 export const SignUp = () => {
-  console.log("SignUp");
-
   return (
     <>
       <Header />

@@ -12,9 +12,7 @@ export const SignOutButton = (props: SignOutButtonProps) => {
   const { visibility } = props;
   const handleSignOutButtonOnClick = useCallback(async () => {
     const res = await signOut();
-    console.log("サインアウト実行 res", res);
     if (res.status === 200) {
-      console.log("サインアウト成功");
       Cookies.remove("_access-token");
       Cookies.remove("_client");
       Cookies.remove("_uid");
