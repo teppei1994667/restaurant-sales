@@ -1,28 +1,44 @@
 import { Header } from "@/components/Header";
 import { Button, Grid, Paper, Typography } from "@mui/material";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 export const Home = () => {
+  const [isLoginStatus, setIsLoginStatus] = useState(false);
+
+  useEffect(() => {
+    if (Cookies.get("_access-token") && Cookies.get("_client") && Cookies.get("_uid")) {
+      setIsLoginStatus(true);
+    }
+  }, []);
+
   return (
     <>
-      <Header />
+      <Header loginStatus={isLoginStatus} />
       <Paper elevation={0} sx={{ height: "100vh" }}>
         <Grid container className="justify-center mt-10">
           <Grid item>
-            <Typography variant="h4">売り上げ管理アプリDialySalesへようこそ</Typography>
+            <Typography className="text-gray-500" variant="h4">
+              DialySalesへようこそ
+            </Typography>
           </Grid>
         </Grid>
-        <Grid container className="justify-center mt-10">
+        <Grid container className="justify-center">
           <Grid item>
             <Link href="/SignIn">
-              <Button className="mt-20" variant="outlined" sx={{ height: "70px", width: "200px" }}>
+              <Button className="text-gray-500 mt-20" variant="text" sx={{ height: "70px", width: "200px" }}>
                 ログイン
               </Button>
             </Link>
           </Grid>
           <Grid item>
             <Link href="/SignUp">
-              <Button className="mt-20 ml-20" variant="outlined" sx={{ height: "70px", width: "200px" }}>
+              <Button
+                className="text-gray-500 mt-20 ml-20"
+                variant="text"
+                sx={{ height: "70px", width: "200px", color: "#6B7280" }}
+              >
                 新規登録
               </Button>
             </Link>
