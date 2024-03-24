@@ -35,7 +35,7 @@ export const Home = () => {
         </Grid>
         <Grid container className="justify-center">
           <Grid item>
-            <Image className="opacity-60 w-4/5 ml-8 mt-12" src={testImage} alt="テスト画像" />
+            <Image className="opacity-60 w-4/5 ml-7 mt-12" src={testImage} alt="テスト画像" />
           </Grid>
         </Grid>
         <Grid container className="justify-center mt-16">
