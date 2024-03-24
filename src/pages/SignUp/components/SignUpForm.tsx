@@ -30,7 +30,6 @@ export const SignUpForm = () => {
 
     try {
       const res = await signUp(signUpParams);
-      console.log("新規登録実行");
       if (res.status === 200) {
         // アカウント作成と同時にログインさせてしまう
         Cookies.set("_access-token", res.headers["access-token"]);
