@@ -8,7 +8,7 @@ export type HeaderProps = {
 };
 
 export const Header = (props: HeaderProps) => {
-  const { loginStatus } = props;
+  const { loginStatus = false } = props;
   console.log("Header Cookies._access-token", Cookies.get("_access-token"));
   console.log("Header Cookies._client", Cookies.get("_client"));
   console.log("Header Cookies._uid", Cookies.get("_uid"));

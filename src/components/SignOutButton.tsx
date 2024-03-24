@@ -8,6 +8,7 @@ export type SignOutButtonProps = {
 };
 
 export const SignOutButton = (props: SignOutButtonProps) => {
+  const { visibility } = props;
   const handleSignOutButtonOnClick = useCallback(async () => {
     const res = await signOut();
     console.log("サインアウト実行 res", res);
@@ -15,7 +16,7 @@ export const SignOutButton = (props: SignOutButtonProps) => {
       console.log("サインアウト成功");
       Cookies.remove("_access-token");
       Cookies.remove("_client");
-      Cookies.remove("_uid", res.headers["uid"]);
+      Cookies.remove("_uid");
     }
   }, []);
 
@@ -24,7 +25,7 @@ export const SignOutButton = (props: SignOutButtonProps) => {
       <Button
         color="inherit"
         onClick={handleSignOutButtonOnClick}
-        sx={{ visibility: props.visibility, textTransform: "none" }}
+        sx={{ visibility: visibility, textTransform: "none" }}
       >
         Sign out
       </Button>
