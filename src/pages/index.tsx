@@ -20,6 +20,9 @@ export const Home = () => {
     if (accessToken && client && uid) {
       setIsLoginStatus(true);
     }
+    if (!accessToken || !client || !uid) {
+      setIsLoginStatus(false);
+    }
   }, [accessToken, client, uid]);
 
   return (
