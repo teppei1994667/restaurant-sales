@@ -61,10 +61,22 @@ export const SignInForm = () => {
             />
           </Grid>
         </Grid>
-        <Grid container className="justify-center mt-10">
+        <Grid container className="justify-center mt-20">
           <Grid item>
-            <Button variant="outlined" disabled={false} onClick={signInForm.handleSubmit(handleSignInOnClick)}>
-              ログイン
+            <Button
+              className="text-gray-500 border-gray-500"
+              variant="outlined"
+              disabled={false}
+              onClick={signInForm.handleSubmit(handleSignInOnClick)}
+              sx={{
+                height: "70px",
+                width: "200px",
+                "&:hover": {
+                  border: "none",
+                },
+              }}
+            >
+              サインイン
             </Button>
           </Grid>
         </Grid>

@@ -12,10 +12,12 @@ export const SignIn = () => {
       <Header />
       <Grid container className="justify-center mt-10">
         <Grid item>
-          <Typography variant="h4">ログイン</Typography>
+          <Typography className="text-gray-500" variant="h4">
+            SIGN IN
+          </Typography>
         </Grid>
       </Grid>
-      <Grid container className="justify-center mt-10">
+      <Grid container className="justify-center mt-5">
         <Grid item>
           <SignInForm />
         </Grid>
