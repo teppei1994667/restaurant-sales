@@ -99,7 +99,19 @@ export const SignUpForm = () => {
         </Grid>
         <Grid container className="justify-center mt-10">
           <Grid item>
-            <Button variant="outlined" disabled={false} onClick={signUpForm.handleSubmit(handleSignUpOnClick)}>
+            <Button
+              className="text-gray-500 border-gray-500"
+              variant="outlined"
+              disabled={false}
+              onClick={signUpForm.handleSubmit(handleSignUpOnClick)}
+              sx={{
+                height: "60px",
+                width: "130px",
+                "&:hover": {
+                  border: "none",
+                },
+              }}
+            >
               登録
             </Button>
           </Grid>

@@ -14,7 +14,9 @@ export const SignUp = () => {
       <Header />
       <Grid container className="justify-center mt-10">
         <Grid item>
-          <Typography variant="h4">新規登録</Typography>
+          <Typography className="text-gray-500" variant="h4">
+            新規登録
+          </Typography>
         </Grid>
       </Grid>
       <Grid container className="justify-center mt-10">

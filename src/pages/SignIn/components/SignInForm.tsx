@@ -69,8 +69,8 @@ export const SignInForm = () => {
               disabled={false}
               onClick={signInForm.handleSubmit(handleSignInOnClick)}
               sx={{
-                height: "70px",
-                width: "200px",
+                height: "60px",
+                width: "130px",
                 "&:hover": {
                   border: "none",
                 },
