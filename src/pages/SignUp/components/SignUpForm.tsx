@@ -5,7 +5,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import { signUp } from "@/util/auth";
 import router from "next/router";
-import { useContext } from "react";
 import { EmailTextField } from "@/components/share/authUser/EmailTextField";
 import { PassWordTextField } from "@/components/share/authUser/PasswordTextField";
 
