@@ -4,7 +4,6 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { DialySalesStateContext } from "../context/DialySalesContext";
 import { SelectDialySalesContext } from "../context/SelectDialySalesContext";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
-import { convertDisplayDialySales } from "@/util/convertDisplayDialySales";
 import { convertAxios } from "@/util/convertAxios";
 import { Grid } from "@mui/material";
 
