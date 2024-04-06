@@ -13,7 +13,7 @@ export type SignInParams = {
 };
 
 // ユーザー
-export type User = {
+export type UserInfo = {
   id: number;
   uid: string;
   provider: string;

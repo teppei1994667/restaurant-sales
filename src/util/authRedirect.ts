@@ -11,6 +11,8 @@ export const noPossibleAuthServerSideProps = (url: string): GetServerSideProps =
     authHeaders.append("client", req.cookies["_client"] ? req.cookies["_client"] : "");
     authHeaders.append("access-token", req.cookies["_access-token"] ? req.cookies["_access-token"] : "");
 
+    console.log("authRedirect authHeaders", authHeaders);
+
     const response = await fetch(`${LOCAL_ADDRESS}/${url}`, {
       headers: authHeaders,
     });
