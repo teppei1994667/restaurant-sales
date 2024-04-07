@@ -25,8 +25,13 @@ export const Header = (props: HeaderProps) => {
 
   const [isDrawerOpend, setIsDrawerOpend] = useState(false);
 
+  // Drawerの開閉イベント
+  const handleDrawerOpenAndClose = () => {
+    setIsDrawerOpend((prev) => !prev);
+  };
+
   const DrawerList = (
-    <Box sx={{ width: 350 }} onClick={() => setIsDrawerOpend(false)}>
+    <Box sx={{ width: 350 }} onClick={handleDrawerOpenAndClose}>
       <List className="mt-10">
         <ListItem disablePadding>
           <ListItemButton>
@@ -44,8 +49,8 @@ export const Header = (props: HeaderProps) => {
       <AppBar elevation={1} position="static" color="transparent">
         <Toolbar>
           <IconButton edge="start">
-            <MenuIcon onClick={() => setIsDrawerOpend(true)} />
-            <Drawer anchor={"left"} open={isDrawerOpend} onClose={() => setIsDrawerOpend(false)}>
+            <MenuIcon onClick={handleDrawerOpenAndClose} />
+            <Drawer anchor={"left"} open={isDrawerOpend} onClose={handleDrawerOpenAndClose}>
               {DrawerList}
             </Drawer>
           </IconButton>
