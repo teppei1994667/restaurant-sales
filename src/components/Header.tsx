@@ -48,12 +48,15 @@ export const Header = (props: HeaderProps) => {
     <>
       <AppBar elevation={1} position="static" color="transparent">
         <Toolbar>
-          <IconButton edge="start">
-            <MenuIcon onClick={handleDrawerOpenAndClose} />
-            <Drawer anchor={"left"} open={isDrawerOpend} onClose={handleDrawerOpenAndClose}>
-              {DrawerList}
-            </Drawer>
-          </IconButton>
+          {loginStatus && (
+            <IconButton edge="start">
+              <MenuIcon onClick={handleDrawerOpenAndClose} />
+              <Drawer anchor={"left"} open={isDrawerOpend} onClose={handleDrawerOpenAndClose}>
+                {DrawerList}
+              </Drawer>
+            </IconButton>
+          )}
+
           <Link className="no-underline ml-10" href="/" sx={{ flexGrow: "1" }}>
             <Typography className="text-gray-500" variant="h6">
               Dialy Sales
