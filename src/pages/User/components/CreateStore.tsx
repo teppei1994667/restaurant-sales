@@ -11,7 +11,7 @@ export const CreateStoreDialog = () => {
   const form = useForm<createStoreForm>({ mode: "onSubmit", reValidateMode: "onChange" });
 
   // 閉じるボタン押下
-  const handleTojiruOnClick = useCallback(() => {
+  const handleCloseOnClick = useCallback(() => {
     setIsCreateStoreDialogOpen(false);
   }, []);
 
@@ -19,11 +19,17 @@ export const CreateStoreDialog = () => {
     <FormProvider {...form}>
       <Dialog open={isCreateStoreDialogOpen} fullWidth maxWidth="md">
         <DialogTitle>
-          <Grid container className="justify-center">
-            <Grid item>
+          <Grid container>
+            <Grid item sx={{ width: "25%" }}></Grid>
+            <Grid item sx={{ width: "50%", textAlign: "center" }}>
               <Typography variant="h5" className="text-gray-500">
                 新規店舗登録
               </Typography>
+            </Grid>
+            <Grid item sx={{ width: "25%" }}>
+              <Button variant="text" className="text-gray-500" onClick={handleCloseOnClick} sx={{ float: "right" }}>
+                ×
+              </Button>
             </Grid>
           </Grid>
         </DialogTitle>
@@ -33,7 +39,7 @@ export const CreateStoreDialog = () => {
               <ControlledTextField
                 rules={{ required: { value: true, message: "必須入力です" } }}
                 name="name"
-                label="ユーザー名"
+                label="店舗名"
                 fullWidth
                 helperText={form.formState.errors.name?.message}
               />
@@ -87,11 +93,6 @@ export const CreateStoreDialog = () => {
             <Grid item className="mt-8">
               <Button className="text-gray-500" variant="text">
                 保存
-              </Button>
-            </Grid>
-            <Grid item className="mt-8 ml-8">
-              <Button className="text-gray-500" variant="text" onClick={handleTojiruOnClick}>
-                閉じる
               </Button>
             </Grid>
           </Grid>

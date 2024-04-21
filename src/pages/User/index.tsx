@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { noPossibleAuthServerSideProps } from "@/util/authRedirect";
 import { Button, Grid, Link, Typography } from "@mui/material";
 import { GetServerSideProps } from "next";
+import { CreateStoreDialog } from "./components/CreateStore";
 
 export const getServerSideProps: GetServerSideProps = noPossibleAuthServerSideProps("users");
 
@@ -35,6 +36,7 @@ export const User = (props: GetServerSideProps) => {
           </Link>
         </Grid>
       </Grid>
+      <CreateStoreDialog />
     </>
   );
 };
