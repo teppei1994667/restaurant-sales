@@ -2,22 +2,28 @@ import { ControlledNumberTextField } from "@/components/share/form/ControlledNum
 import { ControlledTextField } from "@/components/share/form/ControlledTextField";
 import { createStoreForm } from "@/type/Store";
 import { Button, Dialog, DialogContent, DialogTitle, Grid, Typography } from "@mui/material";
-import { useCallback, useState } from "react";
+import { useCallback, useContext } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { UserContext, UserDispatch } from "../context/UserContextProvider";
+import { UserContexActionType } from "../context/UserContextReducer";
 
 export const CreateStoreDialog = () => {
-  const [isCreateStoreDialogOpen, setIsCreateStoreDialogOpen] = useState(true);
-
   const form = useForm<createStoreForm>({ mode: "onSubmit", reValidateMode: "onChange" });
+
+  const userContext = useContext(UserContext);
+  const userDispatch = useContext(UserDispatch);
 
   // 閉じるボタン押下
   const handleCloseOnClick = useCallback(() => {
-    setIsCreateStoreDialogOpen(false);
-  }, []);
+    userDispatch({
+      type: UserContexActionType.UPDATE_CREATE_STORE_OPEN,
+      payload: { isCreateStoreOpen: false },
+    });
+  }, [userDispatch]);
 
   return (
     <FormProvider {...form}>
-      <Dialog open={isCreateStoreDialogOpen} fullWidth maxWidth="md">
+      <Dialog open={userContext.isCreateStoreOpen} fullWidth maxWidth="md">
         <DialogTitle>
           <Grid container>
             <Grid item sx={{ width: "25%" }}></Grid>

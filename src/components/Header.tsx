@@ -14,7 +14,9 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import Cookies from "js-cookie";
 import { SignOutButton } from "./SignOutButton";
-import { useState } from "react";
+import { useCallback, useContext, useState } from "react";
+import { UserContext, UserDispatch } from "@/pages/User/context/UserContextProvider";
+import { UserContexActionType } from "@/pages/User/context/UserContextReducer";
 
 export type HeaderProps = {
   loginStatus?: boolean;
@@ -24,26 +26,34 @@ export const Header = (props: HeaderProps) => {
   const { loginStatus = false } = props;
 
   const [isDrawerOpend, setIsDrawerOpend] = useState(false);
+  const userContext = useContext(UserContext);
+  const userDispatch = useContext(UserDispatch);
 
   // Drawerの開閉イベント
   const handleDrawerOpenAndClose = () => {
     setIsDrawerOpend((prev) => !prev);
   };
 
+  // 「新規ショップ作成」押下時
+  const handleListItemCreateStoreOnClick = useCallback(() => {
+    userDispatch({
+      type: UserContexActionType.UPDATE_CREATE_STORE_OPEN,
+      payload: { isCreateStoreOpen: true },
+    });
+  }, [userDispatch]);
+
   const DrawerList = (
     <Box sx={{ width: 350 }} onClick={handleDrawerOpenAndClose}>
       <List className="mt-10">
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={handleListItemCreateStoreOnClick}>
             <ListItemText className="text-center text-gray-500" primary="新規ショップ作成" />
           </ListItemButton>
         </ListItem>
       </List>
     </Box>
   );
-  console.log("Header Cookies._access-token", Cookies.get("_access-token"));
-  console.log("Header Cookies._client", Cookies.get("_client"));
-  console.log("Header Cookies._uid", Cookies.get("_uid"));
+
   return (
     <>
       <AppBar elevation={1} position="static" color="transparent">

@@ -3,6 +3,7 @@ import { noPossibleAuthServerSideProps } from "@/util/authRedirect";
 import { Button, Grid, Link, Typography } from "@mui/material";
 import { GetServerSideProps } from "next";
 import { CreateStoreDialog } from "./components/CreateStore";
+import { UserContextProvider } from "./context/UserContextProvider";
 
 export const getServerSideProps: GetServerSideProps = noPossibleAuthServerSideProps("users");
 
@@ -12,31 +13,33 @@ export const User = (props: GetServerSideProps) => {
 
   return (
     <>
-      <Header loginStatus={true} />
-      <Grid container className="justify-center mt-10">
-        <Grid item>
-          <Typography className="text-gray-500" variant="h4">
-            {name}
-          </Typography>
+      <UserContextProvider>
+        <Header loginStatus={true} />
+        <Grid container className="justify-center mt-10">
+          <Grid item>
+            <Typography className="text-gray-500" variant="h4">
+              {name}
+            </Typography>
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid container className="justify-center mt-10">
-        <Grid item>
-          <Typography className="text-gray-500" variant="h6">
-            管理店舗一覧
-          </Typography>
+        <Grid container className="justify-center mt-10">
+          <Grid item>
+            <Typography className="text-gray-500" variant="h6">
+              管理店舗一覧
+            </Typography>
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid container className="justify-center mt-16">
-        <Grid item>
-          <Link href="/AddDialySale">
-            <Button className="text-gray-500" variant="text" sx={{ height: "70px", width: "200px" }}>
-              なお家
-            </Button>
-          </Link>
+        <Grid container className="justify-center mt-16">
+          <Grid item>
+            <Link href="/AddDialySale">
+              <Button className="text-gray-500" variant="text" sx={{ height: "70px", width: "200px" }}>
+                なお家
+              </Button>
+            </Link>
+          </Grid>
         </Grid>
-      </Grid>
-      <CreateStoreDialog />
+        <CreateStoreDialog />
+      </UserContextProvider>
     </>
   );
 };
