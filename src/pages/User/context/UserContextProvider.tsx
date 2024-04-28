@@ -1,6 +1,5 @@
 import { ReactNode, createContext, useReducer } from "react";
-import { defaultUserContextReducer, useUserContextReducer, userContextReducer } from "./UserContextReducer";
-import { UserContextInfoInitialState } from "./UserContextInfo";
+import { defaultUserContextReducer, useUserContextReducer } from "./UserContextReducer";
 
 const { state, dispatch } = defaultUserContextReducer;
 export const UserContext = createContext(state);

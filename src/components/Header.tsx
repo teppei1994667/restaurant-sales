@@ -26,7 +26,6 @@ export const Header = (props: HeaderProps) => {
   const { loginStatus = false } = props;
 
   const [isDrawerOpend, setIsDrawerOpend] = useState(false);
-  const userContext = useContext(UserContext);
   const userDispatch = useContext(UserDispatch);
 
   // Drawerの開閉イベント
