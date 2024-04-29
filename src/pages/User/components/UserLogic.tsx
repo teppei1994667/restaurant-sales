@@ -1,21 +1,21 @@
 import { useContext, useEffect } from "react";
 import { UserContext, UserDispatch } from "../context/UserContextProvider";
 import { UserContexActionType } from "../context/UserContextReducer";
-import { GetServerSideProps } from "next";
 import { LoginUserModel } from "../type/model/LoginUserModel";
-import { Button, Grid, Link, Typography } from "@mui/material";
 import { UserView } from "./UserView";
 
-export type UserProps = { LoginUserModel: LoginUserModel };
+export type UserProps = { LoginUserModel: LoginUserModel; storeNames?: string[] };
 
 export const UserLogic = (props: UserProps) => {
+  console.log("UserLogic", props.storeNames);
+  const { LoginUserModel, storeNames } = props;
   const userContext = useContext(UserContext);
   const userDispatch = useContext(UserDispatch);
 
   useEffect(() => {
     userDispatch({
-      type: UserContexActionType.SAVE_LOGIN_USER_MODEL,
-      payload: { loginUserModel: props.LoginUserModel },
+      type: UserContexActionType.SAVE_USER_INFORMATION,
+      payload: { loginUserModel: LoginUserModel, storeNames: storeNames ? storeNames : [] },
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

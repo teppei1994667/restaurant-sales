@@ -19,25 +19,35 @@ export type StoreModel = {
 
 export type UserProps = {
   user: LoginUserModel;
-  store: StoreModel;
+  stores?: StoreModel[];
 };
 
 export const getServerSideProps: GetServerSideProps = authenticationPossibleServerSideProps("users");
 
 export const User = (props: GetServerSideProps & UserProps) => {
-  console.log("Userページ", props);
+  console.log("Userページ", props.stores);
 
+  const { user, stores = [] } = props;
+
+  // userページ内で使用するユーザー情報
   const LoginUserModel: LoginUserModel = {
-    id: props.user.id,
-    name: props.user.name,
-    email: props.user.email,
+    id: user.id,
+    name: user.name,
+    email: user.email,
   };
+
+  // userページ内で使用するstore情報
+  const storeNames = stores.map((store) => {
+    return store.name;
+  });
+
+  console.log(storeNames);
 
   return (
     <>
       <UserContextProvider>
         <Header loginStatus={true} />
-        <UserLogic LoginUserModel={LoginUserModel} />
+        <UserLogic LoginUserModel={LoginUserModel} storeNames={storeNames} />
         <CreateStoreDialog />
       </UserContextProvider>
     </>

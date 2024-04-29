@@ -3,14 +3,14 @@ import { UserContextInfo, userContextInfoInitialState } from "./UserContextInfo"
 import { LoginUserModel } from "../type/model/LoginUserModel";
 
 export enum UserContexActionType {
-  SAVE_LOGIN_USER_MODEL = "SAVE_LOGINUSERMODEL",
+  SAVE_USER_INFORMATION = "SAVE_USER_INFORMATION",
   UPDATE_CREATE_STORE_OPEN = "UPDATE_CREATE_STORE_OPEN",
 }
 
 export type UserContextAction =
   | {
-      type: UserContexActionType.SAVE_LOGIN_USER_MODEL;
-      payload: { loginUserModel?: LoginUserModel };
+      type: UserContexActionType.SAVE_USER_INFORMATION;
+      payload: { loginUserModel?: LoginUserModel; storeNames: string[] };
     }
   | {
       type: UserContexActionType.UPDATE_CREATE_STORE_OPEN;
@@ -19,10 +19,11 @@ export type UserContextAction =
 
 export const userContextReducer: Reducer<UserContextInfo, UserContextAction> = (state, action) => {
   switch (action.type) {
-    case UserContexActionType.SAVE_LOGIN_USER_MODEL:
+    case UserContexActionType.SAVE_USER_INFORMATION:
       const updateLoginUserModelState: UserContextInfo = {
         ...state,
         LoginUserModel: action.payload.loginUserModel ?? state.LoginUserModel,
+        storeNames: action.payload.storeNames,
       };
       return updateLoginUserModelState;
     case UserContexActionType.UPDATE_CREATE_STORE_OPEN:
@@ -41,6 +42,6 @@ export const useUserContextReducer = () => {
 };
 
 export const defaultUserContextReducer: ReturnType<typeof useUserContextReducer> = {
-  state: { isCreateStoreOpen: false },
+  state: { isCreateStoreOpen: false, storeNames: [] },
   dispatch: () => {},
 };
