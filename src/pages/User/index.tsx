@@ -4,7 +4,7 @@ import { GetServerSideProps } from "next";
 import { CreateStoreDialog } from "./components/CreateStore";
 import { UserContextProvider } from "./context/UserContextProvider";
 
-import { LoginUserModel } from "./const/LoginUserModel";
+import { LoginUserModel } from "./type/model/LoginUserModel";
 import { UserLogic } from "./components/UserLogic";
 
 export const getServerSideProps: GetServerSideProps = noPossibleAuthServerSideProps("users");

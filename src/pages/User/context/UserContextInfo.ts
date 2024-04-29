@@ -1,4 +1,4 @@
-import { LoginUserModel } from "../const/LoginUserModel";
+import { LoginUserModel } from "../type/model/LoginUserModel";
 
 export type UserContextInfo = {
   LoginUserModel?: LoginUserModel;

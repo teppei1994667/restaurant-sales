@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { UserContext, UserDispatch } from "../context/UserContextProvider";
 import { UserContexActionType } from "../context/UserContextReducer";
 import { GetServerSideProps } from "next";
-import { LoginUserModel } from "../const/LoginUserModel";
+import { LoginUserModel } from "../type/model/LoginUserModel";
 import { Button, Grid, Link, Typography } from "@mui/material";
 import { UserView } from "./UserView";
 

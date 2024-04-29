@@ -1,6 +1,6 @@
 import { Reducer, useReducer } from "react";
 import { UserContextInfo, userContextInfoInitialState } from "./UserContextInfo";
-import { LoginUserModel } from "../const/LoginUserModel";
+import { LoginUserModel } from "../type/model/LoginUserModel";
 
 export enum UserContexActionType {
   SAVE_LOGIN_USER_MODEL = "SAVE_LOGINUSERMODEL",
