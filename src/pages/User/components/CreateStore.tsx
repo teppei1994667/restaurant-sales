@@ -6,6 +6,7 @@ import { useCallback, useContext } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { UserContext, UserDispatch } from "../context/UserContextProvider";
 import { UserContexActionType } from "../context/UserContextReducer";
+import { storeAxios } from "@/util/convertAxios";
 
 export const CreateStoreDialog = () => {
   const form = useForm<createStoreForm>({ mode: "onSubmit", reValidateMode: "onChange" });
@@ -20,6 +21,37 @@ export const CreateStoreDialog = () => {
       payload: { isCreateStoreOpen: false },
     });
   }, [userDispatch]);
+
+  // 保存ボタン 押下
+  const handleHozonOnClick = useCallback(async () => {
+    const createStoreParams = {
+      userId: userContext.LoginUserModel?.id,
+      name: form.getValues("name"),
+      address: form.getValues("address"),
+      phoneNumber: form.getValues("phoneNumber"),
+      floorSpace: form.getValues("floorSpace"),
+      seatingCapacity: form.getValues("seatingCapacity"),
+    };
+    console.log("handleHozonOnClick.createStoreParams", createStoreParams);
+    try {
+      // apiを呼び出してstoreを作成する
+      await storeAxios.post("/", createStoreParams);
+
+      // form内入力値の削除
+      form.reset();
+
+      // ダイアログを閉じる
+      userDispatch({
+        type: UserContexActionType.UPDATE_CREATE_STORE_OPEN,
+        payload: { isCreateStoreOpen: false },
+      });
+
+      //storeの作成に成功したら画面を更新する
+      window.location.reload();
+    } catch (error) {
+      alert(error);
+    }
+  }, [form, userContext.LoginUserModel?.id, userDispatch]);
 
   return (
     <FormProvider {...form}>
@@ -97,7 +129,7 @@ export const CreateStoreDialog = () => {
           </Grid>
           <Grid container className="justify-center mb-8">
             <Grid item className="mt-8">
-              <Button className="text-gray-500" variant="text">
+              <Button className="text-gray-500" variant="text" onClick={form.handleSubmit(handleHozonOnClick)}>
                 保存
               </Button>
             </Grid>

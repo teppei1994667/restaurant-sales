@@ -1,4 +1,4 @@
-import { LOCAL_AUTHUSER_ADDRESS, LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
+import { LOCAL_AUTHUSER_ADDRESS, LOCAL_DIALYSALES_ADDRESS, LOCAL_STORES_ASRESS } from "@/constants/serverAdress";
 import axios from "axios";
 import applyCaseMiddleware from "axios-case-converter";
 
@@ -19,6 +19,13 @@ export const convertAxios = applyCaseMiddleware(
 export const authUserAxios = applyCaseMiddleware(
   axios.create({
     baseURL: LOCAL_AUTHUSER_ADDRESS,
+  }),
+  options
+);
+
+export const storeAxios = applyCaseMiddleware(
+  axios.create({
+    baseURL: LOCAL_STORES_ASRESS,
   }),
   options
 );
