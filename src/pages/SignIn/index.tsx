@@ -2,9 +2,9 @@ import { Header } from "@/components/Header";
 import { Grid, Typography } from "@mui/material";
 import { SignInForm } from "./components/SignInForm";
 import { GetServerSideProps } from "next";
-import { possibleAuthServerSideProps } from "@/util/authRedirect";
+import { authenticationNotPossibleServerSideProps } from "@/util/authRedirect";
 
-export const getServerSideProps: GetServerSideProps = possibleAuthServerSideProps("users");
+export const getServerSideProps: GetServerSideProps = authenticationNotPossibleServerSideProps("users");
 
 export const SignIn = () => {
   return (

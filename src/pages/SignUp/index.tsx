@@ -1,12 +1,10 @@
 import { Header } from "@/components/Header";
 import { Grid, Typography } from "@mui/material";
 import { SignUpForm } from "./components/SignUpForm";
-import { useCallback, useContext, useEffect } from "react";
-import router from "next/router";
 import { GetServerSideProps } from "next";
-import { possibleAuthServerSideProps } from "@/util/authRedirect";
+import { authenticationNotPossibleServerSideProps } from "@/util/authRedirect";
 
-export const getServerSideProps: GetServerSideProps = possibleAuthServerSideProps("users");
+export const getServerSideProps: GetServerSideProps = authenticationNotPossibleServerSideProps("users");
 
 export const SignUp = () => {
   return (

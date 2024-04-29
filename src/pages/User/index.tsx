@@ -1,5 +1,5 @@
 import { Header } from "@/components/Header";
-import { noPossibleAuthServerSideProps } from "@/util/authRedirect";
+import { authenticationPossibleServerSideProps } from "@/util/authRedirect";
 import { GetServerSideProps } from "next";
 import { CreateStoreDialog } from "./components/CreateStore";
 import { UserContextProvider } from "./context/UserContextProvider";
@@ -7,15 +7,30 @@ import { UserContextProvider } from "./context/UserContextProvider";
 import { LoginUserModel } from "./type/model/LoginUserModel";
 import { UserLogic } from "./components/UserLogic";
 
-export const getServerSideProps: GetServerSideProps = noPossibleAuthServerSideProps("users");
+// TODO: storeページ作成後にstore/type/storeModelに移動
+export type StoreModel = {
+  userId: number;
+  name: string;
+  adress: string;
+  phoneNumber: string;
+  floorSpace: number;
+  seatingCapacity: number;
+};
 
-export const User = (props: GetServerSideProps & LoginUserModel) => {
-  console.log("Userページ");
+export type UserProps = {
+  user: LoginUserModel;
+  store: StoreModel;
+};
+
+export const getServerSideProps: GetServerSideProps = authenticationPossibleServerSideProps("users");
+
+export const User = (props: GetServerSideProps & UserProps) => {
+  console.log("Userページ", props);
 
   const LoginUserModel: LoginUserModel = {
-    id: props.id,
-    name: props.name,
-    email: props.email,
+    id: props.user.id,
+    name: props.user.name,
+    email: props.user.email,
   };
 
   return (
