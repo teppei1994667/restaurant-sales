@@ -1,4 +1,9 @@
-import { LOCAL_AUTHUSER_ADDRESS, LOCAL_DIALYSALES_ADDRESS, LOCAL_STORES_ASRESS } from "@/constants/serverAdress";
+import {
+  LOCAL_ADDRESS,
+  LOCAL_AUTHUSER_ADDRESS,
+  LOCAL_DIALYSALES_ADDRESS,
+  LOCAL_STORES_ASRESS,
+} from "@/constants/serverAdress";
 import axios from "axios";
 import applyCaseMiddleware from "axios-case-converter";
 
@@ -7,8 +12,15 @@ const options = {
   ignoreHeaders: true,
 };
 
-//axiosによるサーバー通信時のスネークケース、キャメルケースの変換を自動化する
 export const convertAxios = applyCaseMiddleware(
+  axios.create({
+    baseURL: LOCAL_ADDRESS,
+  }),
+  options
+);
+
+//axiosによるサーバー通信時のスネークケース、キャメルケースの変換を自動化する
+export const dialySaleAxios = applyCaseMiddleware(
   axios.create({
     baseURL: LOCAL_DIALYSALES_ADDRESS,
   }),
