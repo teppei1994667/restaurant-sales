@@ -23,7 +23,7 @@ export const UserView = () => {
         </Grid>
       </Grid>
       {userContext.storeNames.map((storeName, index) => (
-        <Grid container className="justify-center mt-10" key={index}>
+        <Grid container className="justify-center mt-5" key={index}>
           <Grid item>
             <Link href="/AddDialySale">
               <Button className="text-gray-500" variant="text" sx={{ height: "70px", width: "200px" }}>
