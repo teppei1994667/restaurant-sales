@@ -25,8 +25,7 @@ export type UserProps = {
 export const getServerSideProps: GetServerSideProps = authenticationPossibleServerSideProps("users");
 
 export const User = (props: GetServerSideProps & UserProps) => {
-  console.log("Userページ", props.stores);
-
+  console.log("User props", props);
   const { user, stores = [] } = props;
 
   // userページ内で使用するユーザー情報
@@ -40,8 +39,6 @@ export const User = (props: GetServerSideProps & UserProps) => {
   const storeNames = stores.map((store) => {
     return store.name;
   });
-
-  console.log(storeNames);
 
   return (
     <>

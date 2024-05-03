@@ -32,7 +32,6 @@ export const CreateStoreDialog = () => {
       floorSpace: form.getValues("floorSpace"),
       seatingCapacity: form.getValues("seatingCapacity"),
     };
-    console.log("handleHozonOnClick.createStoreParams", createStoreParams);
     try {
       // apiを呼び出してstoreを作成する
       await storeAxios.post("/", createStoreParams);

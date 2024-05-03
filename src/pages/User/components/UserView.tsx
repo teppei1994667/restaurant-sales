@@ -4,8 +4,6 @@ import { UserContext } from "../context/UserContextProvider";
 
 export const UserView = () => {
   const userContext = useContext(UserContext);
-
-  console.log("UserView", userContext.storeNames);
   return (
     <>
       <Grid container className="justify-center mt-10">
