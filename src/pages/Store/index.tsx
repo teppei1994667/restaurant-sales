@@ -1,6 +1,6 @@
 import { Button, Grid, Link, Paper, Typography } from "@mui/material";
 
-export const Shop = () => {
+export const Store = () => {
   return (
     <Paper elevation={0} sx={{ height: "100vh" }}>
       <Grid container className="justify-center">
@@ -23,4 +23,4 @@ export const Shop = () => {
   );
 };
 
-export default Shop;
+export default Store;
