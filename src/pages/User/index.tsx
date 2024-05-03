@@ -6,16 +6,7 @@ import { UserContextProvider } from "./context/UserContextProvider";
 
 import { LoginUserModel } from "./type/model/LoginUserModel";
 import { UserLogic } from "./components/UserLogic";
-
-// TODO: storeページ作成後にstore/type/storeModelに移動
-export type StoreModel = {
-  userId: number;
-  name: string;
-  adress: string;
-  phoneNumber: string;
-  floorSpace: number;
-  seatingCapacity: number;
-};
+import { StoreModel } from "../Store/type/model/StoreModel";
 
 export type UserProps = {
   user: LoginUserModel;
