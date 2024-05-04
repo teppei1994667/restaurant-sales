@@ -20,12 +20,12 @@ export const UserView = () => {
           </Typography>
         </Grid>
       </Grid>
-      {userContext.storeNames.map((storeName, index) => (
+      {userContext.StoreModels.map((storeModel, index) => (
         <Grid container className="justify-center mt-5" key={index}>
           <Grid item>
             <Link href="/Store">
               <Button className="text-gray-500" variant="text" sx={{ height: "70px", width: "200px" }}>
-                {storeName}
+                {storeModel.name}
               </Button>
             </Link>
           </Grid>

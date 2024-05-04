@@ -27,15 +27,15 @@ export const User = (props: GetServerSideProps & UserProps) => {
   };
 
   // userページ内で使用するstore情報
-  const storeNames = stores.map((store) => {
-    return store.name;
-  });
+  // const store = stores.map((store) => {
+  //   return store.name;
+  // });
 
   return (
     <>
       <UserContextProvider>
         <Header loginStatus={true} />
-        <UserLogic LoginUserModel={LoginUserModel} storeNames={storeNames} />
+        <UserLogic LoginUserModel={LoginUserModel} StoreModels={stores} />
         <CreateStoreDialog />
       </UserContextProvider>
     </>
