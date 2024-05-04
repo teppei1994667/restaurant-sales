@@ -1,9 +1,9 @@
-import { LoginUserModel } from "@/pages/User/type/model/LoginUserModel";
+import { UserModel } from "@/pages/User/type/model/UserModel";
 import { StoreView } from "./StoreView";
 import { StoreModel } from "../type/model/StoreModel";
 
 export type StoreLogicProps = {
-  user: LoginUserModel;
+  user: UserModel;
   store?: StoreModel;
 };
 

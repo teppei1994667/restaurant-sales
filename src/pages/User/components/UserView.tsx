@@ -10,7 +10,7 @@ export const UserView = () => {
       <Grid container className="justify-center mt-10">
         <Grid item>
           <Typography className="text-gray-500" variant="h4">
-            {userContext.LoginUserModel?.name}
+            {userContext.UserModel?.name}
           </Typography>
         </Grid>
       </Grid>

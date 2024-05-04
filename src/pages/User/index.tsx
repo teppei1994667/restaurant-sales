@@ -4,12 +4,12 @@ import { GetServerSideProps } from "next";
 import { CreateStoreDialog } from "./components/CreateStore";
 import { UserContextProvider } from "./context/UserContextProvider";
 
-import { LoginUserModel } from "./type/model/LoginUserModel";
+import { UserModel } from "./type/model/UserModel";
 import { UserLogic } from "./components/UserLogic";
 import { StoreModel } from "../Store/type/model/StoreModel";
 
 export type UserProps = {
-  user: LoginUserModel;
+  user: UserModel;
   stores?: StoreModel[];
 };
 
@@ -20,7 +20,7 @@ export const User = (props: GetServerSideProps & UserProps) => {
   const { user, stores = [] } = props;
 
   // userページ内で使用するユーザー情報
-  const LoginUserModel: LoginUserModel = {
+  const UserModel: UserModel = {
     id: user.id,
     name: user.name,
     email: user.email,
@@ -35,7 +35,7 @@ export const User = (props: GetServerSideProps & UserProps) => {
     <>
       <UserContextProvider>
         <Header loginStatus={true} />
-        <UserLogic LoginUserModel={LoginUserModel} StoreModels={stores} />
+        <UserLogic UserModel={UserModel} StoreModels={stores} />
         <CreateStoreDialog />
       </UserContextProvider>
     </>

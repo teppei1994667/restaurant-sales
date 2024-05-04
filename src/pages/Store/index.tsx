@@ -3,11 +3,11 @@ import { StoreLogic } from "./components/StoreLogic";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import { authenticationPossibleServerSideProps } from "@/util/authRedirect";
-import { LoginUserModel } from "../User/type/model/LoginUserModel";
+import { UserModel } from "../User/type/model/UserModel";
 import { StoreModel } from "./type/model/StoreModel";
 
 export type StoreProps = {
-  user: LoginUserModel;
+  user: UserModel;
   stores?: StoreModel[];
 };
 

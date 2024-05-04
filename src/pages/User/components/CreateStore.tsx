@@ -25,7 +25,7 @@ export const CreateStoreDialog = () => {
   // 保存ボタン 押下
   const handleHozonOnClick = useCallback(async () => {
     const createStoreParams = {
-      userId: userContext.LoginUserModel?.id,
+      userId: userContext.UserModel?.id,
       name: form.getValues("name"),
       address: form.getValues("address"),
       phoneNumber: form.getValues("phoneNumber"),
@@ -50,7 +50,7 @@ export const CreateStoreDialog = () => {
     } catch (error) {
       alert(error);
     }
-  }, [form, userContext.LoginUserModel?.id, userDispatch]);
+  }, [form, userContext.UserModel?.id, userDispatch]);
 
   return (
     <FormProvider {...form}>

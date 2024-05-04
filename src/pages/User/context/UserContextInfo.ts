@@ -1,8 +1,8 @@
 import { StoreModel } from "@/pages/Store/type/model/StoreModel";
-import { LoginUserModel } from "../type/model/LoginUserModel";
+import { UserModel } from "../type/model/UserModel";
 
 export type UserContextInfo = {
-  LoginUserModel?: LoginUserModel;
+  UserModel?: UserModel;
   StoreModels: StoreModel[];
   isCreateStoreOpen: boolean;
 };
