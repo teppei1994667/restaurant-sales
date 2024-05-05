@@ -18,14 +18,12 @@ export const Store = (props: GetServerSideProps & StoreProps) => {
 
   const router = useRouter();
 
-  const store: StoreModel | undefined = stores?.find((store) => {
-    store.id === router.query.id;
-  });
+  const storeModel: StoreModel | undefined = stores?.find((store) => store.id === Number(router.query.id));
 
   return (
     <>
       <Header loginStatus={true} />
-      <StoreLogic user={user} store={store} />
+      <StoreLogic userModel={user} storeModel={storeModel} />
     </>
   );
 };

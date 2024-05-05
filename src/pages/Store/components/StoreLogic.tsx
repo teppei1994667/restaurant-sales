@@ -3,11 +3,13 @@ import { StoreView } from "./StoreView";
 import { StoreModel } from "../type/model/StoreModel";
 
 export type StoreLogicProps = {
-  user: UserModel;
-  store?: StoreModel;
+  userModel: UserModel;
+  storeModel?: StoreModel;
 };
 
-export const StoreLogic = (prop: StoreLogicProps) => {
+export const StoreLogic = (props: StoreLogicProps) => {
+  const { userModel, storeModel } = props;
+  console.log("StoreLogic", props);
   return (
     <>
       <StoreView />

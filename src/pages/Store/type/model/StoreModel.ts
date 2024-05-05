@@ -1,5 +1,5 @@
 export type StoreModel = {
-  id: string;
+  id: number;
   userId: number;
   name: string;
   adress: string;
