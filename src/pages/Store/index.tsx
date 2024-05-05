@@ -5,6 +5,7 @@ import { GetServerSideProps } from "next";
 import { authenticationPossibleServerSideProps } from "@/util/authRedirect";
 import { UserModel } from "../User/type/model/UserModel";
 import { StoreModel } from "./type/model/StoreModel";
+import { StoreContextProvider } from "./context/StoreContextProvider";
 
 export type StoreProps = {
   user: UserModel;
@@ -22,8 +23,10 @@ export const Store = (props: GetServerSideProps & StoreProps) => {
 
   return (
     <>
-      <Header loginStatus={true} />
-      <StoreLogic userModel={user} storeModel={storeModel} />
+      <StoreContextProvider>
+        <Header loginStatus={true} />
+        <StoreLogic userModel={user} storeModel={storeModel} />
+      </StoreContextProvider>
     </>
   );
 };

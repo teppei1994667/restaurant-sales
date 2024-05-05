@@ -9,7 +9,7 @@ export enum StoreContexActionType {
 
 export type StoreContextAction = {
   type: StoreContexActionType.SAVE_STORE_INFORMATION;
-  payload: { userModel?: UserModel; storeModel: StoreModel };
+  payload: { userModel?: UserModel; storeModel?: StoreModel };
 };
 
 export const storeContextReducer: Reducer<StoreContextInfo, StoreContextAction> = (state, action) => {

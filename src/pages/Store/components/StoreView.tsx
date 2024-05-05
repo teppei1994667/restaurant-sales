@@ -1,12 +1,16 @@
 import { Button, Grid, Link, Typography } from "@mui/material";
+import { useContext } from "react";
+import { StoreContext } from "../context/StoreContextProvider";
 
 export const StoreView = () => {
+  const storeContext = useContext(StoreContext);
+  console.log("UserView storeContext", storeContext);
   return (
     <>
       <Grid container className="justify-center mt-10">
         <Grid item>
           <Typography className="text-gray-500" variant="h4">
-            店舗名
+            {storeContext.StoreModel?.name}
           </Typography>
         </Grid>
       </Grid>
