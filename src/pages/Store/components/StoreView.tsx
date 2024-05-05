@@ -4,7 +4,7 @@ import { StoreContext } from "../context/StoreContextProvider";
 
 export const StoreView = () => {
   const storeContext = useContext(StoreContext);
-  console.log("UserView storeContext", storeContext);
+  console.log("StoreView storeContext", storeContext);
   return (
     <>
       <Grid container className="justify-center mt-10">

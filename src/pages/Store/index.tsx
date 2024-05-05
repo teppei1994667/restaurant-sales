@@ -24,7 +24,7 @@ export const Store = (props: GetServerSideProps & StoreProps) => {
   return (
     <>
       <StoreContextProvider>
-        <Header loginStatus={true} />
+        <Header loginStatus={true} callerPage="store" />
         <StoreLogic userModel={user} storeModel={storeModel} />
       </StoreContextProvider>
     </>

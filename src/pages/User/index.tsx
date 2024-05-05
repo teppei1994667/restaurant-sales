@@ -34,7 +34,7 @@ export const User = (props: GetServerSideProps & UserProps) => {
   return (
     <>
       <UserContextProvider>
-        <Header loginStatus={true} />
+        <Header loginStatus={true} callerPage="user" />
         <UserLogic UserModel={UserModel} StoreModels={stores} />
         <CreateStoreDialog />
       </UserContextProvider>
