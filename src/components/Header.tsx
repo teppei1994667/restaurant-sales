@@ -13,9 +13,11 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { SignOutButton } from "./SignOutButton";
-import { useCallback, useContext, useEffect, useState } from "react";
-import { UserContext, UserDispatch } from "@/pages/User/context/UserContextProvider";
+import { ReactNode, useCallback, useContext, useEffect, useState } from "react";
+import { UserDispatch } from "@/pages/User/context/UserContextProvider";
 import { UserContexActionType } from "@/pages/User/context/UserContextReducer";
+import { StoreContext } from "@/pages/Store/context/StoreContextProvider";
+import { useRouter } from "next/router";
 
 export type HeaderProps = {
   loginStatus?: boolean;
@@ -26,8 +28,12 @@ export const Header = (props: HeaderProps) => {
   const { loginStatus = false, callerPage } = props;
 
   const [isDrawerOpend, setIsDrawerOpend] = useState(false);
-  const [drawerList, setDrawerList] = useState<JSX.Element>();
+  const [drawerList, setDrawerList] = useState<ReactNode>();
+
   const userDispatch = useContext(UserDispatch);
+  const storeContext = useContext(StoreContext);
+
+  const router = useRouter();
 
   // Drawerの開閉イベント
   const handleDrawerOpenAndClose = () => {
@@ -40,7 +46,23 @@ export const Header = (props: HeaderProps) => {
       type: UserContexActionType.UPDATE_CREATE_STORE_OPEN,
       payload: { isCreateStoreOpen: true },
     });
+    setIsDrawerOpend(false);
   }, [userDispatch]);
+
+  // Storeページ表示時「店舗名」押下時
+  const handleOtherStoreOnClick = useCallback(
+    (storeId: string) => {
+      router.push({ pathname: "Store", query: { id: storeId } });
+      setIsDrawerOpend(false);
+    },
+    [router]
+  );
+
+  // Storeページ表示時「ユーザー名」押下時
+  const handleUserNameOnClick = useCallback(() => {
+    router.push({ pathname: "User" });
+    setIsDrawerOpend(false);
+  }, [router]);
 
   // userページから呼ばれた時のリスト
   const UserPageDrawerList = (
@@ -59,9 +81,22 @@ export const Header = (props: HeaderProps) => {
   const StorePageDrawerList = (
     <Box sx={{ width: 350 }} onClick={handleDrawerOpenAndClose}>
       <List className="mt-10">
-        <ListItem disablePadding>
-          <ListItemButton onClick={handleListItemCreateStoreOnClick}>
-            <ListItemText className="text-center text-gray-500" primary="店舗名" />
+        <ListItem disablePadding className="mb-5">
+          <ListItemText className="text-center text-gray-500" primary="◇店舗" />
+        </ListItem>
+        {storeContext.OtherStoreModels?.map((otherStoreModel, index) => (
+          <ListItem key={index} disablePadding>
+            <ListItemButton onClick={() => handleOtherStoreOnClick(String(otherStoreModel.id))}>
+              <ListItemText className="text-center text-gray-500" primary={otherStoreModel.name} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+        <ListItem disablePadding className="mt-20">
+          <ListItemText className="text-center text-gray-500 mb-5" primary="◇ユーザー" />
+        </ListItem>
+        <ListItem disablePadding className="">
+          <ListItemButton onClick={handleUserNameOnClick}>
+            <ListItemText className="text-center text-gray-500" primary={storeContext.UserModel?.name} />
           </ListItemButton>
         </ListItem>
       </List>
@@ -70,6 +105,7 @@ export const Header = (props: HeaderProps) => {
 
   // Headerの呼び元ページごとにDrawerの表示内容を変更
   useEffect(() => {
+    console.log("callerPage", callerPage);
     switch (callerPage) {
       case "user":
         setDrawerList(UserPageDrawerList);
@@ -81,7 +117,9 @@ export const Header = (props: HeaderProps) => {
         setDrawerList(undefined);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [callerPage]);
+  }, [callerPage, storeContext]);
+
+  console.log("drawerList", drawerList);
 
   return (
     <>

@@ -19,13 +19,17 @@ export const Store = (props: GetServerSideProps & StoreProps) => {
 
   const router = useRouter();
 
+  // Userページから選択された(クエリパラメーターに設定されたid)のStoreModelを取得
   const storeModel: StoreModel | undefined = stores?.find((store) => store.id === Number(router.query.id));
+
+  // Userページから選択されていない(クエリパラメーターに設定されたid以外)のStoreModelを取得
+  const otherStoreModels: StoreModel[] | undefined = stores?.filter((store) => store.id !== Number(router.query.id));
 
   return (
     <>
       <StoreContextProvider>
         <Header loginStatus={true} callerPage="store" />
-        <StoreLogic userModel={user} storeModel={storeModel} />
+        <StoreLogic userModel={user} storeModel={storeModel} otherStoreModels={otherStoreModels} />
       </StoreContextProvider>
     </>
   );

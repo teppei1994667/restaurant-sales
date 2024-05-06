@@ -9,7 +9,7 @@ export enum StoreContexActionType {
 
 export type StoreContextAction = {
   type: StoreContexActionType.SAVE_STORE_INFORMATION;
-  payload: { userModel?: UserModel; storeModel?: StoreModel };
+  payload: { userModel?: UserModel; storeModel?: StoreModel; otherStoreModels?: StoreModel[] };
 };
 
 export const storeContextReducer: Reducer<StoreContextInfo, StoreContextAction> = (state, action) => {
@@ -19,6 +19,7 @@ export const storeContextReducer: Reducer<StoreContextInfo, StoreContextAction> 
         ...state,
         UserModel: action.payload.userModel ?? state.UserModel,
         StoreModel: action.payload.storeModel ?? state.StoreModel,
+        OtherStoreModels: action.payload.otherStoreModels ?? state.OtherStoreModels,
       };
       return updateStoreModelState;
   }
@@ -31,6 +32,6 @@ export const useStoreContextReducer = () => {
 };
 
 export const defaultStoreContextReducer: ReturnType<typeof useStoreContextReducer> = {
-  state: { StoreModel: undefined, UserModel: undefined },
+  state: { StoreModel: undefined, UserModel: undefined, OtherStoreModels: undefined },
   dispatch: () => {},
 };
