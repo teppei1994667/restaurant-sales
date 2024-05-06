@@ -1,12 +1,13 @@
-import { LoginUserModel } from "../type/model/LoginUserModel";
+import { StoreModel } from "@/pages/Store/type/model/StoreModel";
+import { UserModel } from "../type/model/UserModel";
 
 export type UserContextInfo = {
-  LoginUserModel?: LoginUserModel;
-  storeNames: string[];
+  UserModel?: UserModel;
+  StoreModels: StoreModel[];
   isCreateStoreOpen: boolean;
 };
 
 export const userContextInfoInitialState: UserContextInfo = {
-  storeNames: [],
+  StoreModels: [],
   isCreateStoreOpen: false,
 };

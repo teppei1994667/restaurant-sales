@@ -1,17 +1,16 @@
-import { Button, Grid, Link, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContextProvider";
+import Link from "next/link";
 
 export const UserView = () => {
   const userContext = useContext(UserContext);
-
-  console.log("UserView", userContext.storeNames);
   return (
     <>
       <Grid container className="justify-center mt-10">
         <Grid item>
           <Typography className="text-gray-500" variant="h4">
-            {userContext.LoginUserModel?.name}
+            {userContext.UserModel?.name}
           </Typography>
         </Grid>
       </Grid>
@@ -22,12 +21,12 @@ export const UserView = () => {
           </Typography>
         </Grid>
       </Grid>
-      {userContext.storeNames.map((storeName, index) => (
+      {userContext.StoreModels.map((storeModel, index) => (
         <Grid container className="justify-center mt-5" key={index}>
           <Grid item>
-            <Link href="/AddDialySale">
+            <Link href={{ pathname: "Store", query: { id: storeModel.id } }}>
               <Button className="text-gray-500" variant="text" sx={{ height: "70px", width: "200px" }}>
-                {storeName}
+                {storeModel.name}
               </Button>
             </Link>
           </Grid>

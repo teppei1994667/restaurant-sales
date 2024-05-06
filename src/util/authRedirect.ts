@@ -4,60 +4,57 @@ import { convertAxios } from "./convertAxios";
 
 export const authenticationPossibleServerSideProps = (url: string): GetServerSideProps => {
   return async (context) => {
-    const { req } = context;
+    const cookies = context.req.cookies;
 
-    const response = await convertAxios.get(`${LOCAL_ADDRESS}/${url}`, {
-      headers: {
-        "Content-Type": "application/json",
-        uid: req.cookies["_uid"] ? req.cookies["_uid"] : "",
-        client: req.cookies["_client"] ? req.cookies["_client"] : "",
-        "access-token": req.cookies["_access-token"] ? req.cookies["_access-token"] : "",
-      },
-    });
+    try {
+      const response = await convertAxios.get(`${LOCAL_ADDRESS}/${url}`, {
+        headers: {
+          "Content-Type": "application/json",
+          uid: cookies["_uid"] ? cookies["_uid"] : "",
+          client: cookies["_client"] ? cookies["_client"] : "",
+          "access-token": cookies["_access-token"] ? cookies["_access-token"] : "",
+        },
+      });
 
-    console.log("1", response.data);
-
-    if (response.status === 401) {
+      const props = await response.data;
+      console.log("User 成功");
+      return { props };
+    } catch (error) {
+      console.log("User 失敗");
       return {
         redirect: {
-          destination: "/User",
+          destination: "/SignIn",
           permanent: false,
         },
       };
     }
-
-    const props = await response.data;
-
-    return { props };
   };
 };
 
 export const authenticationNotPossibleServerSideProps = (url: string): GetServerSideProps => {
   return async (context) => {
-    const { req } = context;
+    const cookies = context.req.cookies;
 
-    const response = await convertAxios.get(`${LOCAL_ADDRESS}/${url}`, {
-      headers: {
-        "Content-Type": "application/json",
-        uid: req.cookies["_uid"] ? req.cookies["_uid"] : "",
-        client: req.cookies["_client"] ? req.cookies["_client"] : "",
-        "access-token": req.cookies["_access-token"] ? req.cookies["_access-token"] : "",
-      },
-    });
+    try {
+      const response = await convertAxios.get(`${LOCAL_ADDRESS}/${url}`, {
+        headers: {
+          "Content-Type": "application/json",
+          uid: cookies["_uid"] ? cookies["_uid"] : "",
+          client: cookies["_client"] ? cookies["_client"] : "",
+          "access-token": cookies["_access-token"] ? cookies["_access-token"] : "",
+        },
+      });
 
-    console.log("2", response.data);
-
-    if (response.status === 200) {
+      console.log("Userページにリダイレクト");
       return {
         redirect: {
           destination: "/User",
           permanent: false,
         },
       };
+    } catch {
+      console.log("Sign catch");
+      return { props: {} };
     }
-
-    const props = await response.data;
-
-    return { props };
   };
 };

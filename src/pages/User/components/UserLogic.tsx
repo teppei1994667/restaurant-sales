@@ -1,26 +1,24 @@
 import { useContext, useEffect } from "react";
-import { UserContext, UserDispatch } from "../context/UserContextProvider";
+import { UserDispatch } from "../context/UserContextProvider";
 import { UserContexActionType } from "../context/UserContextReducer";
-import { LoginUserModel } from "../type/model/LoginUserModel";
+import { UserModel } from "../type/model/UserModel";
 import { UserView } from "./UserView";
+import { StoreModel } from "@/pages/Store/type/model/StoreModel";
 
-export type UserProps = { LoginUserModel: LoginUserModel; storeNames?: string[] };
+export type UserProps = { UserModel: UserModel; StoreModels?: StoreModel[] };
 
 export const UserLogic = (props: UserProps) => {
-  console.log("UserLogic", props.storeNames);
-  const { LoginUserModel, storeNames } = props;
-  const userContext = useContext(UserContext);
+  const { UserModel, StoreModels } = props;
   const userDispatch = useContext(UserDispatch);
 
   useEffect(() => {
     userDispatch({
       type: UserContexActionType.SAVE_USER_INFORMATION,
-      payload: { loginUserModel: LoginUserModel, storeNames: storeNames ? storeNames : [] },
+      payload: { userModel: UserModel, storeModels: StoreModels ? StoreModels : [] },
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("ユーザーロジック userContext", userContext);
   return (
     <>
       <UserView />
