@@ -15,6 +15,7 @@ import ja from "dayjs/locale/ja";
 import { SearchDailySales } from "@/components/SearchDailySales";
 import { GetServerSideProps } from "next";
 import { authenticationPossibleServerSideProps } from "@/util/authRedirect";
+import { Header } from "@/components/Header";
 
 export const getServerSideProps: GetServerSideProps = authenticationPossibleServerSideProps("users");
 
@@ -44,6 +45,7 @@ export const AddDialySale = (props: GetServerSideProps) => {
   }, []);
   return (
     <>
+      <Header loginStatus={true} />
       <DialySalesContextProvider>
         <SelectDialySalesContextProvider>
           <Paper elevation={0} className="pt-5">
