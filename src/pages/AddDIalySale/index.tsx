@@ -13,8 +13,13 @@ import { DialySale } from "@/type/DialySale";
 import dayjs from "dayjs";
 import ja from "dayjs/locale/ja";
 import { SearchDailySales } from "@/components/SearchDailySales";
+import { GetServerSideProps } from "next";
+import { authenticationPossibleServerSideProps } from "@/util/authRedirect";
 
-export const AddDialySale = () => {
+export const getServerSideProps: GetServerSideProps = authenticationPossibleServerSideProps("users");
+
+export const AddDialySale = (props: GetServerSideProps) => {
+  console.log("AddDialySale", props);
   const [isLoading, setIsLoading] = useState(true);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isSearchDialySalesDispalay, setIsSearchDialySalesDispalay] = useState(false);
