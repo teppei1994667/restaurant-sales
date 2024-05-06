@@ -66,7 +66,7 @@ export const Header = (props: HeaderProps) => {
 
   // userページから呼ばれた時のリスト
   const UserPageDrawerList = (
-    <Box sx={{ width: 350 }} onClick={handleDrawerOpenAndClose}>
+    <Box sx={{ width: 350 }}>
       <List className="mt-10">
         <ListItem disablePadding>
           <ListItemButton onClick={handleListItemCreateStoreOnClick}>
@@ -79,7 +79,7 @@ export const Header = (props: HeaderProps) => {
 
   // storeページから呼ばれた時のリスト
   const StorePageDrawerList = (
-    <Box sx={{ width: 350 }} onClick={handleDrawerOpenAndClose}>
+    <Box sx={{ width: 350 }}>
       <List className="mt-10">
         <ListItem disablePadding className="mb-5">
           <ListItemText className="text-center text-gray-500" primary="◇店舗" />
@@ -105,7 +105,6 @@ export const Header = (props: HeaderProps) => {
 
   // Headerの呼び元ページごとにDrawerの表示内容を変更
   useEffect(() => {
-    console.log("callerPage", callerPage);
     switch (callerPage) {
       case "user":
         setDrawerList(UserPageDrawerList);
@@ -119,8 +118,6 @@ export const Header = (props: HeaderProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callerPage, storeContext]);
 
-  console.log("drawerList", drawerList);
-
   return (
     <>
       <AppBar elevation={1} position="static" color="transparent">
@@ -128,7 +125,7 @@ export const Header = (props: HeaderProps) => {
           {loginStatus && (
             <IconButton edge="start" onClick={handleDrawerOpenAndClose}>
               <MenuIcon />
-              <Drawer anchor={"left"} open={isDrawerOpend} onClose={handleDrawerOpenAndClose}>
+              <Drawer anchor={"left"} open={isDrawerOpend}>
                 {drawerList}
               </Drawer>
             </IconButton>
