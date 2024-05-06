@@ -1,6 +1,7 @@
 import {
   AppBar,
   Box,
+  ClickAwayListener,
   Drawer,
   IconButton,
   Link,
@@ -36,24 +37,27 @@ export const Header = (props: HeaderProps) => {
   const router = useRouter();
 
   // Drawerの開閉イベント
-  const handleDrawerOpenAndClose = () => {
+  const handleDrawerOpenAndClose = useCallback(() => {
     setIsDrawerOpend((prev) => !prev);
-  };
+  }, []);
 
-  // 「新規ショップ作成」押下時
+  // Drawerの閉じるイベント
+  const handleDrawerOnClose = useCallback(() => {
+    setIsDrawerOpend(false);
+  }, []);
+
+  // Userページ表示時「新規ショップ作成」押下時
   const handleListItemCreateStoreOnClick = useCallback(() => {
     userDispatch({
       type: UserContexActionType.UPDATE_CREATE_STORE_OPEN,
       payload: { isCreateStoreOpen: true },
     });
-    setIsDrawerOpend(false);
   }, [userDispatch]);
 
   // Storeページ表示時「店舗名」押下時
   const handleOtherStoreOnClick = useCallback(
     (storeId: string) => {
       router.push({ pathname: "Store", query: { id: storeId } });
-      setIsDrawerOpend(false);
     },
     [router]
   );
@@ -61,7 +65,6 @@ export const Header = (props: HeaderProps) => {
   // Storeページ表示時「ユーザー名」押下時
   const handleUserNameOnClick = useCallback(() => {
     router.push({ pathname: "User" });
-    setIsDrawerOpend(false);
   }, [router]);
 
   // userページから呼ばれた時のリスト
@@ -118,17 +121,21 @@ export const Header = (props: HeaderProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callerPage, storeContext]);
 
+  console.log("isDrawerOpend", isDrawerOpend);
+
   return (
     <>
       <AppBar elevation={1} position="static" color="transparent">
         <Toolbar>
           {loginStatus && (
-            <IconButton edge="start" onClick={handleDrawerOpenAndClose}>
-              <MenuIcon />
-              <Drawer anchor={"left"} open={isDrawerOpend}>
-                {drawerList}
-              </Drawer>
-            </IconButton>
+            <ClickAwayListener onClickAway={handleDrawerOnClose}>
+              <IconButton edge="start" onClick={handleDrawerOpenAndClose}>
+                <MenuIcon />
+                <Drawer anchor={"left"} open={isDrawerOpend}>
+                  {drawerList}
+                </Drawer>
+              </IconButton>
+            </ClickAwayListener>
           )}
 
           <Link className="no-underline ml-10" href="/" sx={{ flexGrow: "1" }}>
