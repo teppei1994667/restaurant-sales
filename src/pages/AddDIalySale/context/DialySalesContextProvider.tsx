@@ -1,5 +1,5 @@
 import { ReactNode, createContext } from "react";
-import { defaultDialySalesReducerContext, useDialySalesReducer } from "../reducer/DIalySalesReducer";
+import { defaultDialySalesReducerContext, useDialySalesReducer } from "./DIalySalesContextReducer";
 
 type Props = {
   children: ReactNode;

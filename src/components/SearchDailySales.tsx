@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { DialySale, SearchDialySales } from "@/type/DialySale";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { useContext } from "react";
-import { DialySalesStateContext } from "@/context/DialySalesContext";
+import { DialySalesStateContext } from "@/pages/AddDialySale/context/DialySalesContextProvider";
 import { convertDisplayDialySales } from "@/util/convertDisplayDialySales";
 import dayjs from "dayjs";
 import { convertAxios } from "@/util/convertAxios";

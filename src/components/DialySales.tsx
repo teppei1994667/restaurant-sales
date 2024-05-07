@@ -1,11 +1,12 @@
 import { DialySale } from "@/type/DialySale";
 import { useContext, useEffect } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { DialySalesStateContext } from "../context/DialySalesContext";
+import { DialySalesStateContext } from "../pages/AddDialySale/context/DialySalesContextProvider";
 import { SelectDialySalesContext } from "../context/SelectDialySalesContext";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { convertAxios } from "@/util/convertAxios";
 import { Grid } from "@mui/material";
+import { DialySaleContextActionType } from "@/pages/AddDialySale/context/DIalySalesContextReducer";
 
 export type DialySalesProps = {
   startDialySaleDay?: string;
@@ -30,7 +31,10 @@ export const DialySales = (props: DialySalesProps) => {
           endDay: endDialySaleDay,
         },
       });
-      dispatch({ type: "returnData", payload: res.data });
+      dispatch({
+        type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
+        payload: { dialySaleModels: res.data },
+      });
     } catch (err) {
       console.log(err);
     }
@@ -118,7 +122,7 @@ export const DialySales = (props: DialySalesProps) => {
       <Grid container>
         <Grid item sx={{ height: "650px", width: "1312px" }}>
           <DataGrid
-            rows={state.dialySales}
+            rows={state.DialySaleModels}
             columns={columns}
             checkboxSelection //チェックボックス表示
             disableRowSelectionOnClick //セルまたは行クリック時に選択状態(チックボックスにチェックをいれる)を無効化

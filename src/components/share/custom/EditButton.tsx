@@ -1,4 +1,4 @@
-import { DialySalesStateContext } from "@/context/DialySalesContext";
+import { DialySalesStateContext } from "@/pages/AddDialySale/context/DialySalesContextProvider";
 import { SelectDialySalesContext } from "@/context/SelectDialySalesContext";
 import { DialySale } from "@/type/DialySale";
 import { Button } from "@mui/material";

@@ -1,6 +1,6 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { useContext } from "react";
-import { DialySalesStateContext } from "../context/DialySalesContext";
+import { DialySalesStateContext } from "../pages/AddDialySale/context/DialySalesContextProvider";
 
 export const TotalDialySale = () => {
   const { state } = useContext(DialySalesStateContext);
@@ -10,13 +10,13 @@ export const TotalDialySale = () => {
   let totalDinnerVisitor = 0;
   let totalPersonnelCost = 0;
   let totalPurchase = 0;
-  state.dialySales.map((dialySale) => {
-    totalLunchSale += dialySale.lunchSales;
-    totalDinnerSale += dialySale.dinnerSales;
-    totalLunchVisitor += dialySale.lunchVisitor;
-    totalDinnerVisitor += dialySale.dinnerVisitor;
-    totalPersonnelCost += dialySale.personnelCost;
-    totalPurchase += dialySale.purchase;
+  state.DialySaleModels.map((dialySaleModel) => {
+    totalLunchSale += dialySaleModel.lunchSales;
+    totalDinnerSale += dialySaleModel.dinnerSales;
+    totalLunchVisitor += dialySaleModel.lunchVisitor;
+    totalDinnerVisitor += dialySaleModel.dinnerVisitor;
+    totalPersonnelCost += dialySaleModel.personnelCost;
+    totalPurchase += dialySaleModel.purchase;
   });
 
   const createData = (name: string, lunch: string | number, dinner: string | number, total: number) => {

@@ -1,4 +1,4 @@
-import { DialySalesContextProvider } from "@/context/DialySalesContext";
+import { DialySalesContextProvider } from "@/pages/AddDialySale/context/DialySalesContextProvider";
 import { SelectDialySalesContextProvider } from "@/context/SelectDialySalesContext";
 import { GetServerSideProps } from "next";
 import { authenticationPossibleServerSideProps } from "@/util/authRedirect";
