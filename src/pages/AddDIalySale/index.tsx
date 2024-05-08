@@ -4,11 +4,14 @@ import { GetServerSideProps } from "next";
 import { authenticationPossibleServerSideProps } from "@/util/authRedirect";
 import { Header } from "@/components/Header";
 import { AddDialySaleLogic } from "./components/AddDialySaleLogic";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = authenticationPossibleServerSideProps("users");
 
 export const AddDialySale = (props: GetServerSideProps) => {
   console.log("AddDialySale", props);
+
+  const router = useRouter();
 
   return (
     <>
