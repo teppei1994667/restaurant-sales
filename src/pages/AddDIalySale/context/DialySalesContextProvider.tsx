@@ -5,10 +5,17 @@ type Props = {
   children: ReactNode;
 };
 
-export const DialySalesStateContext = createContext(defaultDialySalesReducerContext);
+const { state, dispatch } = defaultDialySalesReducerContext;
+
+export const DialySalesContext = createContext(state);
+export const DialySalesDispatch = createContext(dispatch);
 
 export const DialySalesContextProvider = (props: Props) => {
+  const { state, dispatch } = useDialySalesReducer();
+  const { children } = props;
   return (
-    <DialySalesStateContext.Provider value={useDialySalesReducer()}>{props.children}</DialySalesStateContext.Provider>
+    <DialySalesContext.Provider value={state}>
+      <DialySalesDispatch.Provider value={dispatch}> {children}</DialySalesDispatch.Provider>
+    </DialySalesContext.Provider>
   );
 };
