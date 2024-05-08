@@ -121,8 +121,6 @@ export const Header = (props: HeaderProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callerPage, storeContext]);
 
-  console.log("isDrawerOpend", isDrawerOpend);
-
   return (
     <>
       <AppBar elevation={1} position="static" color="transparent">
