@@ -3,8 +3,8 @@ import { DialySales } from "@/pages/AddDialySale/components/DialySales";
 import { EditDialog } from "@/pages/AddDialySale/components/EditDialog";
 import { SearchDailySales } from "@/pages/AddDialySale/components/SearchDailySales";
 import { TotalDialySale } from "@/pages/AddDialySale/components/TotalDialySale";
-import { DeleteButton } from "@/components/share/custom/DeleteButton";
-import { EditButton } from "@/components/share/custom/EditButton";
+import { DeleteButton } from "@/pages/AddDialySale/components/DeleteButton";
+import { EditButton } from "@/pages/AddDialySale/components/EditButton";
 import { DialySale } from "@/type/DialySale";
 import { Button, Grid, Paper, Typography } from "@mui/material";
 import dayjs from "dayjs";
@@ -42,7 +42,7 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
       <Paper elevation={0} className="pt-5">
         <Grid container className="justify-center">
           <Grid item>
-            <Typography className="text-gray-700 font-mono" variant="h3">
+            <Typography className="text-gray-500" variant="h3">
               売り上げ登録
             </Typography>
           </Grid>
@@ -54,7 +54,7 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
         </Grid>
         <Grid container className="justify-center mt-5">
           <Grid item>
-            <Button onClick={handleKikanShiteiOnClick}>
+            <Button className="text-gray-500" variant="text" onClick={handleKikanShiteiOnClick}>
               {isSearchDialySalesDispalay ? "隠す" : "期間を指定して表示する"}
             </Button>
           </Grid>

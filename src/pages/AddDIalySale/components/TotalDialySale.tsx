@@ -38,18 +38,18 @@ export const TotalDialySale = () => {
             <TableHead>
               <TableRow>
                 <TableCell></TableCell>
-                <TableCell>lunch</TableCell>
-                <TableCell>dinner</TableCell>
-                <TableCell>total</TableCell>
+                <TableCell className="text-gray-500">lunch</TableCell>
+                <TableCell className="text-gray-500">dinner</TableCell>
+                <TableCell className="text-gray-500">total</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {totalData.map((item) => (
                 <TableRow key={item.name}>
-                  <TableCell>{item.name}</TableCell>
-                  <TableCell>{item.lunch}</TableCell>
-                  <TableCell>{item.dinner}</TableCell>
-                  <TableCell>{item.total}</TableCell>
+                  <TableCell className="text-gray-500">{item.name}</TableCell>
+                  <TableCell className="text-gray-500">{item.lunch}</TableCell>
+                  <TableCell className="text-gray-500">{item.dinner}</TableCell>
+                  <TableCell className="text-gray-500">{item.total}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -32,7 +32,7 @@ export const DeleteButton = () => {
     }
   };
   return (
-    <Button onClick={handleDeleteOnClick} variant="outlined">
+    <Button className="text-gray-500" variant="text" onClick={handleDeleteOnClick}>
       削除
     </Button>
   );

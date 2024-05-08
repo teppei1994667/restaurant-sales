@@ -27,16 +27,16 @@ export const EditButton = (props: EditButtonProps) => {
       }
     }
     //選ばれている行のデータをstateにセット
-    state.dialySales.map((dialySale) => {
-      if (dialySale.id === Number(rowSelectionModel)) {
-        setRowSelectionModelValue(dialySale);
+    state.DialySaleModels.map((dialySaleModel) => {
+      if (dialySaleModel.id === Number(rowSelectionModel)) {
+        setRowSelectionModelValue(dialySaleModel);
       }
     });
     setIsEditDialogOpen(true);
   };
 
   return (
-    <Button onClick={handleEditBtnOnClick} variant="outlined">
+    <Button className="text-gray-500" variant="text" onClick={handleEditBtnOnClick}>
       変更
     </Button>
   );

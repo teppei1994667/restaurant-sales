@@ -144,6 +144,7 @@ export const DialySales = (props: DialySalesProps) => {
             }}
             sx={{
               hight: "600px",
+              color: "gray",
               ".MuiDataGrid-columnHeaders": {
                 backgroundColor: "#fffaf0",
               },

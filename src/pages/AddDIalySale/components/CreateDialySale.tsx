@@ -110,7 +110,11 @@ export const CreateDialySale = () => {
         </Grid>
         <Grid container spacing={0.75} className="justify-center mt-5">
           <Grid item>
-            <Button variant="outlined" onClick={dialySaleForm.handleSubmit(handleMakeDialySaleOnClick)}>
+            <Button
+              className="text-gray-500"
+              variant="text"
+              onClick={dialySaleForm.handleSubmit(handleMakeDialySaleOnClick)}
+            >
               作成
             </Button>
           </Grid>
