@@ -1,5 +1,5 @@
 import { Button, Grid, Typography } from "@mui/material";
-import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
+import { ControlledDatePicker } from "../../../components/share/form/ControlledDatePicker";
 import { FormProvider, useForm } from "react-hook-form";
 import { DialySale, SearchDialySales } from "@/type/DialySale";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
@@ -8,6 +8,7 @@ import { DialySalesStateContext } from "@/pages/AddDialySale/context/DialySalesC
 import { convertDisplayDialySales } from "@/util/convertDisplayDialySales";
 import dayjs from "dayjs";
 import { convertAxios } from "@/util/convertAxios";
+import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
 
 export const SearchDailySales = () => {
   const { dispatch } = useContext(DialySalesStateContext);
@@ -30,7 +31,10 @@ export const SearchDailySales = () => {
           endDay: dayjs(searchDialySalesForm.getValues("endDay")).format("YYYY-MM-DD"),
         },
       });
-      dispatch({ type: "returnData", payload: res.data });
+      dispatch({
+        type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
+        payload: { dialySaleModels: res.data },
+      });
       //dialySaleの取得に成功したらformの値をリセット
       searchDialySalesForm.reset();
     } catch (err) {

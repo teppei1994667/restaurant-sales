@@ -1,6 +1,6 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { useContext } from "react";
-import { DialySalesStateContext } from "../pages/AddDialySale/context/DialySalesContextProvider";
+import { DialySalesStateContext } from "../context/DialySalesContextProvider";
 
 export const TotalDialySale = () => {
   const { state } = useContext(DialySalesStateContext);

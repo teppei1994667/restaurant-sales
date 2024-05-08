@@ -1,8 +1,8 @@
 import { Button, Grid } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormDialySale } from "@/type/DialySale";
-import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
-import { ControlledNumberTextField } from "./share/form/ControlledNumberTextField";
+import { ControlledDatePicker } from "../../../components/share/form/ControlledDatePicker";
+import { ControlledNumberTextField } from "../../../components/share/form/ControlledNumberTextField";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { convertAxios } from "@/util/convertAxios";
 

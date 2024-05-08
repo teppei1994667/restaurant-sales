@@ -1,8 +1,8 @@
-import { CreateDialySale } from "@/components/CreateDialySale";
-import { DialySales } from "@/components/DialySales";
-import { EditDialog } from "@/components/EditDialog";
-import { SearchDailySales } from "@/components/SearchDailySales";
-import { TotalDialySale } from "@/components/TotalDialySale";
+import { CreateDialySale } from "@/pages/AddDialySale/components/CreateDialySale";
+import { DialySales } from "@/pages/AddDialySale/components/DialySales";
+import { EditDialog } from "@/pages/AddDialySale/components/EditDialog";
+import { SearchDailySales } from "@/pages/AddDialySale/components/SearchDailySales";
+import { TotalDialySale } from "@/pages/AddDialySale/components/TotalDialySale";
 import { DeleteButton } from "@/components/share/custom/DeleteButton";
 import { EditButton } from "@/components/share/custom/EditButton";
 import { DialySale } from "@/type/DialySale";

@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogContent, DialogTitle, Grid, Typography } from "@mui/material";
-import { ControlledNumberTextField } from "./share/form/ControlledNumberTextField";
-import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
+import { ControlledNumberTextField } from "../../../components/share/form/ControlledNumberTextField";
+import { ControlledDatePicker } from "../../../components/share/form/ControlledDatePicker";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormDialySale, DialySale } from "@/type/DialySale";
 import { Dispatch, SetStateAction, useEffect, useMemo } from "react";

@@ -1,8 +1,8 @@
 import { DialySale } from "@/type/DialySale";
 import { useContext, useEffect } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { DialySalesStateContext } from "../pages/AddDialySale/context/DialySalesContextProvider";
-import { SelectDialySalesContext } from "../context/SelectDialySalesContext";
+import { DialySalesStateContext } from "../context/DialySalesContextProvider";
+import { SelectDialySalesContext } from "../../../context/SelectDialySalesContext";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { convertAxios } from "@/util/convertAxios";
 import { Grid } from "@mui/material";
