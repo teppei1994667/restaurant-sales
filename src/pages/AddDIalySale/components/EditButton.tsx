@@ -1,4 +1,4 @@
-import { DialySalesStateContext } from "@/pages/AddDialySale/context/DialySalesContextProvider";
+import { DialySalesContext } from "@/pages/AddDialySale/context/DialySalesContextProvider";
 import { SelectDialySalesContext } from "@/context/SelectDialySalesContext";
 import { DialySale } from "@/type/DialySale";
 import { Button } from "@mui/material";
@@ -11,7 +11,7 @@ export type EditButtonProps = {
 
 export const EditButton = (props: EditButtonProps) => {
   const { setIsEditDialogOpen, setRowSelectionModelValue } = props;
-  const { state } = useContext(DialySalesStateContext);
+  const dialySalesContext = useContext(DialySalesContext);
   const { rowSelectionModel } = useContext(SelectDialySalesContext);
 
   //変更ボタン押下時
@@ -27,7 +27,7 @@ export const EditButton = (props: EditButtonProps) => {
       }
     }
     //選ばれている行のデータをstateにセット
-    state.DialySaleModels.map((dialySaleModel) => {
+    dialySalesContext.DialySaleModels.map((dialySaleModel) => {
       if (dialySaleModel.id === Number(rowSelectionModel)) {
         setRowSelectionModelValue(dialySaleModel);
       }

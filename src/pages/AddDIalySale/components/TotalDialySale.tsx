@@ -1,16 +1,17 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { useContext } from "react";
-import { DialySalesStateContext } from "../context/DialySalesContextProvider";
+import { DialySalesContext } from "../context/DialySalesContextProvider";
 
 export const TotalDialySale = () => {
-  const { state } = useContext(DialySalesStateContext);
+  const dialySalesContext = useContext(DialySalesContext);
+
   let totalLunchSale = 0;
   let totalDinnerSale = 0;
   let totalLunchVisitor = 0;
   let totalDinnerVisitor = 0;
   let totalPersonnelCost = 0;
   let totalPurchase = 0;
-  state.DialySaleModels.map((dialySaleModel) => {
+  dialySalesContext.DialySaleModels.map((dialySaleModel) => {
     totalLunchSale += dialySaleModel.lunchSales;
     totalDinnerSale += dialySaleModel.dinnerSales;
     totalLunchVisitor += dialySaleModel.lunchVisitor;
