@@ -4,15 +4,14 @@ import { FormProvider, useForm } from "react-hook-form";
 import { DialySale, SearchDialySales } from "@/type/DialySale";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { useContext } from "react";
-import { DialySalesStateContext } from "@/pages/AddDialySale/context/DialySalesContextProvider";
+import { DialySalesDispatch } from "@/pages/AddDialySale/context/DialySalesContextProvider";
 import { convertDisplayDialySales } from "@/util/convertDisplayDialySales";
 import dayjs from "dayjs";
 import { convertAxios } from "@/util/convertAxios";
 import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
 
 export const SearchDailySales = () => {
-  const { dispatch } = useContext(DialySalesStateContext);
-
+  const dialySalesDspatch = useContext(DialySalesDispatch);
   //検索の入力をformで管理
   const searchDialySalesForm = useForm<SearchDialySales>({
     defaultValues: {
@@ -31,7 +30,7 @@ export const SearchDailySales = () => {
           endDay: dayjs(searchDialySalesForm.getValues("endDay")).format("YYYY-MM-DD"),
         },
       });
-      dispatch({
+      dialySalesDspatch({
         type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
         payload: { dialySaleModels: res.data },
       });

@@ -5,8 +5,11 @@ import { ControlledDatePicker } from "../../../components/share/form/ControlledD
 import { ControlledNumberTextField } from "../../../components/share/form/ControlledNumberTextField";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { convertAxios } from "@/util/convertAxios";
+import { DialySalesContext } from "../context/DialySalesContextProvider";
+import { useContext } from "react";
 
 export const CreateDialySale = () => {
+  const dialySaleContext = useContext(DialySalesContext);
   //新規売り上げ作成をformで管理
   const dialySaleForm = useForm<FormDialySale>({
     defaultValues: {
@@ -26,6 +29,7 @@ export const CreateDialySale = () => {
       //apiを呼び出してDialySaleを作成する
       await convertAxios.post(LOCAL_DIALYSALES_ADDRESS, {
         dialySale: {
+          storeId: dialySaleContext.StoreModel?.id,
           salesDay: dialySaleForm.getValues("salesDay"),
           lunchSales: Number(dialySaleForm.getValues("lunchSale")),
           dinnerSales: Number(dialySaleForm.getValues("dinnerSale")),

@@ -28,6 +28,7 @@ export const DialySales = (props: DialySalesProps) => {
       const res = await convertAxios.get<DialySale[]>(LOCAL_DIALYSALES_ADDRESS, {
         //サーバーから取得するDialySaleの期間をparamsに設定
         params: {
+          storeId: dialySalesContext.StoreModel?.id,
           startDay: startDialySaleDay,
           endDay: endDialySaleDay,
         },
