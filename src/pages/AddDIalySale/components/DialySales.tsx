@@ -1,8 +1,7 @@
 import { DialySale } from "@/type/DialySale";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesContextProvider";
-import { SelectDialySalesContext } from "../../../context/SelectDialySalesContext";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { convertAxios } from "@/util/convertAxios";
 import { Grid } from "@mui/material";
@@ -19,7 +18,6 @@ export const DialySales = (props: DialySalesProps) => {
 
   const dialySalesContext = useContext(DialySalesContext);
   const dialySalesDspatch = useContext(DialySalesDispatch);
-  const { setRowSelectionModel } = useContext(SelectDialySalesContext);
 
   //DialySale一覧を取得する関数DialySale
   const fetchDialySales = async () => {
@@ -119,12 +117,21 @@ export const DialySales = (props: DialySalesProps) => {
     },
   ];
 
+  // DataGridのrowデータ作成
+  const DialySaleRowData = useMemo(
+    () => (dialySalesContext.DialySaleModels ? dialySalesContext.DialySaleModels : []),
+    [dialySalesContext.DialySaleModels]
+  );
+
+  console.log("DialySales", DialySaleRowData);
+  console.log("dialySalesContext.DialySaleModels", dialySalesContext.DialySaleModels);
+
   return (
     <>
       <Grid container>
         <Grid item sx={{ height: "650px", width: "1312px" }}>
           <DataGrid
-            rows={dialySalesContext.DialySaleModels}
+            rows={DialySaleRowData}
             columns={columns}
             checkboxSelection //チェックボックス表示
             disableRowSelectionOnClick //セルまたは行クリック時に選択状態(チックボックスにチェックをいれる)を無効化
@@ -142,7 +149,10 @@ export const DialySales = (props: DialySalesProps) => {
             }}
             //選択状態を検知
             onRowSelectionModelChange={(newRowSelectionModel) => {
-              setRowSelectionModel(newRowSelectionModel);
+              dialySalesDspatch({
+                type: DialySaleContextActionType.SELECT_GRID_ROW_MODEL,
+                payload: { gridRowSelected: newRowSelectionModel },
+              });
             }}
             sx={{
               hight: "600px",

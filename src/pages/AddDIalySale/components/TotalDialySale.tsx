@@ -11,7 +11,7 @@ export const TotalDialySale = () => {
   let totalDinnerVisitor = 0;
   let totalPersonnelCost = 0;
   let totalPurchase = 0;
-  dialySalesContext.DialySaleModels.map((dialySaleModel) => {
+  dialySalesContext.DialySaleModels?.map((dialySaleModel) => {
     totalLunchSale += dialySaleModel.lunchSales;
     totalDinnerSale += dialySaleModel.dinnerSales;
     totalLunchVisitor += dialySaleModel.lunchVisitor;

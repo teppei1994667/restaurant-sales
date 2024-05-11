@@ -1,5 +1,4 @@
 import { DialySalesContextProvider } from "@/pages/AddDialySale/context/DialySalesContextProvider";
-import { SelectDialySalesContextProvider } from "@/context/SelectDialySalesContext";
 import { GetServerSideProps } from "next";
 import { authenticationPossibleServerSideProps } from "@/util/authRedirect";
 import { Header } from "@/components/Header";
@@ -31,9 +30,7 @@ export const AddDialySale = (props: GetServerSideProps & AddDialySaleProps) => {
     <>
       <Header loginStatus={true} />
       <DialySalesContextProvider>
-        <SelectDialySalesContextProvider>
-          <AddDialySaleLogic userModel={user} storeModel={storeModel} otherStoreModels={otherStoreModels} />
-        </SelectDialySalesContextProvider>
+        <AddDialySaleLogic userModel={user} storeModel={storeModel} otherStoreModels={otherStoreModels} />
       </DialySalesContextProvider>
     </>
   );
