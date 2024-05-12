@@ -4,13 +4,14 @@ import { FormProvider, useForm } from "react-hook-form";
 import { DialySale, SearchDialySales } from "@/type/DialySale";
 import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { useContext } from "react";
-import { DialySalesDispatch } from "@/pages/AddDialySale/context/DialySalesContextProvider";
+import { DialySalesContext, DialySalesDispatch } from "@/pages/AddDialySale/context/DialySalesContextProvider";
 import { convertDisplayDialySales } from "@/util/convertDisplayDialySales";
 import dayjs from "dayjs";
 import { convertAxios } from "@/util/convertAxios";
 import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
 
 export const SearchDailySales = () => {
+  const dialySalesContext = useContext(DialySalesContext);
   const dialySalesDspatch = useContext(DialySalesDispatch);
   //検索の入力をformで管理
   const searchDialySalesForm = useForm<SearchDialySales>({
@@ -26,6 +27,7 @@ export const SearchDailySales = () => {
       const res = await convertAxios.get<DialySale[]>(LOCAL_DIALYSALES_ADDRESS, {
         //サーバーから取得するDialySaleの期間をparamsに設定
         params: {
+          storeId: dialySalesContext.StoreModel?.id,
           startDay: dayjs(searchDialySalesForm.getValues("startDay")).format("YYYY-MM-DD"),
           endDay: dayjs(searchDialySalesForm.getValues("endDay")).format("YYYY-MM-DD"),
         },
@@ -35,7 +37,7 @@ export const SearchDailySales = () => {
         payload: { dialySaleModels: res.data },
       });
       //dialySaleの取得に成功したらformの値をリセット
-      searchDialySalesForm.reset();
+      // searchDialySalesForm.reset();
     } catch (err) {
       console.log(err);
     }
