@@ -3,8 +3,6 @@ import { DialySales } from "@/pages/AddDialySale/components/DialySales";
 import { EditDialog } from "@/pages/AddDialySale/components/EditDialog";
 import { SearchDailySales } from "@/pages/AddDialySale/components/SearchDailySales";
 import { TotalDialySale } from "@/pages/AddDialySale/components/TotalDialySale";
-import { DeleteButton } from "@/pages/AddDialySale/components/DeleteButton";
-import { EditButton } from "@/pages/AddDialySale/components/EditButton";
 import { DialySale } from "@/type/DialySale";
 import { Button, Grid, Paper, Typography } from "@mui/material";
 import dayjs from "dayjs";
@@ -18,8 +16,9 @@ export type AddDialySaleViewProps = {
   isSearchDialySalesDispalay: boolean;
   rowSelectionModelValue?: DialySale;
   setIsEditDialogOpen: Dispatch<SetStateAction<boolean>>;
-  setRowSelectionModelValue: Dispatch<SetStateAction<DialySale | undefined>>;
   handleKikanShiteiOnClick: () => void;
+  handleEditBtnOnClick: () => void;
+  handleDeleteOnClick: () => void;
 };
 
 export const AddDialySaleView = (props: AddDialySaleViewProps) => {
@@ -29,8 +28,9 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
     isSearchDialySalesDispalay,
     rowSelectionModelValue,
     setIsEditDialogOpen,
-    setRowSelectionModelValue,
     handleKikanShiteiOnClick,
+    handleEditBtnOnClick,
+    handleDeleteOnClick,
   } = props;
 
   //DialySalesを当月分のみ取得する為の値
@@ -81,14 +81,13 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
             </Grid>
             <Grid container className="justify-center mt-9">
               <Grid item>
-                <EditButton
-                  setIsEditDialogOpen={setIsEditDialogOpen}
-                  setRowSelectionModelValue={setRowSelectionModelValue}
-                />
+                <Button className="text-gray-500" variant="text" onClick={handleEditBtnOnClick}>
+                  変更
+                </Button>
               </Grid>
-              <Grid item className="ml-5">
-                <DeleteButton />
-              </Grid>
+              <Button className="text-gray-500" variant="text" onClick={handleDeleteOnClick}>
+                削除
+              </Button>
             </Grid>
             <Grid container className="justify-center mt-9">
               <Grid item>

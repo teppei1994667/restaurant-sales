@@ -1,10 +1,13 @@
 import { DialySale } from "@/type/DialySale";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { AddDialySaleView } from "./AddDialySaleView";
 import { UserModel } from "@/pages/User/type/model/UserModel";
 import { StoreModel } from "@/pages/Store/type/model/StoreModel";
 import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesContextProvider";
 import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
+import { GridRowSelectionModel } from "@mui/x-data-grid";
+import axios from "axios";
+import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 
 export type AddDialySaleLogicProps = {
   userModel: UserModel;
@@ -45,6 +48,51 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
     }, 1000);
   }, []);
 
+  //変更ボタン押下時
+  const handleEditBtnOnClick = useCallback(() => {
+    if (dialySalesContext.rowSelectionModel.length !== 1) {
+      if (dialySalesContext.rowSelectionModel?.length > 1) {
+        alert("同時に複数のデータの変更はできません。変更したいデータを１つだけ選択してください。");
+        return;
+      }
+      if (dialySalesContext.rowSelectionModel.length < 1) {
+        alert("編集するデータを選択してください。");
+        return;
+      }
+    }
+    //選ばれている行のデータをstateにセット
+    dialySalesContext.DialySaleModels?.map((dialySaleModel) => {
+      if (dialySaleModel.id === Number(dialySalesContext.rowSelectionModel)) {
+        setRowSelectionModelValue(dialySaleModel);
+      }
+    });
+    setIsEditDialogOpen(true);
+  }, [dialySalesContext.DialySaleModels, dialySalesContext.rowSelectionModel]);
+
+  //受け取ったidをサーバーへdeleteリクエストを行う
+  const sendDelete = (deleteIds: GridRowSelectionModel) => {
+    deleteIds?.map((deleteId) => {
+      return axios.delete(`${LOCAL_DIALYSALES_ADDRESS}/${deleteId}`);
+    });
+  };
+
+  //削除ボタン押下時の処理
+  const handleDeleteOnClick = useCallback(() => {
+    // 確認のダイアログを表示し「いいえ」を押下した場合処理終了
+    if (dialySalesContext.rowSelectionModel.length !== 0) {
+      if (!confirm("本当に削除しますか")) {
+        return;
+      }
+      try {
+        //APIを呼び出して、DialySaleを削除する
+        sendDelete(dialySalesContext.rowSelectionModel);
+        window.location.reload();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, [dialySalesContext.rowSelectionModel]);
+
   console.log("AddDialySaleLogic", dialySalesContext);
   return (
     <>
@@ -54,8 +102,9 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
         isSearchDialySalesDispalay={isSearchDialySalesDispalay}
         rowSelectionModelValue={rowSelectionModelValue}
         setIsEditDialogOpen={setIsEditDialogOpen}
-        setRowSelectionModelValue={setRowSelectionModelValue}
         handleKikanShiteiOnClick={handleKikanShiteiOnClick}
+        handleEditBtnOnClick={handleEditBtnOnClick}
+        handleDeleteOnClick={handleDeleteOnClick}
       />
     </>
   );

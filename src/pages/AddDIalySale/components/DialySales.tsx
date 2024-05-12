@@ -123,9 +123,6 @@ export const DialySales = (props: DialySalesProps) => {
     [dialySalesContext.DialySaleModels]
   );
 
-  console.log("DialySales", DialySaleRowData);
-  console.log("dialySalesContext.DialySaleModels", dialySalesContext.DialySaleModels);
-
   return (
     <>
       <Grid container>
