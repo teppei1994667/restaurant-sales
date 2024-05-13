@@ -6,9 +6,10 @@ import { TotalDialySale } from "@/pages/AddDialySale/components/TotalDialySale";
 import { DialySale } from "@/type/DialySale";
 import { Button, Grid, Paper, Typography } from "@mui/material";
 import dayjs from "dayjs";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import ja from "dayjs/locale/ja";
 import { CirclesWithBar } from "react-loader-spinner";
+import { DialySalesContext } from "../context/DialySalesContextProvider";
 
 export type AddDialySaleViewProps = {
   isLoading: boolean;
@@ -33,6 +34,8 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
     handleDeleteOnClick,
   } = props;
 
+  const dialySaleContext = useContext(DialySalesContext);
+
   //DialySalesを当月分のみ取得する為の値
   dayjs.locale(ja);
   const TODAY = dayjs().format("YYYY-MM-DD"); //当日日付文字列
@@ -42,7 +45,14 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
       <Paper elevation={0} className="pt-5">
         <Grid container className="justify-center">
           <Grid item>
-            <Typography className="text-gray-500" variant="h3">
+            <Typography className="text-gray-500" variant="h4">
+              {dialySaleContext.StoreModel?.name}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid container className="justify-center">
+          <Grid item>
+            <Typography className="text-gray-500" variant="h4">
               売り上げ登録
             </Typography>
           </Grid>
