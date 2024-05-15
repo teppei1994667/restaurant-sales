@@ -50,11 +50,6 @@ export const CreateDialySale = () => {
     }
   };
 
-  //作成ボタン押下時のテスト用関数
-  // const handleMakeDialySaleOnClickTest = () => {
-  //   console.log("作成テスト", dialySaleForm.getValues());
-  // };
-
   return (
     <>
       <FormProvider {...dialySaleForm}>

@@ -16,7 +16,6 @@ export type UserProps = {
 export const getServerSideProps: GetServerSideProps = authenticationPossibleServerSideProps("users");
 
 export const User = (props: GetServerSideProps & UserProps) => {
-  console.log("User props", props);
   const { user, stores = [] } = props;
 
   // userページ内で使用するユーザー情報

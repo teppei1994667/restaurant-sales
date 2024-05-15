@@ -24,8 +24,6 @@ export const StoreLogic = (props: StoreLogicProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storeModel, userModel, otherStoreModels]);
 
-  console.log("StoreLogic storeContext", storeContext);
-
   return (
     <>
       <StoreView />

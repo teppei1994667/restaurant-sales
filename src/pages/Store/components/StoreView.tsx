@@ -5,7 +5,6 @@ import Link from "next/link";
 
 export const StoreView = () => {
   const storeContext = useContext(StoreContext);
-  console.log("StoreView storeContext", storeContext);
   return (
     <>
       <Grid container className="justify-center mt-10">
