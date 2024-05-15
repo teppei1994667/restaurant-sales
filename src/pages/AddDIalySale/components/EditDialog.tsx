@@ -4,8 +4,7 @@ import { ControlledDatePicker } from "../../../components/share/form/ControlledD
 import { FormProvider, useForm } from "react-hook-form";
 import { FormDialySale, DialySale } from "@/type/DialySale";
 import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
-import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
-import { convertAxios } from "@/util/convertAxios";
+import { convertDialySaleAxios } from "@/util/convertAxios";
 
 export type EditDialogProps = {
   isEditDialogOpen: boolean;
@@ -49,7 +48,7 @@ export const EditDialog = (props: EditDialogProps) => {
     if (rowSelectionModelValue) {
       const updateId = rowSelectionModelValue.id;
       try {
-        await convertAxios.put(`${LOCAL_DIALYSALES_ADDRESS}/${updateId}`, {
+        await convertDialySaleAxios.put(`/${updateId}`, {
           dialySale: {
             salesDay: dialySaleEditForm.getValues("salesDay"),
             lunchSales: dialySaleEditForm.getValues("lunchSale"),

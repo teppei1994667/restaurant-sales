@@ -2,12 +2,10 @@ import { Button, Grid, Typography } from "@mui/material";
 import { ControlledDatePicker } from "../../../components/share/form/ControlledDatePicker";
 import { FormProvider, useForm } from "react-hook-form";
 import { DialySale, SearchDialySales } from "@/type/DialySale";
-import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { useContext } from "react";
 import { DialySalesContext, DialySalesDispatch } from "@/pages/AddDialySale/context/DialySalesContextProvider";
-import { convertDisplayDialySales } from "@/util/convertDisplayDialySales";
 import dayjs from "dayjs";
-import { convertAxios } from "@/util/convertAxios";
+import { convertDialySaleAxios } from "@/util/convertAxios";
 import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
 
 export const SearchDailySales = () => {
@@ -24,7 +22,7 @@ export const SearchDailySales = () => {
   const handleSearchDialySalesOnClick = async () => {
     //APIから指定した期間のDialySale一覧を取得する
     try {
-      const res = await convertAxios.get<DialySale[]>(LOCAL_DIALYSALES_ADDRESS, {
+      const res = await convertDialySaleAxios.get<DialySale[]>("/", {
         //サーバーから取得するDialySaleの期間をparamsに設定
         params: {
           storeId: dialySalesContext.StoreModel?.id,

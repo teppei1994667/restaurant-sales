@@ -6,7 +6,7 @@ import { useCallback, useContext } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { UserContext, UserDispatch } from "../context/UserContextProvider";
 import { UserContexActionType } from "../context/UserContextReducer";
-import { storeAxios } from "@/util/convertAxios";
+import { convertStoreAxios } from "@/util/convertAxios";
 
 export const CreateStoreDialog = () => {
   const form = useForm<createStoreForm>({ mode: "onSubmit", reValidateMode: "onChange" });
@@ -34,7 +34,7 @@ export const CreateStoreDialog = () => {
     };
     try {
       // apiを呼び出してstoreを作成する
-      await storeAxios.post("/", createStoreParams);
+      await convertStoreAxios.post("/", createStoreParams);
 
       // form内入力値の削除
       form.reset();

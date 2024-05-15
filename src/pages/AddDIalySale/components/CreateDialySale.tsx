@@ -3,8 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { FormDialySale } from "@/type/DialySale";
 import { ControlledDatePicker } from "../../../components/share/form/ControlledDatePicker";
 import { ControlledNumberTextField } from "../../../components/share/form/ControlledNumberTextField";
-import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
-import { convertAxios } from "@/util/convertAxios";
+import { convertDialySaleAxios } from "@/util/convertAxios";
 import { DialySalesContext } from "../context/DialySalesContextProvider";
 import { useContext } from "react";
 
@@ -27,7 +26,7 @@ export const CreateDialySale = () => {
   const handleMakeDialySaleOnClick = async () => {
     try {
       //apiを呼び出してDialySaleを作成する
-      await convertAxios.post(LOCAL_DIALYSALES_ADDRESS, {
+      await convertDialySaleAxios.post("/", {
         dialySale: {
           storeId: dialySaleContext.StoreModel?.id,
           salesDay: dialySaleForm.getValues("salesDay"),

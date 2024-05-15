@@ -7,7 +7,7 @@ import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesCont
 import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
 import axios from "axios";
-import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
+import { convertDialySaleAxios } from "@/util/convertAxios";
 
 export type AddDialySaleLogicProps = {
   userModel: UserModel;
@@ -72,7 +72,7 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
   //受け取ったidをサーバーへdeleteリクエストを行う
   const sendDelete = (deleteIds: GridRowSelectionModel) => {
     deleteIds?.map((deleteId) => {
-      return axios.delete(`${LOCAL_DIALYSALES_ADDRESS}/${deleteId}`);
+      return convertDialySaleAxios.delete(`/${deleteId}`);
     });
   };
 

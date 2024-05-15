@@ -2,8 +2,7 @@ import { DialySale } from "@/type/DialySale";
 import { useContext, useEffect, useMemo } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesContextProvider";
-import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
-import { convertAxios } from "@/util/convertAxios";
+import { convertDialySaleAxios } from "@/util/convertAxios";
 import { Grid } from "@mui/material";
 import { DialySaleContextActionType } from "@/pages/AddDialySale/context/DIalySalesContextReducer";
 
@@ -23,7 +22,7 @@ export const DialySales = (props: DialySalesProps) => {
   const fetchDialySales = async () => {
     //APIからDialySale一覧を取得する
     try {
-      const res = await convertAxios.get<DialySale[]>(LOCAL_DIALYSALES_ADDRESS, {
+      const res = await convertDialySaleAxios.get<DialySale[]>("/", {
         //サーバーから取得するDialySaleの期間をparamsに設定
         params: {
           storeId: dialySalesContext.StoreModel?.id,
