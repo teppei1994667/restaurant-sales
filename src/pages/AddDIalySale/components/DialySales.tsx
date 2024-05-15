@@ -43,7 +43,7 @@ export const DialySales = (props: DialySalesProps) => {
   useEffect(() => {
     fetchDialySales();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dialySalesContext.StoreModel?.id]);
 
   //データグリッドのカラム(列)情報
   const columns: GridColDef[] = [

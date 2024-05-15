@@ -19,6 +19,7 @@ import { UserDispatch } from "@/pages/User/context/UserContextProvider";
 import { UserContexActionType } from "@/pages/User/context/UserContextReducer";
 import { StoreContext } from "@/pages/Store/context/StoreContextProvider";
 import { useRouter } from "next/router";
+import { DialySalesContext } from "@/pages/AddDialySale/context/DialySalesContextProvider";
 
 export type HeaderProps = {
   loginStatus?: boolean;
@@ -33,6 +34,7 @@ export const Header = (props: HeaderProps) => {
 
   const userDispatch = useContext(UserDispatch);
   const storeContext = useContext(StoreContext);
+  const dialySaleContext = useContext(DialySalesContext);
 
   const router = useRouter();
 
@@ -54,18 +56,26 @@ export const Header = (props: HeaderProps) => {
     });
   }, [userDispatch]);
 
-  // Storeページ表示時「店舗名」押下時
-  const handleOtherStoreOnClick = useCallback(
+  // Storeページ、DialySaleページ表示時「店舗名」押下時
+  const handleStoreNameOnClick = useCallback(
     (storeId: string) => {
       router.push({ pathname: "Store", query: { id: storeId } });
     },
     [router]
   );
 
-  // Storeページ表示時「ユーザー名」押下時
+  // Storeページ、DialySaleページ表示時「ユーザー名」押下時
   const handleUserNameOnClick = useCallback(() => {
     router.push({ pathname: "User" });
   }, [router]);
+
+  // DialySaleページ表示時「店舗名」押下時
+  const handleothereStoreAddDialySaleOnClick = useCallback(
+    (storeId: string) => {
+      router.push({ pathname: "AddDialySale", query: { id: storeId } });
+    },
+    [router]
+  );
 
   // userページから呼ばれた時のリスト
   const UserPageDrawerList = (
@@ -89,7 +99,7 @@ export const Header = (props: HeaderProps) => {
         </ListItem>
         {storeContext.OtherStoreModels?.map((otherStoreModel, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemButton onClick={() => handleOtherStoreOnClick(String(otherStoreModel.id))}>
+            <ListItemButton onClick={() => handleStoreNameOnClick(String(otherStoreModel.id))}>
               <ListItemText className="text-center text-gray-500" primary={otherStoreModel.name} />
             </ListItemButton>
           </ListItem>
@@ -106,6 +116,40 @@ export const Header = (props: HeaderProps) => {
     </Box>
   );
 
+  // dialySaleページから呼ばれた時のリスト
+  const DialySaleDrawerList = (
+    <Box sx={{ width: 350 }}>
+      <List className="mt-10">
+        <ListItem disablePadding className="mb-5">
+          <ListItemText className="text-center text-gray-500" primary="◇売上登録" />
+        </ListItem>
+        {dialySaleContext.OtherStoreModels?.map((otherStoreModel, index) => (
+          <ListItem key={index} disablePadding>
+            <ListItemButton onClick={() => handleothereStoreAddDialySaleOnClick(String(otherStoreModel.id))}>
+              <ListItemText className="text-center text-gray-500" primary={otherStoreModel.name} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+        <ListItem disablePadding className="mt-20">
+          <ListItemText className="text-center text-gray-500 mb-5" primary="◇ストア" />
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => handleStoreNameOnClick(String(dialySaleContext.StoreModel?.id))}>
+            <ListItemText className="text-center text-gray-500" primary={dialySaleContext.StoreModel?.name} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemText className="text-center text-gray-500 mb-5" primary="◇ユーザー" />
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={handleUserNameOnClick}>
+            <ListItemText className="text-center text-gray-500" primary={dialySaleContext.UserModel?.name} />
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </Box>
+  );
+
   // Headerの呼び元ページごとにDrawerの表示内容を変更
   useEffect(() => {
     switch (callerPage) {
@@ -115,11 +159,14 @@ export const Header = (props: HeaderProps) => {
       case "store":
         setDrawerList(StorePageDrawerList);
         break;
+      case "dialySale":
+        setDrawerList(DialySaleDrawerList);
+        break;
       default:
         setDrawerList(undefined);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [callerPage, storeContext]);
+  }, [callerPage, storeContext, dialySaleContext]);
 
   return (
     <>

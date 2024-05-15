@@ -6,7 +6,6 @@ import { StoreModel } from "@/pages/Store/type/model/StoreModel";
 import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesContextProvider";
 import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
-import axios from "axios";
 import { convertDialySaleAxios } from "@/util/convertAxios";
 
 export type AddDialySaleLogicProps = {
@@ -22,7 +21,7 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isSearchDialySalesDispalay, setIsSearchDialySalesDispalay] = useState(false);
 
-  //チェックボックスで選択した行のデータを保持
+  // チェックボックスで選択した行のデータを保持
   const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DialySale>();
 
   const dialySalesContext = useContext(DialySalesContext);
@@ -37,7 +36,7 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [otherStoreModels, storeModel, userModel]);
 
-  //「期間を指定して表示する」押下時
+  // 「期間を指定して表示する」押下時
   const handleKikanShiteiOnClick = () => {
     setIsSearchDialySalesDispalay((prev) => !prev);
   };
@@ -48,7 +47,7 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
     }, 1000);
   }, []);
 
-  //変更ボタン押下時
+  // 変更ボタン押下時
   const handleEditBtnOnClick = useCallback(() => {
     if (dialySalesContext.rowSelectionModel.length !== 1) {
       if (dialySalesContext.rowSelectionModel?.length > 1) {
@@ -60,7 +59,7 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
         return;
       }
     }
-    //選ばれている行のデータをstateにセット
+    // 選ばれている行のデータをstateにセット
     dialySalesContext.DialySaleModels?.map((dialySaleModel) => {
       if (dialySaleModel.id === Number(dialySalesContext.rowSelectionModel)) {
         setRowSelectionModelValue(dialySaleModel);
@@ -69,14 +68,14 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
     setIsEditDialogOpen(true);
   }, [dialySalesContext.DialySaleModels, dialySalesContext.rowSelectionModel]);
 
-  //受け取ったidをサーバーへdeleteリクエストを行う
+  // 受け取ったidをサーバーへdeleteリクエストを行う
   const sendDelete = (deleteIds: GridRowSelectionModel) => {
     deleteIds?.map((deleteId) => {
       return convertDialySaleAxios.delete(`/${deleteId}`);
     });
   };
 
-  //削除ボタン押下時の処理
+  // 削除ボタン押下時の処理
   const handleDeleteOnClick = useCallback(() => {
     // 確認のダイアログを表示し「いいえ」を押下した場合処理終了
     if (dialySalesContext.rowSelectionModel.length !== 0) {

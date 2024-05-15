@@ -28,8 +28,8 @@ export const AddDialySale = (props: GetServerSideProps & AddDialySaleProps) => {
 
   return (
     <>
-      <Header loginStatus={true} />
       <DialySalesContextProvider>
+        <Header loginStatus={true} callerPage="dialySale" />
         <AddDialySaleLogic userModel={user} storeModel={storeModel} otherStoreModels={otherStoreModels} />
       </DialySalesContextProvider>
     </>
