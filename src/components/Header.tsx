@@ -138,7 +138,7 @@ export const Header = (props: HeaderProps) => {
             <ListItemText className="text-center text-gray-500" primary={dialySaleContext.StoreModel?.name} />
           </ListItemButton>
         </ListItem>
-        <ListItem disablePadding>
+        <ListItem disablePadding className="mt-20">
           <ListItemText className="text-center text-gray-500 mb-5" primary="◇ユーザー" />
         </ListItem>
         <ListItem disablePadding>
