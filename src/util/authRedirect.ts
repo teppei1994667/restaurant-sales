@@ -1,13 +1,13 @@
 import { LOCAL_ADDRESS } from "@/constants/serverAdress";
 import { GetServerSideProps } from "next";
-import { convertAxios } from "./convertAxios";
+import { convertDefaultAxios } from "./convertAxios";
 
 export const authenticationPossibleServerSideProps = (url: string): GetServerSideProps => {
   return async (context) => {
     const cookies = context.req.cookies;
 
     try {
-      const response = await convertAxios.get(`${LOCAL_ADDRESS}/${url}`, {
+      const response = await convertDefaultAxios.get(`/${url}`, {
         headers: {
           "Content-Type": "application/json",
           uid: cookies["_uid"] ? cookies["_uid"] : "",
@@ -36,7 +36,7 @@ export const authenticationNotPossibleServerSideProps = (url: string): GetServer
     const cookies = context.req.cookies;
 
     try {
-      const response = await convertAxios.get(`${LOCAL_ADDRESS}/${url}`, {
+      const response = await convertDefaultAxios.get(`/${url}`, {
         headers: {
           "Content-Type": "application/json",
           uid: cookies["_uid"] ? cookies["_uid"] : "",

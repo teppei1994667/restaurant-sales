@@ -1,11 +1,10 @@
 import { DialySale } from "@/type/DialySale";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { DialySalesStateContext } from "../context/DialySalesContext";
-import { SelectDialySalesContext } from "../context/SelectDialySalesContext";
-import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
-import { convertAxios } from "@/util/convertAxios";
+import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesContextProvider";
+import { convertDialySaleAxios } from "@/util/convertAxios";
 import { Grid } from "@mui/material";
+import { DialySaleContextActionType } from "@/pages/AddDialySale/context/DIalySalesContextReducer";
 
 export type DialySalesProps = {
   startDialySaleDay?: string;
@@ -16,21 +15,25 @@ export type DialySalesProps = {
 export const DialySales = (props: DialySalesProps) => {
   const { startDialySaleDay, endDialySaleDay } = props;
 
-  const { state, dispatch } = useContext(DialySalesStateContext);
-  const { setRowSelectionModel } = useContext(SelectDialySalesContext);
+  const dialySalesContext = useContext(DialySalesContext);
+  const dialySalesDspatch = useContext(DialySalesDispatch);
 
   //DialySale一覧を取得する関数DialySale
   const fetchDialySales = async () => {
     //APIからDialySale一覧を取得する
     try {
-      const res = await convertAxios.get<DialySale[]>(LOCAL_DIALYSALES_ADDRESS, {
+      const res = await convertDialySaleAxios.get<DialySale[]>("/", {
         //サーバーから取得するDialySaleの期間をparamsに設定
         params: {
+          storeId: dialySalesContext.StoreModel?.id,
           startDay: startDialySaleDay,
           endDay: endDialySaleDay,
         },
       });
-      dispatch({ type: "returnData", payload: res.data });
+      dialySalesDspatch({
+        type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
+        payload: { dialySaleModels: res.data },
+      });
     } catch (err) {
       console.log(err);
     }
@@ -40,7 +43,7 @@ export const DialySales = (props: DialySalesProps) => {
   useEffect(() => {
     fetchDialySales();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dialySalesContext.StoreModel?.id]);
 
   //データグリッドのカラム(列)情報
   const columns: GridColDef[] = [
@@ -113,12 +116,18 @@ export const DialySales = (props: DialySalesProps) => {
     },
   ];
 
+  // DataGridのrowデータ作成
+  const DialySaleRowData = useMemo(
+    () => (dialySalesContext.DialySaleModels ? dialySalesContext.DialySaleModels : []),
+    [dialySalesContext.DialySaleModels]
+  );
+
   return (
     <>
       <Grid container>
         <Grid item sx={{ height: "650px", width: "1312px" }}>
           <DataGrid
-            rows={state.dialySales}
+            rows={DialySaleRowData}
             columns={columns}
             checkboxSelection //チェックボックス表示
             disableRowSelectionOnClick //セルまたは行クリック時に選択状態(チックボックスにチェックをいれる)を無効化
@@ -136,10 +145,14 @@ export const DialySales = (props: DialySalesProps) => {
             }}
             //選択状態を検知
             onRowSelectionModelChange={(newRowSelectionModel) => {
-              setRowSelectionModel(newRowSelectionModel);
+              dialySalesDspatch({
+                type: DialySaleContextActionType.SELECT_GRID_ROW_MODEL,
+                payload: { gridRowSelected: newRowSelectionModel },
+              });
             }}
             sx={{
               hight: "600px",
+              color: "gray",
               ".MuiDataGrid-columnHeaders": {
                 backgroundColor: "#fffaf0",
               },

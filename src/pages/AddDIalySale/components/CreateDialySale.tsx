@@ -1,12 +1,14 @@
 import { Button, Grid } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormDialySale } from "@/type/DialySale";
-import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
-import { ControlledNumberTextField } from "./share/form/ControlledNumberTextField";
-import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
-import { convertAxios } from "@/util/convertAxios";
+import { ControlledDatePicker } from "../../../components/share/form/ControlledDatePicker";
+import { ControlledNumberTextField } from "../../../components/share/form/ControlledNumberTextField";
+import { convertDialySaleAxios } from "@/util/convertAxios";
+import { DialySalesContext } from "../context/DialySalesContextProvider";
+import { useContext } from "react";
 
 export const CreateDialySale = () => {
+  const dialySaleContext = useContext(DialySalesContext);
   //新規売り上げ作成をformで管理
   const dialySaleForm = useForm<FormDialySale>({
     defaultValues: {
@@ -24,8 +26,9 @@ export const CreateDialySale = () => {
   const handleMakeDialySaleOnClick = async () => {
     try {
       //apiを呼び出してDialySaleを作成する
-      await convertAxios.post(LOCAL_DIALYSALES_ADDRESS, {
+      await convertDialySaleAxios.post("/", {
         dialySale: {
+          storeId: dialySaleContext.StoreModel?.id,
           salesDay: dialySaleForm.getValues("salesDay"),
           lunchSales: Number(dialySaleForm.getValues("lunchSale")),
           dinnerSales: Number(dialySaleForm.getValues("dinnerSale")),
@@ -46,11 +49,6 @@ export const CreateDialySale = () => {
       console.log(error);
     }
   };
-
-  //作成ボタン押下時のテスト用関数
-  // const handleMakeDialySaleOnClickTest = () => {
-  //   console.log("作成テスト", dialySaleForm.getValues());
-  // };
 
   return (
     <>
@@ -110,7 +108,11 @@ export const CreateDialySale = () => {
         </Grid>
         <Grid container spacing={0.75} className="justify-center mt-5">
           <Grid item>
-            <Button variant="outlined" onClick={dialySaleForm.handleSubmit(handleMakeDialySaleOnClick)}>
+            <Button
+              className="text-gray-500"
+              variant="text"
+              onClick={dialySaleForm.handleSubmit(handleMakeDialySaleOnClick)}
+            >
               作成
             </Button>
           </Grid>

@@ -12,7 +12,7 @@ const options = {
   ignoreHeaders: true,
 };
 
-export const convertAxios = applyCaseMiddleware(
+export const convertDefaultAxios = applyCaseMiddleware(
   axios.create({
     baseURL: LOCAL_ADDRESS,
   }),
@@ -20,7 +20,7 @@ export const convertAxios = applyCaseMiddleware(
 );
 
 //axiosによるサーバー通信時のスネークケース、キャメルケースの変換を自動化する
-export const dialySaleAxios = applyCaseMiddleware(
+export const convertDialySaleAxios = applyCaseMiddleware(
   axios.create({
     baseURL: LOCAL_DIALYSALES_ADDRESS,
   }),
@@ -28,14 +28,14 @@ export const dialySaleAxios = applyCaseMiddleware(
 );
 
 //axiosによるサーバー通信時のスネークケース、キャメルケースの変換を自動化する
-export const authUserAxios = applyCaseMiddleware(
+export const convertAuthUserAxios = applyCaseMiddleware(
   axios.create({
     baseURL: LOCAL_AUTHUSER_ADDRESS,
   }),
   options
 );
 
-export const storeAxios = applyCaseMiddleware(
+export const convertStoreAxios = applyCaseMiddleware(
   axios.create({
     baseURL: LOCAL_STORES_ASRESS,
   }),

@@ -1,22 +1,23 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { useContext } from "react";
-import { DialySalesStateContext } from "../context/DialySalesContext";
+import { DialySalesContext } from "../context/DialySalesContextProvider";
 
 export const TotalDialySale = () => {
-  const { state } = useContext(DialySalesStateContext);
+  const dialySalesContext = useContext(DialySalesContext);
+
   let totalLunchSale = 0;
   let totalDinnerSale = 0;
   let totalLunchVisitor = 0;
   let totalDinnerVisitor = 0;
   let totalPersonnelCost = 0;
   let totalPurchase = 0;
-  state.dialySales.map((dialySale) => {
-    totalLunchSale += dialySale.lunchSales;
-    totalDinnerSale += dialySale.dinnerSales;
-    totalLunchVisitor += dialySale.lunchVisitor;
-    totalDinnerVisitor += dialySale.dinnerVisitor;
-    totalPersonnelCost += dialySale.personnelCost;
-    totalPurchase += dialySale.purchase;
+  dialySalesContext.DialySaleModels?.map((dialySaleModel) => {
+    totalLunchSale += dialySaleModel.lunchSales;
+    totalDinnerSale += dialySaleModel.dinnerSales;
+    totalLunchVisitor += dialySaleModel.lunchVisitor;
+    totalDinnerVisitor += dialySaleModel.dinnerVisitor;
+    totalPersonnelCost += dialySaleModel.personnelCost;
+    totalPurchase += dialySaleModel.purchase;
   });
 
   const createData = (name: string, lunch: string | number, dinner: string | number, total: number) => {
@@ -38,18 +39,18 @@ export const TotalDialySale = () => {
             <TableHead>
               <TableRow>
                 <TableCell></TableCell>
-                <TableCell>lunch</TableCell>
-                <TableCell>dinner</TableCell>
-                <TableCell>total</TableCell>
+                <TableCell className="text-gray-500">lunch</TableCell>
+                <TableCell className="text-gray-500">dinner</TableCell>
+                <TableCell className="text-gray-500">total</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {totalData.map((item) => (
                 <TableRow key={item.name}>
-                  <TableCell>{item.name}</TableCell>
-                  <TableCell>{item.lunch}</TableCell>
-                  <TableCell>{item.dinner}</TableCell>
-                  <TableCell>{item.total}</TableCell>
+                  <TableCell className="text-gray-500">{item.name}</TableCell>
+                  <TableCell className="text-gray-500">{item.lunch}</TableCell>
+                  <TableCell className="text-gray-500">{item.dinner}</TableCell>
+                  <TableCell className="text-gray-500">{item.total}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -1,10 +1,10 @@
-import { Button, Grid, Link, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { useContext } from "react";
 import { StoreContext } from "../context/StoreContextProvider";
+import Link from "next/link";
 
 export const StoreView = () => {
   const storeContext = useContext(StoreContext);
-  console.log("StoreView storeContext", storeContext);
   return (
     <>
       <Grid container className="justify-center mt-10">
@@ -16,7 +16,7 @@ export const StoreView = () => {
       </Grid>
       <Grid container className="justify-center">
         <Grid item>
-          <Link href="/AddDialySale">
+          <Link href={{ pathname: "AddDialySale", query: { id: storeContext.StoreModel?.id } }}>
             <Button className="text-gray-500 mt-10" variant="text" sx={{ height: "70px", width: "200px" }}>
               売り上げ登録
             </Button>

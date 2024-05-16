@@ -48,10 +48,6 @@ export const SignUpForm = () => {
     }
   };
 
-  // 登録ボタン押下時のテスト用関数
-  const testOnSubmit = () => {
-    console.log("登録", signUpForm.getValues());
-  };
   return (
     <FormProvider {...signUpForm}>
       <Paper elevation={0} sx={{ height: "100vh" }}>

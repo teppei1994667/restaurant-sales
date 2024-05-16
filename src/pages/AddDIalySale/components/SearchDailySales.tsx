@@ -1,17 +1,16 @@
 import { Button, Grid, Typography } from "@mui/material";
-import { ControlledDatePicker } from "./share/form/ControlledDatePicker";
+import { ControlledDatePicker } from "../../../components/share/form/ControlledDatePicker";
 import { FormProvider, useForm } from "react-hook-form";
 import { DialySale, SearchDialySales } from "@/type/DialySale";
-import { LOCAL_DIALYSALES_ADDRESS } from "@/constants/serverAdress";
 import { useContext } from "react";
-import { DialySalesStateContext } from "@/context/DialySalesContext";
-import { convertDisplayDialySales } from "@/util/convertDisplayDialySales";
+import { DialySalesContext, DialySalesDispatch } from "@/pages/AddDialySale/context/DialySalesContextProvider";
 import dayjs from "dayjs";
-import { convertAxios } from "@/util/convertAxios";
+import { convertDialySaleAxios } from "@/util/convertAxios";
+import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
 
 export const SearchDailySales = () => {
-  const { dispatch } = useContext(DialySalesStateContext);
-
+  const dialySalesContext = useContext(DialySalesContext);
+  const dialySalesDspatch = useContext(DialySalesDispatch);
   //検索の入力をformで管理
   const searchDialySalesForm = useForm<SearchDialySales>({
     defaultValues: {
@@ -23,16 +22,20 @@ export const SearchDailySales = () => {
   const handleSearchDialySalesOnClick = async () => {
     //APIから指定した期間のDialySale一覧を取得する
     try {
-      const res = await convertAxios.get<DialySale[]>(LOCAL_DIALYSALES_ADDRESS, {
+      const res = await convertDialySaleAxios.get<DialySale[]>("/", {
         //サーバーから取得するDialySaleの期間をparamsに設定
         params: {
+          storeId: dialySalesContext.StoreModel?.id,
           startDay: dayjs(searchDialySalesForm.getValues("startDay")).format("YYYY-MM-DD"),
           endDay: dayjs(searchDialySalesForm.getValues("endDay")).format("YYYY-MM-DD"),
         },
       });
-      dispatch({ type: "returnData", payload: res.data });
+      dialySalesDspatch({
+        type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
+        payload: { dialySaleModels: res.data },
+      });
       //dialySaleの取得に成功したらformの値をリセット
-      searchDialySalesForm.reset();
+      // searchDialySalesForm.reset();
     } catch (err) {
       console.log(err);
     }
