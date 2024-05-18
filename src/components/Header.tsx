@@ -1,6 +1,7 @@
 import {
   AppBar,
   Box,
+  Button,
   ClickAwayListener,
   Drawer,
   IconButton,
@@ -13,13 +14,14 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { SignOutButton } from "./SignOutButton";
 import { ReactNode, useCallback, useContext, useEffect, useState } from "react";
 import { UserDispatch } from "@/pages/User/context/UserContextProvider";
 import { UserContexActionType } from "@/pages/User/context/UserContextReducer";
 import { StoreContext } from "@/pages/Store/context/StoreContextProvider";
 import { useRouter } from "next/router";
 import { DialySalesContext } from "@/pages/AddDialySale/context/DialySalesContextProvider";
+import { signOut } from "@/util/auth";
+import Cookies from "js-cookie";
 
 export type HeaderProps = {
   loginStatus?: boolean;
@@ -168,6 +170,17 @@ export const Header = (props: HeaderProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callerPage, storeContext, dialySaleContext]);
 
+  const handleSignOutButtonOnClick = useCallback(async () => {
+    const res = await signOut();
+    if (res.status === 200) {
+      Cookies.remove("_access-token");
+      Cookies.remove("_client");
+      Cookies.remove("_uid");
+
+      router.push("/");
+    }
+  }, []);
+
   return (
     <>
       <AppBar elevation={1} position="static" color="transparent">
@@ -188,7 +201,12 @@ export const Header = (props: HeaderProps) => {
               Dialy Sales
             </Typography>
           </Link>
-          <SignOutButton visibility={loginStatus ? "visible" : "hidden"} />
+          <Button
+            onClick={handleSignOutButtonOnClick}
+            sx={{ visibility: loginStatus ? "visible" : "hidden", color: "#666699" }}
+          >
+            ログアウト
+          </Button>
         </Toolbar>
       </AppBar>
     </>
