@@ -92,7 +92,6 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
     }
   }, [dialySalesContext.rowSelectionModel]);
 
-  console.log("AddDialySaleLogic", dialySalesContext);
   return (
     <>
       <AddDialySaleView

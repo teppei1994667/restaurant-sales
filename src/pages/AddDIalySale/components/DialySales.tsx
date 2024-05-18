@@ -1,10 +1,12 @@
 import { DialySale } from "@/type/DialySale";
-import { useContext, useEffect, useMemo } from "react";
+import { useCallback, useContext, useEffect, useMemo } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesContextProvider";
 import { convertDialySaleAxios } from "@/util/convertAxios";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { DialySaleContextActionType } from "@/pages/AddDialySale/context/DIalySalesContextReducer";
+import { DialySalesConst } from "../const/DIalySalesConst";
+import { TotalDialySaleModel } from "../type/model/TotalDialySaleModel";
 
 export type DialySalesProps = {
   startDialySaleDay?: string;
@@ -30,9 +32,12 @@ export const DialySales = (props: DialySalesProps) => {
           endDay: endDialySaleDay,
         },
       });
+
+      const totalDailySale = calculateTotalDialySales(res.data);
+
       dialySalesDspatch({
         type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
-        payload: { dialySaleModels: res.data },
+        payload: { dialySaleModels: res.data, totalDialySaleModel: totalDailySale },
       });
     } catch (err) {
       console.log(err);
@@ -122,10 +127,45 @@ export const DialySales = (props: DialySalesProps) => {
     [dialySalesContext.DialySaleModels]
   );
 
+  // DataGridのwidth
+  const dialySalesDataGridWidth = DialySaleRowData.length > DialySalesConst.DATAGRID_MAX_ROW_COUNT ? 1327 : 1312;
+
+  // DataGridのheight
+  const dialySalesDataGridHeight =
+    DialySaleRowData.length > DialySalesConst.DATAGRID_MAX_ROW_COUNT
+      ? DialySalesConst.DATAGRID_MAX_HEIGHT
+      : DialySaleRowData.length * DialySalesConst.DATAGRID_ROW_HEIGHT + DialySalesConst.DATAGRID_HEADER_HEIGHT;
+
+  const calculateTotalDialySales = useCallback((data: DialySale[]) => {
+    const totalDailySale: TotalDialySaleModel = {
+      totalLunchSale: 0,
+      totalDinnerSale: 0,
+      totalSale: 0,
+      totalLunchVisitor: 0,
+      totalDinnerVisitor: 0,
+      totalVisitor: 0,
+      totalPersonnelCost: 0,
+      totalPurchase: 0,
+    };
+
+    data.map((datum) => {
+      totalDailySale.totalLunchSale += datum.lunchSales;
+      totalDailySale.totalDinnerSale += datum.dinnerSales;
+      totalDailySale.totalSale += datum.totalSale;
+      totalDailySale.totalLunchVisitor += datum.lunchVisitor;
+      totalDailySale.totalDinnerVisitor += datum.dinnerVisitor;
+      totalDailySale.totalVisitor += datum.totalVisitor;
+      totalDailySale.totalPersonnelCost += datum.personnelCost;
+      totalDailySale.totalPurchase += datum.purchase;
+    });
+
+    return totalDailySale;
+  }, []);
+
   return (
     <>
       <Grid container>
-        <Grid item sx={{ height: "650px", width: "1312px" }}>
+        <Grid item sx={{ height: `${dialySalesDataGridHeight}px`, width: `${dialySalesDataGridWidth}px` }}>
           <DataGrid
             rows={DialySaleRowData}
             columns={columns}
@@ -169,7 +209,111 @@ export const DialySales = (props: DialySalesProps) => {
             showCellVerticalBorder //ボーダー調整
             showColumnVerticalBorder //ボーダー調整
             hideFooter //フッター非表示
+            density="compact"
           />
+        </Grid>
+      </Grid>
+      <Grid container className="mt-3" sx={{ width: dialySalesDataGridWidth }}>
+        <Grid item className="text-gray-500" sx={{ width: "140px", textAlign: "center", marginLeft: "50px" }}>
+          <Typography className="text-gray-500" variant="subtitle1">
+            合計
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          className="text-gray-500"
+          sx={{
+            width: "140px",
+            height: "52px",
+            textAlign: "right",
+            paddingRight: "9px",
+          }}
+        >
+          ¥{dialySalesContext.TotalDialySaleModel?.totalLunchSale.toLocaleString()}
+        </Grid>
+        <Grid
+          item
+          className="text-gray-500"
+          sx={{
+            width: "140px",
+            height: "52px",
+            textAlign: "right",
+            paddingRight: "9px",
+          }}
+        >
+          ¥{dialySalesContext.TotalDialySaleModel?.totalDinnerSale.toLocaleString()}
+        </Grid>
+        <Grid
+          item
+          className="text-gray-500"
+          sx={{
+            width: "140px",
+            height: "52px",
+            textAlign: "right",
+            paddingRight: "9px",
+          }}
+        >
+          ¥{dialySalesContext.TotalDialySaleModel?.totalSale.toLocaleString()}
+        </Grid>
+        <Grid
+          item
+          className="text-gray-500"
+          sx={{
+            width: "140px",
+            height: "52px",
+            textAlign: "right",
+            paddingRight: "9px",
+          }}
+        >
+          ¥{dialySalesContext.TotalDialySaleModel?.totalLunchVisitor.toLocaleString()}
+        </Grid>
+        <Grid
+          item
+          className="text-gray-500"
+          sx={{
+            width: "140px",
+            height: "52px",
+            textAlign: "right",
+            paddingRight: "9px",
+          }}
+        >
+          ¥{dialySalesContext.TotalDialySaleModel?.totalDinnerVisitor.toLocaleString()}
+        </Grid>
+        <Grid
+          item
+          className="text-gray-500"
+          sx={{
+            width: "140px",
+            height: "52px",
+            textAlign: "right",
+            paddingRight: "9px",
+          }}
+        >
+          ¥{dialySalesContext.TotalDialySaleModel?.totalVisitor.toLocaleString()}
+        </Grid>
+        <Grid
+          item
+          className="text-gray-500"
+          sx={{
+            width: "140px",
+            height: "52px",
+            textAlign: "right",
+            paddingRight: "9px",
+          }}
+        >
+          ¥{dialySalesContext.TotalDialySaleModel?.totalPersonnelCost.toLocaleString()}
+        </Grid>
+        <Grid
+          item
+          className="text-gray-500"
+          sx={{
+            width: "140px",
+            height: "52px",
+            textAlign: "right",
+            paddingRight: "9px",
+          }}
+        >
+          ¥{dialySalesContext.TotalDialySaleModel?.totalPurchase.toLocaleString()}
         </Grid>
       </Grid>
     </>

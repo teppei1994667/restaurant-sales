@@ -75,7 +75,7 @@ export const CreateDialySale = () => {
               helperText={dialySaleForm.formState.errors.dinnerSale?.message}
             />
           </Grid>
-          <Grid container spacing={0.75} className="justify-center mt-5">
+          <Grid container spacing={0.75} className="justify-center mt-3">
             <Grid item className="ml-7">
               <ControlledNumberTextField
                 name="lunchVisitor"
@@ -106,7 +106,7 @@ export const CreateDialySale = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid container spacing={0.75} className="justify-center mt-5">
+        <Grid container spacing={0.75} className="justify-center mt-2">
           <Grid item>
             <Button
               className="text-gray-500"

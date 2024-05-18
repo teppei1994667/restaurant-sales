@@ -4,6 +4,7 @@ import { DialySale } from "@/type/DialySale";
 import { UserModel } from "@/pages/User/type/model/UserModel";
 import { StoreModel } from "@/pages/Store/type/model/StoreModel";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
+import { TotalDialySaleModel } from "../type/model/TotalDialySaleModel";
 
 export enum DialySaleContextActionType {
   SAVE_DIALY_SALE_INFORMATION = "SAVE_DIALY_SALE_INFORMATION",
@@ -18,6 +19,7 @@ export type DialySaleCotextAction =
         storeModel?: StoreModel;
         otherStoreModels?: StoreModel[];
         dialySaleModels?: DialySale[];
+        totalDialySaleModel?: TotalDialySaleModel;
       };
     }
   | {
@@ -34,6 +36,7 @@ export const dialySaleReducer: Reducer<DialySalesContextInfo, DialySaleCotextAct
         StoreModel: action.payload.storeModel ?? state.StoreModel,
         OtherStoreModels: action.payload.otherStoreModels ?? state.OtherStoreModels,
         DialySaleModels: action.payload.dialySaleModels ?? state.DialySaleModels,
+        TotalDialySaleModel: action.payload.totalDialySaleModel ?? state.TotalDialySaleModel,
       };
       return updateDialySaleContext;
     case DialySaleContextActionType.SELECT_GRID_ROW_MODEL:

@@ -2,7 +2,6 @@ import { CreateDialySale } from "@/pages/AddDialySale/components/CreateDialySale
 import { DialySales } from "@/pages/AddDialySale/components/DialySales";
 import { EditDialog } from "@/pages/AddDialySale/components/EditDialog";
 import { SearchDailySales } from "@/pages/AddDialySale/components/SearchDailySales";
-import { TotalDialySale } from "@/pages/AddDialySale/components/TotalDialySale";
 import { DialySale } from "@/type/DialySale";
 import { Button, Grid, Paper, Typography } from "@mui/material";
 import dayjs from "dayjs";
@@ -42,27 +41,27 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
   const BEGINING_OF_THE_MONTH = dayjs().startOf("month").format("YYYY-MM-DD"); //当月１日文字列
   return (
     <>
-      <Paper elevation={0} className="pt-5">
+      <Paper elevation={0} className="">
         <Grid container className="justify-center">
           <Grid item>
-            <Typography className="text-gray-500" variant="h4">
+            <Typography className="text-gray-500" variant="h5">
               {dialySaleContext.StoreModel?.name}
             </Typography>
           </Grid>
         </Grid>
         <Grid container className="justify-center">
           <Grid item>
-            <Typography className="text-gray-500" variant="h4">
+            <Typography className="text-gray-500" variant="h5">
               売り上げ登録
             </Typography>
           </Grid>
         </Grid>
-        <Grid container className="justify-center mt-9">
+        <Grid container className="justify-center mt-5">
           <Grid item>
             <CreateDialySale />
           </Grid>
         </Grid>
-        <Grid container className="justify-center mt-5">
+        <Grid container className="justify-center mt-2">
           <Grid item>
             <Button className="text-gray-500" variant="text" onClick={handleKikanShiteiOnClick}>
               {isSearchDialySalesDispalay ? "隠す" : "期間を指定して表示する"}
@@ -89,7 +88,7 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
                 <DialySales startDialySaleDay={BEGINING_OF_THE_MONTH} endDialySaleDay={TODAY} />
               </Grid>
             </Grid>
-            <Grid container className="justify-center mt-9">
+            <Grid container className="justify-center mt-3">
               <Grid item>
                 <Button className="text-gray-500" variant="text" onClick={handleEditBtnOnClick}>
                   変更
@@ -98,11 +97,6 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
               <Button className="text-gray-500" variant="text" onClick={handleDeleteOnClick}>
                 削除
               </Button>
-            </Grid>
-            <Grid container className="justify-center mt-9">
-              <Grid item>
-                <TotalDialySale />
-              </Grid>
             </Grid>
           </>
         )}
