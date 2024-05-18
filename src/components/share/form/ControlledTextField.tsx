@@ -14,7 +14,14 @@ export const ControlledTextField = forwardRef<HTMLInputElement, ControlledTextFi
         control={form.control}
         rules={rules}
         render={({ field, formState: { errors } }) => (
-          <TextField {...field} ref={ref} error={!!errors.message} helperText={helperText} {...restProps} />
+          <TextField
+            {...field}
+            ref={ref}
+            error={!!errors.message}
+            helperText={helperText}
+            {...restProps}
+            size="small"
+          />
         )}
       />
     </>

@@ -10,8 +10,8 @@ export const ControlledNumberTextField = forwardRef<HTMLInputElement, Controlled
   const saleTextFieldRules = {
     required: { value: true, message: "必須入力です" },
     maxLength: {
-      value: 7,
-      message: "最大７桁までの入力にしか対応していません",
+      value: 9,
+      message: "最大9桁までの入力にしか対応していません",
     },
     pattern: {
       value: numberRegExp,

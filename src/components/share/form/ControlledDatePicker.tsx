@@ -28,7 +28,13 @@ export const ControlledDatePicker = forwardRef<HTMLInputElement, ControlledDateP
             ref={ref}
             slots={{
               textField: (textFieldProps) => (
-                <TextField {...field} error={!!errors.message} helperText={helperText} {...textFieldProps} />
+                <TextField
+                  {...field}
+                  error={!!errors.message}
+                  helperText={helperText}
+                  {...textFieldProps}
+                  size="small"
+                />
               ),
             }}
           />
