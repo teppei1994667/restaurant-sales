@@ -56,7 +56,7 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
             </Typography>
           </Grid>
         </Grid>
-        <Grid container className="justify-center mt-5">
+        <Grid container className="justify-center mt-10">
           <Grid item>
             <CreateDialySale />
           </Grid>

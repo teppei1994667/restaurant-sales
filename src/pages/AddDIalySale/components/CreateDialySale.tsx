@@ -106,7 +106,7 @@ export const CreateDialySale = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid container spacing={0.75} className="justify-center mt-2">
+        <Grid container spacing={0.75} className="justify-center mt-5">
           <Grid item>
             <Button
               className="text-gray-500"
