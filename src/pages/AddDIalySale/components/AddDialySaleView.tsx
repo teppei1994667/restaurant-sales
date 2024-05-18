@@ -41,7 +41,7 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
   const BEGINING_OF_THE_MONTH = dayjs().startOf("month").format("YYYY-MM-DD"); //当月１日文字列
   return (
     <>
-      <Paper elevation={0} className="">
+      <Paper elevation={0} className="pb-14">
         <Grid container className="justify-center">
           <Grid item>
             <Typography className="text-gray-500" variant="h5">
