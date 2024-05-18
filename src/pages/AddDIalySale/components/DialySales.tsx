@@ -7,6 +7,7 @@ import { Grid, Typography } from "@mui/material";
 import { DialySaleContextActionType } from "@/pages/AddDialySale/context/DIalySalesContextReducer";
 import { DialySalesConst } from "../const/DIalySalesConst";
 import { TotalDialySaleModel } from "../type/model/TotalDialySaleModel";
+import { calculateTotalDialySales } from "../util/DialySaleUtil";
 
 export type DialySalesProps = {
   startDialySaleDay?: string;
@@ -33,6 +34,7 @@ export const DialySales = (props: DialySalesProps) => {
         },
       });
 
+      // totalDialySaleを計算
       const totalDailySale = calculateTotalDialySales(res.data);
 
       dialySalesDspatch({
@@ -135,32 +137,6 @@ export const DialySales = (props: DialySalesProps) => {
     DialySaleRowData.length > DialySalesConst.DATAGRID_MAX_ROW_COUNT
       ? DialySalesConst.DATAGRID_MAX_HEIGHT
       : DialySaleRowData.length * DialySalesConst.DATAGRID_ROW_HEIGHT + DialySalesConst.DATAGRID_HEADER_HEIGHT;
-
-  const calculateTotalDialySales = useCallback((data: DialySale[]) => {
-    const totalDailySale: TotalDialySaleModel = {
-      totalLunchSale: 0,
-      totalDinnerSale: 0,
-      totalSale: 0,
-      totalLunchVisitor: 0,
-      totalDinnerVisitor: 0,
-      totalVisitor: 0,
-      totalPersonnelCost: 0,
-      totalPurchase: 0,
-    };
-
-    data.map((datum) => {
-      totalDailySale.totalLunchSale += datum.lunchSales;
-      totalDailySale.totalDinnerSale += datum.dinnerSales;
-      totalDailySale.totalSale += datum.totalSale;
-      totalDailySale.totalLunchVisitor += datum.lunchVisitor;
-      totalDailySale.totalDinnerVisitor += datum.dinnerVisitor;
-      totalDailySale.totalVisitor += datum.totalVisitor;
-      totalDailySale.totalPersonnelCost += datum.personnelCost;
-      totalDailySale.totalPurchase += datum.purchase;
-    });
-
-    return totalDailySale;
-  }, []);
 
   return (
     <>

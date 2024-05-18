@@ -7,6 +7,7 @@ import { DialySalesContext, DialySalesDispatch } from "@/pages/AddDialySale/cont
 import dayjs from "dayjs";
 import { convertDialySaleAxios } from "@/util/convertAxios";
 import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
+import { calculateTotalDialySales } from "../util/DialySaleUtil";
 
 export const SearchDailySales = () => {
   const dialySalesContext = useContext(DialySalesContext);
@@ -30,9 +31,13 @@ export const SearchDailySales = () => {
           endDay: dayjs(searchDialySalesForm.getValues("endDay")).format("YYYY-MM-DD"),
         },
       });
+
+      // totalDialySaleを計算
+      const totalDailySale = calculateTotalDialySales(res.data);
+
       dialySalesDspatch({
         type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
-        payload: { dialySaleModels: res.data },
+        payload: { dialySaleModels: res.data, totalDialySaleModel: totalDailySale },
       });
       //dialySaleの取得に成功したらformの値をリセット
       // searchDialySalesForm.reset();
