@@ -6,7 +6,6 @@ import { convertDialySaleAxios } from "@/util/convertAxios";
 import { Grid, Typography } from "@mui/material";
 import { DialySaleContextActionType } from "@/pages/AddDialySale/context/DIalySalesContextReducer";
 import { DialySalesConst } from "../const/DIalySalesConst";
-import { TotalDialySaleModel } from "../type/model/TotalDialySaleModel";
 import { calculateTotalDialySales } from "../util/DialySaleUtil";
 
 export type DialySalesProps = {

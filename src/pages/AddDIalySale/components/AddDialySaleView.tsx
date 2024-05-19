@@ -58,7 +58,7 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
         </Grid>
         <Grid container className="justify-center mt-10">
           <Grid item>
-            <CreateDialySale />
+            <CreateDialySale startDialySaleDay={BEGINING_OF_THE_MONTH} endDialySaleDay={TODAY} />
           </Grid>
         </Grid>
         <Grid container className="justify-center mt-2">
@@ -105,6 +105,8 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
         isEditDialogOpen={isEditDialogOpen}
         setIsEditDialogOpen={setIsEditDialogOpen}
         rowSelectionModelValue={rowSelectionModelValue}
+        startDialySaleDay={BEGINING_OF_THE_MONTH}
+        endDialySaleDay={TODAY}
       />
     </>
   );

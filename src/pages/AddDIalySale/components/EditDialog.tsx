@@ -3,17 +3,25 @@ import { ControlledNumberTextField } from "../../../components/share/form/Contro
 import { ControlledDatePicker } from "../../../components/share/form/ControlledDatePicker";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormDialySale, DialySale } from "@/type/DialySale";
-import { Dispatch, SetStateAction, useEffect, useMemo } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useMemo } from "react";
 import { convertDialySaleAxios } from "@/util/convertAxios";
+import { calculateTotalDialySales } from "../util/DialySaleUtil";
+import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
+import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesContextProvider";
 
 export type EditDialogProps = {
   isEditDialogOpen: boolean;
   setIsEditDialogOpen: Dispatch<SetStateAction<boolean>>;
   rowSelectionModelValue?: DialySale;
+  startDialySaleDay?: string;
+  endDialySaleDay?: string;
 };
 
 export const EditDialog = (props: EditDialogProps) => {
-  const { isEditDialogOpen, setIsEditDialogOpen, rowSelectionModelValue } = props;
+  const { isEditDialogOpen, setIsEditDialogOpen, rowSelectionModelValue, startDialySaleDay, endDialySaleDay } = props;
+
+  const dialySaleContext = useContext(DialySalesContext);
+  const dialySalesDspatch = useContext(DialySalesDispatch);
 
   //ReactHookForm以外ではsalesDayをstringで管理しているので再度Date型に変換する
   const stringSalesDayToDate = useMemo(() => {
@@ -23,24 +31,24 @@ export const EditDialog = (props: EditDialogProps) => {
   const dialySaleEditForm = useForm<FormDialySale>({
     defaultValues: {
       salesDay: null,
-      lunchSale: undefined,
-      dinnerSale: undefined,
-      lunchVisitor: undefined,
-      dinnerVisitor: undefined,
-      personnelCost: undefined,
-      purchase: undefined,
+      lunchSale: "",
+      dinnerSale: "",
+      lunchVisitor: "",
+      dinnerVisitor: "",
+      personnelCost: "",
+      purchase: "",
     },
   });
 
   // 選択した行のデータをformにセットする
   useEffect(() => {
     dialySaleEditForm.setValue("salesDay", stringSalesDayToDate);
-    dialySaleEditForm.setValue("lunchSale", rowSelectionModelValue?.lunchSales);
-    dialySaleEditForm.setValue("dinnerSale", rowSelectionModelValue?.dinnerSales);
-    dialySaleEditForm.setValue("lunchVisitor", rowSelectionModelValue?.lunchVisitor);
-    dialySaleEditForm.setValue("dinnerVisitor", rowSelectionModelValue?.dinnerVisitor);
-    dialySaleEditForm.setValue("personnelCost", rowSelectionModelValue?.personnelCost);
-    dialySaleEditForm.setValue("purchase", rowSelectionModelValue?.purchase);
+    dialySaleEditForm.setValue("lunchSale", rowSelectionModelValue?.lunchSales.toString());
+    dialySaleEditForm.setValue("dinnerSale", rowSelectionModelValue?.dinnerSales.toString());
+    dialySaleEditForm.setValue("lunchVisitor", rowSelectionModelValue?.lunchVisitor.toString());
+    dialySaleEditForm.setValue("dinnerVisitor", rowSelectionModelValue?.dinnerVisitor.toString());
+    dialySaleEditForm.setValue("personnelCost", rowSelectionModelValue?.personnelCost.toString());
+    dialySaleEditForm.setValue("purchase", rowSelectionModelValue?.purchase.toString());
   }, [dialySaleEditForm, rowSelectionModelValue, isEditDialogOpen, stringSalesDayToDate]);
 
   // 保存ボタン押下時
@@ -48,24 +56,32 @@ export const EditDialog = (props: EditDialogProps) => {
     if (rowSelectionModelValue) {
       const updateId = rowSelectionModelValue.id;
       try {
-        await convertDialySaleAxios.put(`/${updateId}`, {
+        const res = await convertDialySaleAxios.put(`/${updateId}`, {
           dialySale: {
+            storeId: dialySaleContext.StoreModel?.id,
             salesDay: dialySaleEditForm.getValues("salesDay"),
-            lunchSales: dialySaleEditForm.getValues("lunchSale"),
-            dinnerSales: dialySaleEditForm.getValues("dinnerSale"),
-            lunchVisitor: dialySaleEditForm.getValues("lunchVisitor"),
-            dinnerVisitor: dialySaleEditForm.getValues("dinnerVisitor"),
-            personnelCost: dialySaleEditForm.getValues("personnelCost"),
-            purchase: dialySaleEditForm.getValues("purchase"),
+            lunchSales: Number(dialySaleEditForm.getValues("lunchSale")),
+            dinnerSales: Number(dialySaleEditForm.getValues("dinnerSale")),
+            lunchVisitor: Number(dialySaleEditForm.getValues("lunchVisitor")),
+            dinnerVisitor: Number(dialySaleEditForm.getValues("dinnerVisitor")),
+            personnelCost: Number(dialySaleEditForm.getValues("personnelCost")),
+            purchase: Number(dialySaleEditForm.getValues("purchase")),
           },
+          startDay: startDialySaleDay,
+          endDay: endDialySaleDay,
+        });
+
+        // totalDialySaleを計算
+        const totalDailySale = calculateTotalDialySales(res.data);
+
+        dialySalesDspatch({
+          type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
+          payload: { dialySaleModels: res.data, totalDialySaleModel: totalDailySale },
         });
       } catch (error) {
         console.error(error);
       }
       setIsEditDialogOpen(false);
-      window.location.reload();
-      //TODO: 画面がリロードされてるから意味ないかもやけどいつかのされ無い実装の為に
-      dialySaleEditForm.reset();
     }
   };
 

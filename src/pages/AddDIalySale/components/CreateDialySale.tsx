@@ -4,21 +4,32 @@ import { FormDialySale } from "@/type/DialySale";
 import { ControlledDatePicker } from "../../../components/share/form/ControlledDatePicker";
 import { ControlledNumberTextField } from "../../../components/share/form/ControlledNumberTextField";
 import { convertDialySaleAxios } from "@/util/convertAxios";
-import { DialySalesContext } from "../context/DialySalesContextProvider";
+import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesContextProvider";
 import { useContext } from "react";
+import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
+import { calculateTotalDialySales } from "../util/DialySaleUtil";
 
-export const CreateDialySale = () => {
-  const dialySaleContext = useContext(DialySalesContext);
+export type CreateDialySaleProps = {
+  startDialySaleDay?: string;
+  endDialySaleDay?: string;
+};
+
+export const CreateDialySale = (props: CreateDialySaleProps) => {
+  const { startDialySaleDay, endDialySaleDay } = props;
+
+  const dialySasesContext = useContext(DialySalesContext);
+  const dialySalesDispatch = useContext(DialySalesDispatch);
+
   //新規売り上げ作成をformで管理
   const dialySaleForm = useForm<FormDialySale>({
     defaultValues: {
       salesDay: null,
-      lunchSale: undefined,
-      dinnerSale: undefined,
-      lunchVisitor: undefined,
-      dinnerVisitor: undefined,
-      personnelCost: undefined,
-      purchase: undefined,
+      lunchSale: "",
+      dinnerSale: "",
+      lunchVisitor: "",
+      dinnerVisitor: "",
+      personnelCost: "",
+      purchase: "",
     },
   });
 
@@ -26,9 +37,9 @@ export const CreateDialySale = () => {
   const handleMakeDialySaleOnClick = async () => {
     try {
       //apiを呼び出してDialySaleを作成する
-      await convertDialySaleAxios.post("/", {
+      const res = await convertDialySaleAxios.post("/", {
         dialySale: {
-          storeId: dialySaleContext.StoreModel?.id,
+          storeId: dialySasesContext.StoreModel?.id,
           salesDay: dialySaleForm.getValues("salesDay"),
           lunchSales: Number(dialySaleForm.getValues("lunchSale")),
           dinnerSales: Number(dialySaleForm.getValues("dinnerSale")),
@@ -37,14 +48,18 @@ export const CreateDialySale = () => {
           personnelCost: Number(dialySaleForm.getValues("personnelCost")),
           purchase: Number(dialySaleForm.getValues("purchase")),
         },
+        startDay: startDialySaleDay,
+        endDay: endDialySaleDay,
       });
 
-      //dialySaleの作成に成功したらformの値をリセット
-      //TODO: 画面がリロードされてるから意味ないかもやけどいつかのされ無い実装の為に
-      dialySaleForm.reset();
+      const totalDailySale = calculateTotalDialySales(res.data);
 
-      //dialySaleの作成に成功したら画面を更新する
-      window.location.reload();
+      dialySalesDispatch({
+        type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
+        payload: { dialySaleModels: res.data, totalDialySaleModel: totalDailySale },
+      });
+
+      dialySaleForm.reset();
     } catch (error) {
       console.log(error);
     }

@@ -15,12 +15,12 @@ export type DialySale = {
 //ReactHookFormでDialySaleを管理する為の型
 export type FormDialySale = {
   salesDay: Date | null;
-  lunchSale?: number;
-  dinnerSale?: number;
-  lunchVisitor?: number;
-  dinnerVisitor?: number;
-  personnelCost?: number;
-  purchase?: number;
+  lunchSale?: string;
+  dinnerSale?: string;
+  lunchVisitor?: string;
+  dinnerVisitor?: string;
+  personnelCost?: string;
+  purchase?: string;
 };
 
 //SearchDialySalesをformで管理する為の型
