@@ -78,6 +78,11 @@ export const EditDialog = (props: EditDialogProps) => {
           type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
           payload: { dialySaleModels: res.data, totalDialySaleModel: totalDailySale },
         });
+
+        dialySalesDspatch({
+          type: DialySaleContextActionType.UPDATE_SNACKBAR,
+          payload: { isSnackBarOpen: true, snackBarText: "営業データを変更しました" },
+        });
       } catch (error) {
         console.error(error);
       }

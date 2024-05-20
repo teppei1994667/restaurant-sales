@@ -59,6 +59,11 @@ export const CreateDialySale = (props: CreateDialySaleProps) => {
         payload: { dialySaleModels: res.data, totalDialySaleModel: totalDailySale },
       });
 
+      dialySalesDispatch({
+        type: DialySaleContextActionType.UPDATE_SNACKBAR,
+        payload: { isSnackBarOpen: true, snackBarText: "新規営業データを追加しました。" },
+      });
+
       dialySaleForm.reset();
     } catch (error) {
       console.log(error);

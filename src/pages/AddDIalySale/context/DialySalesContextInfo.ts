@@ -10,7 +10,11 @@ export type DialySalesContextInfo = {
   OtherStoreModels?: StoreModel[];
   DialySaleModels?: DialySale[];
   TotalDialySaleModel?: TotalDialySaleModel;
-  rowSelectionModel: GridRowSelectionModel;
+  rowSelectionModel?: GridRowSelectionModel;
+
+  // snackBarの値を保持
+  isSnackBarOpen?: boolean;
+  snackBarText?: string;
 };
 
-export const DialySalesContextInitialState: DialySalesContextInfo = { rowSelectionModel: [] };
+export const DialySalesContextInitialState: DialySalesContextInfo = { isSnackBarOpen: false };

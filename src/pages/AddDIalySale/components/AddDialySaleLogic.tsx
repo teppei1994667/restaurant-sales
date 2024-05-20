@@ -49,8 +49,8 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
 
   // 変更ボタン押下時
   const handleEditBtnOnClick = useCallback(() => {
-    if (dialySalesContext.rowSelectionModel.length !== 1) {
-      if (dialySalesContext.rowSelectionModel?.length > 1) {
+    if (dialySalesContext.rowSelectionModel) {
+      if (dialySalesContext.rowSelectionModel.length > 1) {
         alert("同時に複数のデータの変更はできません。変更したいデータを１つだけ選択してください。");
         return;
       }
@@ -69,7 +69,7 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
   }, [dialySalesContext.DialySaleModels, dialySalesContext.rowSelectionModel]);
 
   // 受け取ったidをサーバーへdeleteリクエストを行う
-  const sendDelete = (deleteIds: GridRowSelectionModel) => {
+  const sendDelete = (deleteIds?: GridRowSelectionModel) => {
     deleteIds?.map((deleteId) => {
       return convertDialySaleAxios.delete(`/${deleteId}`);
     });
@@ -78,7 +78,7 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
   // 削除ボタン押下時の処理
   const handleDeleteOnClick = useCallback(() => {
     // 確認のダイアログを表示し「いいえ」を押下した場合処理終了
-    if (dialySalesContext.rowSelectionModel.length !== 0) {
+    if (dialySalesContext.rowSelectionModel?.length !== 0) {
       if (!confirm("本当に削除しますか")) {
         return;
       }
@@ -92,6 +92,14 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
     }
   }, [dialySalesContext.rowSelectionModel]);
 
+  // snackBarのクローズイベント
+  const handleSnackBarOnClose = useCallback(() => {
+    dialySalesDspatch({
+      type: DialySaleContextActionType.UPDATE_SNACKBAR,
+      payload: { isSnackBarOpen: false, snackBarText: "" },
+    });
+  }, []);
+
   return (
     <>
       <AddDialySaleView
@@ -103,6 +111,7 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
         handleKikanShiteiOnClick={handleKikanShiteiOnClick}
         handleEditBtnOnClick={handleEditBtnOnClick}
         handleDeleteOnClick={handleDeleteOnClick}
+        handleSnackBarOnClose={handleSnackBarOnClose}
       />
     </>
   );

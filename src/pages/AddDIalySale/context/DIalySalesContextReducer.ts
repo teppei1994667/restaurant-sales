@@ -9,6 +9,7 @@ import { TotalDialySaleModel } from "../type/model/TotalDialySaleModel";
 export enum DialySaleContextActionType {
   SAVE_DIALY_SALE_INFORMATION = "SAVE_DIALY_SALE_INFORMATION",
   SELECT_GRID_ROW_MODEL = "SELECT_GRID_ROW_MODEL",
+  UPDATE_SNACKBAR = "UPDATE_SNACKBAR",
 }
 
 export type DialySaleCotextAction =
@@ -25,6 +26,10 @@ export type DialySaleCotextAction =
   | {
       type: DialySaleContextActionType.SELECT_GRID_ROW_MODEL;
       payload: { gridRowSelected: GridRowSelectionModel };
+    }
+  | {
+      type: DialySaleContextActionType.UPDATE_SNACKBAR;
+      payload: { isSnackBarOpen: boolean; snackBarText: string };
     };
 
 export const dialySaleReducer: Reducer<DialySalesContextInfo, DialySaleCotextAction> = (state, action) => {
@@ -45,6 +50,13 @@ export const dialySaleReducer: Reducer<DialySalesContextInfo, DialySaleCotextAct
         rowSelectionModel: action.payload.gridRowSelected,
       };
       return selectGridRowModel;
+    case DialySaleContextActionType.UPDATE_SNACKBAR:
+      const updateIsSnackBar: DialySalesContextInfo = {
+        ...state,
+        isSnackBarOpen: action.payload.isSnackBarOpen,
+        snackBarText: action.payload.snackBarText,
+      };
+      return updateIsSnackBar;
   }
 };
 
@@ -61,6 +73,7 @@ export const defaultDialySalesReducerContext: ReturnType<typeof useDialySalesRed
     OtherStoreModels: undefined,
     DialySaleModels: [],
     rowSelectionModel: [],
+    isSnackBarOpen: false,
   },
   dispatch: () => {},
 };

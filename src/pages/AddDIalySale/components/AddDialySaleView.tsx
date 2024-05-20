@@ -3,7 +3,7 @@ import { DialySales } from "@/pages/AddDialySale/components/DialySales";
 import { EditDialog } from "@/pages/AddDialySale/components/EditDialog";
 import { SearchDailySales } from "@/pages/AddDialySale/components/SearchDailySales";
 import { DialySale } from "@/type/DialySale";
-import { Button, Grid, Paper, Typography } from "@mui/material";
+import { Button, Grid, Paper, Snackbar, Typography } from "@mui/material";
 import dayjs from "dayjs";
 import { Dispatch, SetStateAction, useContext } from "react";
 import ja from "dayjs/locale/ja";
@@ -19,6 +19,7 @@ export type AddDialySaleViewProps = {
   handleKikanShiteiOnClick: () => void;
   handleEditBtnOnClick: () => void;
   handleDeleteOnClick: () => void;
+  handleSnackBarOnClose: () => void;
 };
 
 export const AddDialySaleView = (props: AddDialySaleViewProps) => {
@@ -31,6 +32,7 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
     handleKikanShiteiOnClick,
     handleEditBtnOnClick,
     handleDeleteOnClick,
+    handleSnackBarOnClose,
   } = props;
 
   const dialySaleContext = useContext(DialySalesContext);
@@ -101,6 +103,13 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
           </>
         )}
       </Paper>
+      <Snackbar
+        message={dialySaleContext.snackBarText}
+        open={dialySaleContext.isSnackBarOpen}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        autoHideDuration={5000}
+        onClose={handleSnackBarOnClose}
+      />
       <EditDialog
         isEditDialogOpen={isEditDialogOpen}
         setIsEditDialogOpen={setIsEditDialogOpen}
