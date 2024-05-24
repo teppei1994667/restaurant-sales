@@ -17,4 +17,4 @@ export type DialySalesContextInfo = {
   snackBarText?: string;
 };
 
-export const DialySalesContextInitialState: DialySalesContextInfo = { isSnackBarOpen: false };
+export const DialySalesContextInitialState: DialySalesContextInfo = {};

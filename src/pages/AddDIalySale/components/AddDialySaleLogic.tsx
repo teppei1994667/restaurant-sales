@@ -77,18 +77,22 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
 
   // 削除ボタン押下時の処理
   const handleDeleteOnClick = useCallback(() => {
+    console.log("dialySalesContext.rowSelectionModel", dialySalesContext.rowSelectionModel);
+    // 選択行がない場合
+    if (!dialySalesContext.rowSelectionModel || dialySalesContext.rowSelectionModel.length === 0) {
+      confirm("削除したい行を選択してください");
+      return;
+    }
     // 確認のダイアログを表示し「いいえ」を押下した場合処理終了
-    if (dialySalesContext.rowSelectionModel?.length !== 0) {
-      if (!confirm("本当に削除しますか")) {
-        return;
-      }
-      try {
-        //APIを呼び出して、DialySaleを削除する
-        sendDelete(dialySalesContext.rowSelectionModel);
-        window.location.reload();
-      } catch (error) {
-        console.error(error);
-      }
+    if (!confirm("本当に削除しますか")) {
+      return;
+    }
+    try {
+      //APIを呼び出して、DialySaleを削除する
+      sendDelete(dialySalesContext.rowSelectionModel);
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
     }
   }, [dialySalesContext.rowSelectionModel]);
 
@@ -98,7 +102,7 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
       type: DialySaleContextActionType.UPDATE_SNACKBAR,
       payload: { isSnackBarOpen: false, snackBarText: "" },
     });
-  }, []);
+  }, [dialySalesDspatch]);
 
   return (
     <>

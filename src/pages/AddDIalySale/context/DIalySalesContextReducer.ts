@@ -72,8 +72,8 @@ export const defaultDialySalesReducerContext: ReturnType<typeof useDialySalesRed
     UserModel: undefined,
     OtherStoreModels: undefined,
     DialySaleModels: [],
-    rowSelectionModel: [],
-    isSnackBarOpen: false,
+    rowSelectionModel: undefined,
+    isSnackBarOpen: undefined,
   },
   dispatch: () => {},
 };
