@@ -68,13 +68,6 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
     setIsEditDialogOpen(true);
   }, [dialySalesContext.DialySaleModels, dialySalesContext.rowSelectionModel]);
 
-  // 受け取ったidをサーバーへdeleteリクエストを行う
-  const sendDelete = (deleteIds?: GridRowSelectionModel) => {
-    deleteIds?.map((deleteId) => {
-      return convertDialySaleAxios.delete(`/${deleteId}`);
-    });
-  };
-
   // 削除ボタン押下時の処理
   const handleDeleteOnClick = useCallback(() => {
     console.log("dialySalesContext.rowSelectionModel", dialySalesContext.rowSelectionModel);
@@ -89,7 +82,8 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
     }
     try {
       //APIを呼び出して、DialySaleを削除する
-      sendDelete(dialySalesContext.rowSelectionModel);
+      const deleteIds: GridRowSelectionModel = dialySalesContext.rowSelectionModel;
+      convertDialySaleAxios.delete(`/${deleteIds[0]}`, { data: { deleteIds } });
       window.location.reload();
     } catch (error) {
       console.error(error);
@@ -103,6 +97,8 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
       payload: { isSnackBarOpen: false, snackBarText: "" },
     });
   }, [dialySalesDspatch]);
+
+  console.log("⭐️dialySalesContext.rowSelectionModel", dialySalesContext.rowSelectionModel);
 
   return (
     <>

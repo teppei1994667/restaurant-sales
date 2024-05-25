@@ -16,7 +16,6 @@ export const getServerSideProps: GetServerSideProps = authenticationPossibleServ
 
 export const AddDialySale = (props: GetServerSideProps & AddDialySaleProps) => {
   const { user, stores } = props;
-  console.log("AddDialySale", props);
 
   const router = useRouter();
 
