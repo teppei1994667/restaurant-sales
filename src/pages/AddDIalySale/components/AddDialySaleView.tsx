@@ -4,13 +4,13 @@ import { EditDialog } from "@/pages/AddDialySale/components/EditDialog";
 import { SearchDailySales } from "@/pages/AddDialySale/components/SearchDailySales";
 import { DialySale } from "@/type/DialySale";
 import { Button, Grid, Paper, Snackbar, Typography } from "@mui/material";
-import dayjs from "dayjs";
 import { Dispatch, SetStateAction, useContext } from "react";
-import ja from "dayjs/locale/ja";
 import { CirclesWithBar } from "react-loader-spinner";
 import { DialySalesContext } from "../context/DialySalesContextProvider";
 
 export type AddDialySaleViewProps = {
+  TODAY: string;
+  BEGINING_OF_THE_MONTH: string;
   isLoading: boolean;
   isEditDialogOpen: boolean;
   isSearchDialySalesDispalay: boolean;
@@ -24,6 +24,8 @@ export type AddDialySaleViewProps = {
 
 export const AddDialySaleView = (props: AddDialySaleViewProps) => {
   const {
+    TODAY,
+    BEGINING_OF_THE_MONTH,
     isLoading,
     isEditDialogOpen,
     isSearchDialySalesDispalay,
@@ -37,10 +39,6 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
 
   const dialySaleContext = useContext(DialySalesContext);
 
-  //DialySalesを当月分のみ取得する為の値
-  dayjs.locale(ja);
-  const TODAY = dayjs().format("YYYY-MM-DD"); //当日日付文字列
-  const BEGINING_OF_THE_MONTH = dayjs().startOf("month").format("YYYY-MM-DD"); //当月１日文字列
   return (
     <>
       <Paper elevation={0} className="pb-14">

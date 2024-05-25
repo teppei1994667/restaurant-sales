@@ -7,6 +7,9 @@ import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesCont
 import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
 import { convertDialySaleAxios } from "@/util/convertAxios";
+import dayjs from "dayjs";
+import ja from "dayjs/locale/ja";
+import { calculateTotalDialySales } from "../util/DialySaleUtil";
 
 export type AddDialySaleLogicProps = {
   userModel: UserModel;
@@ -25,11 +28,16 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
   const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DialySale>();
 
   const dialySalesContext = useContext(DialySalesContext);
-  const dialySalesDspatch = useContext(DialySalesDispatch);
+  const dialySalesDispatch = useContext(DialySalesDispatch);
+
+  //DialySalesを当月分のみ取得する為の値
+  dayjs.locale(ja);
+  const TODAY = dayjs().format("YYYY-MM-DD"); //当日日付文字列
+  const BEGINING_OF_THE_MONTH = dayjs().startOf("month").format("YYYY-MM-DD"); //当月１日文字列
 
   // authenticationPossibleServerSidePropsで取得した情報をcontextに保存
   useEffect(() => {
-    dialySalesDspatch({
+    dialySalesDispatch({
       type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
       payload: { userModel, storeModel, otherStoreModels },
     });
@@ -69,7 +77,7 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
   }, [dialySalesContext.DialySaleModels, dialySalesContext.rowSelectionModel]);
 
   // 削除ボタン押下時の処理
-  const handleDeleteOnClick = useCallback(() => {
+  const handleDeleteOnClick = useCallback(async () => {
     console.log("dialySalesContext.rowSelectionModel", dialySalesContext.rowSelectionModel);
     // 選択行がない場合
     if (!dialySalesContext.rowSelectionModel || dialySalesContext.rowSelectionModel.length === 0) {
@@ -83,26 +91,54 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
     try {
       //APIを呼び出して、DialySaleを削除する
       const deleteIds: GridRowSelectionModel = dialySalesContext.rowSelectionModel;
-      convertDialySaleAxios.delete(`/${deleteIds[0]}`, { data: { deleteIds } });
-      window.location.reload();
+      const res = await convertDialySaleAxios.delete(`/${deleteIds[0]}`, {
+        data: {
+          deleteIds,
+          storeId: dialySalesContext.StoreModel?.id,
+          startDay: BEGINING_OF_THE_MONTH,
+          endDay: TODAY,
+        },
+      });
+      console.log("⭐️delete.res", res);
+
+      // totalDialySaleを計算
+      const totalDailySale = calculateTotalDialySales(res.data);
+
+      dialySalesDispatch({
+        type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
+        payload: { dialySaleModels: res.data, totalDialySaleModel: totalDailySale },
+      });
+
+      dialySalesDispatch({
+        type: DialySaleContextActionType.UPDATE_SNACKBAR,
+        payload: { isSnackBarOpen: true, snackBarText: "営業データを削除しました。" },
+      });
     } catch (error) {
       console.error(error);
     }
-  }, [dialySalesContext.rowSelectionModel]);
+  }, [
+    BEGINING_OF_THE_MONTH,
+    TODAY,
+    dialySalesContext.StoreModel?.id,
+    dialySalesContext.rowSelectionModel,
+    dialySalesDispatch,
+  ]);
 
   // snackBarのクローズイベント
   const handleSnackBarOnClose = useCallback(() => {
-    dialySalesDspatch({
+    dialySalesDispatch({
       type: DialySaleContextActionType.UPDATE_SNACKBAR,
       payload: { isSnackBarOpen: false, snackBarText: "" },
     });
-  }, [dialySalesDspatch]);
+  }, [dialySalesDispatch]);
 
   console.log("⭐️dialySalesContext.rowSelectionModel", dialySalesContext.rowSelectionModel);
 
   return (
     <>
       <AddDialySaleView
+        TODAY={TODAY}
+        BEGINING_OF_THE_MONTH={BEGINING_OF_THE_MONTH}
         isLoading={isLoading}
         isEditDialogOpen={isEditDialogOpen}
         isSearchDialySalesDispalay={isSearchDialySalesDispalay}
