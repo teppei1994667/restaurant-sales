@@ -9,8 +9,6 @@ import { CirclesWithBar } from "react-loader-spinner";
 import { DialySalesContext } from "../context/DialySalesContextProvider";
 
 export type AddDialySaleViewProps = {
-  TODAY: string;
-  BEGINING_OF_THE_MONTH: string;
   isLoading: boolean;
   isEditDialogOpen: boolean;
   isSearchDialySalesDispalay: boolean;
@@ -24,8 +22,6 @@ export type AddDialySaleViewProps = {
 
 export const AddDialySaleView = (props: AddDialySaleViewProps) => {
   const {
-    TODAY,
-    BEGINING_OF_THE_MONTH,
     isLoading,
     isEditDialogOpen,
     isSearchDialySalesDispalay,
@@ -58,7 +54,7 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
         </Grid>
         <Grid container className="justify-center mt-10">
           <Grid item>
-            <CreateDialySale startDialySaleDay={BEGINING_OF_THE_MONTH} endDialySaleDay={TODAY} />
+            <CreateDialySale />
           </Grid>
         </Grid>
         <Grid container className="justify-center mt-2">
@@ -85,7 +81,7 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
           <>
             <Grid container spacing={0.75} className="justify-center mt-3">
               <Grid item>
-                <DialySales startDialySaleDay={BEGINING_OF_THE_MONTH} endDialySaleDay={TODAY} />
+                <DialySales />
               </Grid>
             </Grid>
             <Grid container className="justify-center mt-3">
@@ -112,8 +108,6 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
         isEditDialogOpen={isEditDialogOpen}
         setIsEditDialogOpen={setIsEditDialogOpen}
         rowSelectionModelValue={rowSelectionModelValue}
-        startDialySaleDay={BEGINING_OF_THE_MONTH}
-        endDialySaleDay={TODAY}
       />
     </>
   );

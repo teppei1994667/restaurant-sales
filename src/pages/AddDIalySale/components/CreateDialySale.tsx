@@ -9,14 +9,9 @@ import { useContext } from "react";
 import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
 import { calculateTotalDialySales } from "../util/DialySaleUtil";
 
-export type CreateDialySaleProps = {
-  startDialySaleDay?: string;
-  endDialySaleDay?: string;
-};
+export type CreateDialySaleProps = {};
 
 export const CreateDialySale = (props: CreateDialySaleProps) => {
-  const { startDialySaleDay, endDialySaleDay } = props;
-
   const dialySasesContext = useContext(DialySalesContext);
   const dialySalesDispatch = useContext(DialySalesDispatch);
 
@@ -48,8 +43,6 @@ export const CreateDialySale = (props: CreateDialySaleProps) => {
           personnelCost: Number(dialySaleForm.getValues("personnelCost")),
           purchase: Number(dialySaleForm.getValues("purchase")),
         },
-        startDay: startDialySaleDay,
-        endDay: endDialySaleDay,
       });
 
       const totalDailySale = calculateTotalDialySales(res.data);

@@ -7,8 +7,6 @@ import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesCont
 import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
 import { convertDialySaleAxios } from "@/util/convertAxios";
-import dayjs from "dayjs";
-import ja from "dayjs/locale/ja";
 import { calculateTotalDialySales } from "../util/DialySaleUtil";
 
 export type AddDialySaleLogicProps = {
@@ -29,11 +27,6 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
 
   const dialySalesContext = useContext(DialySalesContext);
   const dialySalesDispatch = useContext(DialySalesDispatch);
-
-  //DialySalesを当月分のみ取得する為の値
-  dayjs.locale(ja);
-  const TODAY = dayjs().format("YYYY-MM-DD"); //当日日付文字列
-  const BEGINING_OF_THE_MONTH = dayjs().startOf("month").format("YYYY-MM-DD"); //当月１日文字列
 
   // authenticationPossibleServerSidePropsで取得した情報をcontextに保存
   useEffect(() => {
@@ -78,7 +71,6 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
 
   // 削除ボタン押下時の処理
   const handleDeleteOnClick = useCallback(async () => {
-    console.log("dialySalesContext.rowSelectionModel", dialySalesContext.rowSelectionModel);
     // 選択行がない場合
     if (!dialySalesContext.rowSelectionModel || dialySalesContext.rowSelectionModel.length === 0) {
       confirm("削除したい行を選択してください");
@@ -95,11 +87,8 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
         data: {
           deleteIds,
           storeId: dialySalesContext.StoreModel?.id,
-          startDay: BEGINING_OF_THE_MONTH,
-          endDay: TODAY,
         },
       });
-      console.log("⭐️delete.res", res);
 
       // totalDialySaleを計算
       const totalDailySale = calculateTotalDialySales(res.data);
@@ -116,13 +105,7 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
     } catch (error) {
       console.error(error);
     }
-  }, [
-    BEGINING_OF_THE_MONTH,
-    TODAY,
-    dialySalesContext.StoreModel?.id,
-    dialySalesContext.rowSelectionModel,
-    dialySalesDispatch,
-  ]);
+  }, [dialySalesContext.StoreModel?.id, dialySalesContext.rowSelectionModel, dialySalesDispatch]);
 
   // snackBarのクローズイベント
   const handleSnackBarOnClose = useCallback(() => {
@@ -132,13 +115,9 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
     });
   }, [dialySalesDispatch]);
 
-  console.log("⭐️dialySalesContext.rowSelectionModel", dialySalesContext.rowSelectionModel);
-
   return (
     <>
       <AddDialySaleView
-        TODAY={TODAY}
-        BEGINING_OF_THE_MONTH={BEGINING_OF_THE_MONTH}
         isLoading={isLoading}
         isEditDialogOpen={isEditDialogOpen}
         isSearchDialySalesDispalay={isSearchDialySalesDispalay}

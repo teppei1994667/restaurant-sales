@@ -8,15 +8,10 @@ import { DialySaleContextActionType } from "@/pages/AddDialySale/context/DIalySa
 import { DialySalesConst } from "../const/DIalySalesConst";
 import { calculateTotalDialySales } from "../util/DialySaleUtil";
 
-export type DialySalesProps = {
-  startDialySaleDay?: string;
-  endDialySaleDay?: string;
-};
+export type DialySalesProps = {};
 
 //売り上げ一覧を取得し表示するコンポーネント
 export const DialySales = (props: DialySalesProps) => {
-  const { startDialySaleDay, endDialySaleDay } = props;
-
   const dialySalesContext = useContext(DialySalesContext);
   const dialySalesDspatch = useContext(DialySalesDispatch);
 
@@ -28,8 +23,6 @@ export const DialySales = (props: DialySalesProps) => {
         //サーバーから取得するDialySaleの期間をparamsに設定
         params: {
           storeId: dialySalesContext.StoreModel?.id,
-          startDay: startDialySaleDay,
-          endDay: endDialySaleDay,
         },
       });
 

@@ -13,12 +13,10 @@ export type EditDialogProps = {
   isEditDialogOpen: boolean;
   setIsEditDialogOpen: Dispatch<SetStateAction<boolean>>;
   rowSelectionModelValue?: DialySale;
-  startDialySaleDay?: string;
-  endDialySaleDay?: string;
 };
 
 export const EditDialog = (props: EditDialogProps) => {
-  const { isEditDialogOpen, setIsEditDialogOpen, rowSelectionModelValue, startDialySaleDay, endDialySaleDay } = props;
+  const { isEditDialogOpen, setIsEditDialogOpen, rowSelectionModelValue } = props;
 
   const dialySaleContext = useContext(DialySalesContext);
   const dialySalesDspatch = useContext(DialySalesDispatch);
@@ -67,8 +65,6 @@ export const EditDialog = (props: EditDialogProps) => {
             personnelCost: Number(dialySaleEditForm.getValues("personnelCost")),
             purchase: Number(dialySaleEditForm.getValues("purchase")),
           },
-          startDay: startDialySaleDay,
-          endDay: endDialySaleDay,
         });
 
         // totalDialySaleを計算
