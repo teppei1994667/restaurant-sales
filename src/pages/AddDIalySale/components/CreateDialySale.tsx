@@ -58,8 +58,8 @@ export const CreateDialySale = (props: CreateDialySaleProps) => {
       });
 
       dialySaleForm.reset();
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      alert(error.response.data);
     }
   };
 

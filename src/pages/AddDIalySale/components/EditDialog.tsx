@@ -79,8 +79,8 @@ export const EditDialog = (props: EditDialogProps) => {
           type: DialySaleContextActionType.UPDATE_SNACKBAR,
           payload: { isSnackBarOpen: true, snackBarText: "営業データを変更しました" },
         });
-      } catch (error) {
-        console.error(error);
+      } catch (error: any) {
+        alert(error.response.data);
       }
       setIsEditDialogOpen(false);
     }
