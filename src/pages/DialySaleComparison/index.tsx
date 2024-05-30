@@ -1,9 +1,11 @@
-import { Typography } from "@mui/material";
+import { Header } from "@/components/Header";
+import { DialySaleComparisonLogic } from "./components/DialySaleComparisonLogic";
 
 export const DialySaleComparison = () => {
   return (
     <>
-      <Typography>売り上げデータの比較</Typography>
+      <Header loginStatus={true} />
+      <DialySaleComparisonLogic />;
     </>
   );
 };
