@@ -4,6 +4,7 @@ import {
   Button,
   ClickAwayListener,
   Drawer,
+  Grid,
   IconButton,
   Link,
   List,
@@ -185,28 +186,33 @@ export const Header = (props: HeaderProps) => {
     <>
       <AppBar elevation={1} position="static" color="transparent">
         <Toolbar>
-          {loginStatus && (
-            <ClickAwayListener onClickAway={handleDrawerOnClose}>
-              <IconButton edge="start" onClick={handleDrawerOpenAndClose}>
-                <MenuIcon />
-                <Drawer anchor={"left"} open={isDrawerOpend}>
-                  {drawerList}
-                </Drawer>
-              </IconButton>
-            </ClickAwayListener>
-          )}
-
-          <Link className="no-underline ml-10" href="/" sx={{ flexGrow: "1" }}>
-            <Typography className="text-gray-500" variant="h6">
-              Dialy Sales
-            </Typography>
-          </Link>
-          <Button
-            onClick={handleSignOutButtonOnClick}
-            sx={{ visibility: loginStatus ? "visible" : "hidden", color: "#666699" }}
-          >
-            ログアウト
-          </Button>
+          <Grid container sx={{ height: "64px", placeItems: "center" }}>
+            <Grid item>
+              {loginStatus && (
+                <ClickAwayListener onClickAway={handleDrawerOnClose}>
+                  <IconButton edge="start" onClick={handleDrawerOpenAndClose}>
+                    <MenuIcon />
+                    <Drawer anchor={"left"} open={isDrawerOpend}>
+                      {drawerList}
+                    </Drawer>
+                  </IconButton>
+                </ClickAwayListener>
+              )}
+            </Grid>
+            <Grid item sx={{ flexGrow: "1" }}>
+              <Link className="no-underline ml-10 text-gray-500" href="/" variant="h6" sx={{}}>
+                Dialy Sales
+              </Link>
+            </Grid>
+            <Grid item sx={{}}>
+              <Button
+                onClick={handleSignOutButtonOnClick}
+                sx={{ visibility: loginStatus ? "visible" : "hidden", color: "#666699", textAlign: "right" }}
+              >
+                ログアウト
+              </Button>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
     </>
