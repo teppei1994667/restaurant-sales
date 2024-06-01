@@ -37,7 +37,7 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
 
   return (
     <>
-      <Paper elevation={0} className="pb-14">
+      <Paper elevation={0} className="mt-5">
         <Grid container className="justify-center">
           <Grid item>
             <Typography className="text-gray-500" variant="h5">
