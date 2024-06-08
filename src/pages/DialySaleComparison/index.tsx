@@ -15,7 +15,6 @@ export type DialySaleComparisonProps = {
 export const getServerSideProps: GetServerSideProps = authenticationPossibleServerSideProps("users");
 
 export const DialySaleComparison = (props: GetServerSideProps & DialySaleComparisonProps) => {
-  console.log("DialySaleComparison");
   const { user, stores } = props;
 
   const router = useRouter();
@@ -30,7 +29,7 @@ export const DialySaleComparison = (props: GetServerSideProps & DialySaleCompari
     <>
       <DialySaleComparisonContextProvider>
         <Header loginStatus={true} />
-        <DialySaleComparisonLogic userModel={user} storeModel={storeModel} otherStoreModels={otherStoreModels} />;
+        <DialySaleComparisonLogic userModel={user} storeModel={storeModel} otherStoreModels={otherStoreModels} />
       </DialySaleComparisonContextProvider>
     </>
   );
