@@ -38,13 +38,21 @@ export const Home = () => {
         </Grid>
         <Grid container className="justify-center">
           <Grid item>
-            <Image className="opacity-60 w-4/5 ml-7 mt-12" src={testImage} alt="テスト画像" />
+            <Image
+              className="opacity-60 w-4/5 ml-7 mt-12"
+              src={testImage}
+              alt="テスト画像"
+            />
           </Grid>
         </Grid>
         <Grid container className="justify-center mt-16">
           <Grid item>
             <Link href="/SignIn">
-              <Button className="text-gray-500" variant="text" sx={{ height: "70px", width: "200px" }}>
+              <Button
+                className="text-gray-500"
+                variant="text"
+                sx={{ height: "70px", width: "200px" }}
+              >
                 ログイン
               </Button>
             </Link>

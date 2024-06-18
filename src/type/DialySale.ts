@@ -24,10 +24,10 @@ export type FormDialySale = {
 };
 
 // SearchDialySalesをformで管理する為の型
-export type SearchDialySales = {
+export type SearchDialySalesType = {
   startDay: Date | null;
   endDay: Date | null;
 };
 
-// ComparisonDIalySaleでサーバーからレスポンスを受け取る型
+// ComparisonDialySaleでサーバーからレスポンスを受け取る型
 export type ComparisonDialySale = {};

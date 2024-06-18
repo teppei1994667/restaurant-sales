@@ -1,5 +1,8 @@
 import { ReactNode, createContext } from "react";
-import { defaultDialySalesReducerContext, useDialySalesReducer } from "./DIalySalesContextReducer";
+import {
+  defaultDialySalesReducerContext,
+  useDialySalesReducer,
+} from "./DialySalesContextReducer";
 
 type Props = {
   children: ReactNode;
@@ -15,7 +18,10 @@ export const DialySalesContextProvider = (props: Props) => {
   const { children } = props;
   return (
     <DialySalesContext.Provider value={state}>
-      <DialySalesDispatch.Provider value={dispatch}> {children}</DialySalesDispatch.Provider>
+      <DialySalesDispatch.Provider value={dispatch}>
+        {" "}
+        {children}
+      </DialySalesDispatch.Provider>
     </DialySalesContext.Provider>
   );
 };

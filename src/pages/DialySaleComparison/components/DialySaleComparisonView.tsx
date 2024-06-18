@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useContext } from "react";
-import { DialySaleComparisonContext } from "../context/DIalySaleConparisonContextProvider";
+import { DialySaleComparisonContext } from "../context/DialySaleConparisonContextProvider";
 
 export const DialySaleComparisonView = () => {
   const dialySaleComparisonContext = useContext(DialySaleComparisonContext);
@@ -33,8 +33,15 @@ export const DialySaleComparisonView = () => {
             </Typography>
           </Grid>
         </Grid>
-        <TableContainer component={Paper} sx={{ width: "1599px", margin: "auto" }}>
-          <Table sx={{ minWidth: "1500px" }} size="small" aria-label="a dense table">
+        <TableContainer
+          component={Paper}
+          sx={{ width: "1599px", margin: "auto" }}
+        >
+          <Table
+            sx={{ minWidth: "1500px" }}
+            size="small"
+            aria-label="a dense table"
+          >
             <TableHead>
               <TableRow>
                 <TableCell></TableCell>

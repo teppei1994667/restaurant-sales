@@ -18,7 +18,10 @@ export const DialySaleComparisonContextProvider = (props: Props) => {
   const { children } = props;
   return (
     <DialySaleComparisonContext.Provider value={state}>
-      <DialySaleComparisonDispatch.Provider value={dispatch}> {children}</DialySaleComparisonDispatch.Provider>
+      <DialySaleComparisonDispatch.Provider value={dispatch}>
+        {" "}
+        {children}
+      </DialySaleComparisonDispatch.Provider>
     </DialySaleComparisonContext.Provider>
   );
 };

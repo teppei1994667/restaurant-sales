@@ -4,9 +4,12 @@ import { FormDialySale } from "@/type/DialySale";
 import { ControlledDatePicker } from "../../../components/share/form/ControlledDatePicker";
 import { ControlledNumberTextField } from "../../../components/share/form/ControlledNumberTextField";
 import { convertDialySaleAxios } from "@/util/convertAxios";
-import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesContextProvider";
+import {
+  DialySalesContext,
+  DialySalesDispatch,
+} from "../context/DialySalesContextProvider";
 import { useContext } from "react";
-import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
+import { DialySaleContextActionType } from "../context/DialySalesContextReducer";
 import { calculateTotalDialySales } from "../util/DialySaleUtil";
 
 export type CreateDialySaleProps = {};
@@ -45,16 +48,22 @@ export const CreateDialySale = (props: CreateDialySaleProps) => {
         },
       });
 
-      const totalDailySale = calculateTotalDialySales(res.data);
+      const totalDialySale = calculateTotalDialySales(res.data);
 
       dialySalesDispatch({
         type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
-        payload: { dialySaleModels: res.data, totalDialySaleModel: totalDailySale },
+        payload: {
+          dialySaleModels: res.data,
+          totalDialySaleModel: totalDialySale,
+        },
       });
 
       dialySalesDispatch({
         type: DialySaleContextActionType.UPDATE_SNACKBAR,
-        payload: { isSnackBarOpen: true, snackBarText: "新規営業データを追加しました。" },
+        payload: {
+          isSnackBarOpen: true,
+          snackBarText: "新規営業データを追加しました。",
+        },
       });
 
       dialySaleForm.reset();
@@ -93,21 +102,27 @@ export const CreateDialySale = (props: CreateDialySaleProps) => {
               <ControlledNumberTextField
                 name="lunchVisitor"
                 label="ランチ来客数"
-                helperText={dialySaleForm.formState.errors.lunchVisitor?.message}
+                helperText={
+                  dialySaleForm.formState.errors.lunchVisitor?.message
+                }
               />
             </Grid>
             <Grid item className="ml-7">
               <ControlledNumberTextField
                 name="dinnerVisitor"
                 label="ディナー来客数"
-                helperText={dialySaleForm.formState.errors.dinnerVisitor?.message}
+                helperText={
+                  dialySaleForm.formState.errors.dinnerVisitor?.message
+                }
               />
             </Grid>
             <Grid item className="ml-7">
               <ControlledNumberTextField
                 name="personnelCost"
                 label="人件費"
-                helperText={dialySaleForm.formState.errors.personnelCost?.message}
+                helperText={
+                  dialySaleForm.formState.errors.personnelCost?.message
+                }
               />
             </Grid>
             <Grid item className="ml-7">

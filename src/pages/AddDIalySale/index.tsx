@@ -12,7 +12,8 @@ export type AddDialySaleProps = {
   stores?: StoreModel[];
 };
 
-export const getServerSideProps: GetServerSideProps = authenticationPossibleServerSideProps("users");
+export const getServerSideProps: GetServerSideProps =
+  authenticationPossibleServerSideProps("users");
 
 export const AddDialySale = (props: GetServerSideProps & AddDialySaleProps) => {
   const { user, stores } = props;
@@ -20,16 +21,24 @@ export const AddDialySale = (props: GetServerSideProps & AddDialySaleProps) => {
   const router = useRouter();
 
   // Userページから選択された(クエリパラメーターに設定されたid)のStoreModelを取得
-  const storeModel: StoreModel | undefined = stores?.find((store) => store.id === Number(router.query.id));
+  const storeModel: StoreModel | undefined = stores?.find(
+    (store) => store.id === Number(router.query.id)
+  );
 
   // Userページから選択されていない(クエリパラメーターに設定されたid以外)のStoreModelを取得
-  const otherStoreModels: StoreModel[] | undefined = stores?.filter((store) => store.id !== Number(router.query.id));
+  const otherStoreModels: StoreModel[] | undefined = stores?.filter(
+    (store) => store.id !== Number(router.query.id)
+  );
 
   return (
     <>
       <DialySalesContextProvider>
         <Header loginStatus={true} callerPage="dialySale" />
-        <AddDialySaleLogic userModel={user} storeModel={storeModel} otherStoreModels={otherStoreModels} />
+        <AddDialySaleLogic
+          userModel={user}
+          storeModel={storeModel}
+          otherStoreModels={otherStoreModels}
+        />
       </DialySalesContextProvider>
     </>
   );

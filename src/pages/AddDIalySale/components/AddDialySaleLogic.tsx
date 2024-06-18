@@ -3,8 +3,11 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { AddDialySaleView } from "./AddDialySaleView";
 import { UserModel } from "@/pages/User/type/model/UserModel";
 import { StoreModel } from "@/pages/Store/type/model/StoreModel";
-import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesContextProvider";
-import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
+import {
+  DialySalesContext,
+  DialySalesDispatch,
+} from "../context/DialySalesContextProvider";
+import { DialySaleContextActionType } from "../context/DialySalesContextReducer";
 import { GridRowSelectionModel } from "@mui/x-data-grid";
 import { convertDialySaleAxios } from "@/util/convertAxios";
 import { calculateTotalDialySales } from "../util/DialySaleUtil";
@@ -20,10 +23,12 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [isSearchDialySalesDispalay, setIsSearchDialySalesDispalay] = useState(false);
+  const [isSearchDialySalesDispalay, setIsSearchDialySalesDispalay] =
+    useState(false);
 
   // チェックボックスで選択した行のデータを保持
-  const [rowSelectionModelValue, setRowSelectionModelValue] = useState<DialySale>();
+  const [rowSelectionModelValue, setRowSelectionModelValue] =
+    useState<DialySale>();
 
   const dialySalesContext = useContext(DialySalesContext);
   const dialySalesDispatch = useContext(DialySalesDispatch);
@@ -52,7 +57,9 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
   const handleEditBtnOnClick = useCallback(() => {
     if (dialySalesContext.rowSelectionModel) {
       if (dialySalesContext.rowSelectionModel.length > 1) {
-        alert("同時に複数のデータの変更はできません。変更したいデータを１つだけ選択してください。");
+        alert(
+          "同時に複数のデータの変更はできません。変更したいデータを１つだけ選択してください。"
+        );
         return;
       }
       if (dialySalesContext.rowSelectionModel.length < 1) {
@@ -72,7 +79,10 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
   // 削除ボタン押下時の処理
   const handleDeleteOnClick = useCallback(async () => {
     // 選択行がない場合
-    if (!dialySalesContext.rowSelectionModel || dialySalesContext.rowSelectionModel.length === 0) {
+    if (
+      !dialySalesContext.rowSelectionModel ||
+      dialySalesContext.rowSelectionModel.length === 0
+    ) {
       confirm("削除したい行を選択してください");
       return;
     }
@@ -82,7 +92,8 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
     }
     try {
       //APIを呼び出して、DialySaleを削除する
-      const deleteIds: GridRowSelectionModel = dialySalesContext.rowSelectionModel;
+      const deleteIds: GridRowSelectionModel =
+        dialySalesContext.rowSelectionModel;
       const res = await convertDialySaleAxios.delete(`/${deleteIds[0]}`, {
         data: {
           deleteIds,
@@ -91,21 +102,31 @@ export const AddDialySaleLogic = (props: AddDialySaleLogicProps) => {
       });
 
       // totalDialySaleを計算
-      const totalDailySale = calculateTotalDialySales(res.data);
+      const totalDialySale = calculateTotalDialySales(res.data);
 
       dialySalesDispatch({
         type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
-        payload: { dialySaleModels: res.data, totalDialySaleModel: totalDailySale },
+        payload: {
+          dialySaleModels: res.data,
+          totalDialySaleModel: totalDialySale,
+        },
       });
 
       dialySalesDispatch({
         type: DialySaleContextActionType.UPDATE_SNACKBAR,
-        payload: { isSnackBarOpen: true, snackBarText: "営業データを削除しました。" },
+        payload: {
+          isSnackBarOpen: true,
+          snackBarText: "営業データを削除しました。",
+        },
       });
     } catch (error) {
       console.error(error);
     }
-  }, [dialySalesContext.StoreModel?.id, dialySalesContext.rowSelectionModel, dialySalesDispatch]);
+  }, [
+    dialySalesContext.StoreModel?.id,
+    dialySalesContext.rowSelectionModel,
+    dialySalesDispatch,
+  ]);
 
   // snackBarのクローズイベント
   const handleSnackBarOnClose = useCallback(() => {

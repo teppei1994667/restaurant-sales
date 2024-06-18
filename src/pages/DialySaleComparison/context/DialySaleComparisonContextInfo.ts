@@ -7,4 +7,5 @@ export type DialySaleComparisonContextInfo = {
   OtherStoreModels?: StoreModel[];
 };
 
-export const DialySaleComparisonContextInitialState: DialySaleComparisonContextInfo = {};
+export const DialySaleComparisonContextInitialState: DialySaleComparisonContextInfo =
+  {};

@@ -2,7 +2,10 @@ import { UserModel } from "@/pages/User/type/model/UserModel";
 import { DialySaleComparisonView } from "./DialySaleComparisonView";
 import { StoreModel } from "@/pages/Store/type/model/StoreModel";
 import { useCallback, useContext, useEffect } from "react";
-import { DialySaleComparisonContext, DialySaleComparisonDispatch } from "../context/DIalySaleConparisonContextProvider";
+import {
+  DialySaleComparisonContext,
+  DialySaleComparisonDispatch,
+} from "../context/DialySaleConparisonContextProvider";
 import { DialySaleComparisonContextActionType } from "../context/DialySaleComparisonContextReducer";
 import { convertDialySaleAxiosComparison } from "@/util/convertAxios";
 
@@ -12,7 +15,9 @@ export type DialySaleComparisonLogicProps = {
   otherStoreModels?: StoreModel[];
 };
 
-export const DialySaleComparisonLogic = (props: DialySaleComparisonLogicProps) => {
+export const DialySaleComparisonLogic = (
+  props: DialySaleComparisonLogicProps
+) => {
   const { userModel, storeModel, otherStoreModels } = props;
 
   const dialySaleComparisonContext = useContext(DialySaleComparisonContext);
