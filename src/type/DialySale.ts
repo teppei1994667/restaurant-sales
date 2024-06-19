@@ -28,6 +28,3 @@ export type SearchDialySalesType = {
   startDay: Date | null;
   endDay: Date | null;
 };
-
-// ComparisonDialySaleでサーバーからレスポンスを受け取る型
-export type ComparisonDialySale = {};

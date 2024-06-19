@@ -32,24 +32,6 @@ export const StoreView = () => {
           </Link>
         </Grid>
       </Grid>
-      <Grid container className="justify-center">
-        <Grid item>
-          <Link
-            href={{
-              pathname: "DialySaleComparison",
-              query: { id: storeContext.StoreModel?.id },
-            }}
-          >
-            <Button
-              className="text-gray-500 mt-10"
-              variant="text"
-              sx={{ height: "70px", width: "200px" }}
-            >
-              売り上げ比較
-            </Button>
-          </Link>
-        </Grid>
-      </Grid>
     </>
   );
 };
