@@ -1,6 +1,7 @@
 import {
   LOCAL_ADDRESS,
   LOCAL_AUTHUSER_ADDRESS,
+  LOCAL_DIALYSALES_ADDRESS_COMAPRISON,
   LOCAL_DIALYSALES_ADDRESS,
   LOCAL_STORES_ASRESS,
 } from "@/constants/serverAdress";
@@ -23,6 +24,14 @@ export const convertDefaultAxios = applyCaseMiddleware(
 export const convertDialySaleAxios = applyCaseMiddleware(
   axios.create({
     baseURL: LOCAL_DIALYSALES_ADDRESS,
+  }),
+  options
+);
+
+//axiosによるサーバー通信時のスネークケース、キャメルケースの変換を自動化する
+export const convertDialySaleAxiosComparison = applyCaseMiddleware(
+  axios.create({
+    baseURL: LOCAL_DIALYSALES_ADDRESS_COMAPRISON,
   }),
   options
 );

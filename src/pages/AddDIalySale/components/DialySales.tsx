@@ -1,11 +1,14 @@
 import { DialySale } from "@/type/DialySale";
 import { useCallback, useContext, useEffect, useMemo } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesContextProvider";
+import {
+  DialySalesContext,
+  DialySalesDispatch,
+} from "../context/DialySalesContextProvider";
 import { convertDialySaleAxios } from "@/util/convertAxios";
 import { Grid, Typography } from "@mui/material";
-import { DialySaleContextActionType } from "@/pages/AddDialySale/context/DIalySalesContextReducer";
-import { DialySalesConst } from "../const/DIalySalesConst";
+import { DialySaleContextActionType } from "@/pages/AddDialySale/context/DialySalesContextReducer";
+import { DialySalesConst } from "../const/DialySalesConst";
 import { calculateTotalDialySales } from "../util/DialySaleUtil";
 
 export type DialySalesProps = {};
@@ -27,18 +30,21 @@ export const DialySales = (props: DialySalesProps) => {
       });
 
       // totalDialySaleを計算
-      const totalDailySale = calculateTotalDialySales(res.data);
+      const totalDialySale = calculateTotalDialySales(res.data);
 
       dialySalesDspatch({
         type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
-        payload: { dialySaleModels: res.data, totalDialySaleModel: totalDailySale },
+        payload: {
+          dialySaleModels: res.data,
+          totalDialySaleModel: totalDialySale,
+        },
       });
     } catch (err) {
       console.log(err);
     }
   };
 
-  //コンポーネントがマウントされたタイミングでDailySale一覧を取得する関数を実行する
+  //コンポーネントがマウントされたタイミングでDialySale一覧を取得する関数を実行する
   useEffect(() => {
     fetchDialySales();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,23 +123,36 @@ export const DialySales = (props: DialySalesProps) => {
 
   // DataGridのrowデータ作成
   const DialySaleRowData = useMemo(
-    () => (dialySalesContext.DialySaleModels ? dialySalesContext.DialySaleModels : []),
+    () =>
+      dialySalesContext.DialySaleModels
+        ? dialySalesContext.DialySaleModels
+        : [],
     [dialySalesContext.DialySaleModels]
   );
 
   // DataGridのwidth
-  const dialySalesDataGridWidth = DialySaleRowData.length > DialySalesConst.DATAGRID_MAX_ROW_COUNT ? 1327 : 1312;
+  const dialySalesDataGridWidth =
+    DialySaleRowData.length > DialySalesConst.DATAGRID_MAX_ROW_COUNT
+      ? 1327
+      : 1312;
 
   // DataGridのheight
   const dialySalesDataGridHeight =
     DialySaleRowData.length > DialySalesConst.DATAGRID_MAX_ROW_COUNT
       ? DialySalesConst.DATAGRID_MAX_HEIGHT
-      : DialySaleRowData.length * DialySalesConst.DATAGRID_ROW_HEIGHT + DialySalesConst.DATAGRID_HEADER_HEIGHT;
+      : DialySaleRowData.length * DialySalesConst.DATAGRID_ROW_HEIGHT +
+        DialySalesConst.DATAGRID_HEADER_HEIGHT;
 
   return (
     <>
       <Grid container>
-        <Grid item sx={{ height: `${dialySalesDataGridHeight}px`, width: `${dialySalesDataGridWidth}px` }}>
+        <Grid
+          item
+          sx={{
+            height: `${dialySalesDataGridHeight}px`,
+            width: `${dialySalesDataGridWidth}px`,
+          }}
+        >
           <DataGrid
             rows={DialySaleRowData}
             columns={columns}
@@ -182,7 +201,11 @@ export const DialySales = (props: DialySalesProps) => {
         </Grid>
       </Grid>
       <Grid container className="mt-3" sx={{ width: dialySalesDataGridWidth }}>
-        <Grid item className="text-gray-500" sx={{ width: "140px", textAlign: "center", marginLeft: "50px" }}>
+        <Grid
+          item
+          className="text-gray-500"
+          sx={{ width: "140px", textAlign: "center", marginLeft: "50px" }}
+        >
           <Typography className="text-gray-500" variant="subtitle1">
             合計
           </Typography>
@@ -197,7 +220,8 @@ export const DialySales = (props: DialySalesProps) => {
             paddingRight: "9px",
           }}
         >
-          ¥{dialySalesContext.TotalDialySaleModel?.totalLunchSale.toLocaleString()}
+          ¥
+          {dialySalesContext.TotalDialySaleModel?.totalLunchSale.toLocaleString()}
         </Grid>
         <Grid
           item
@@ -209,7 +233,8 @@ export const DialySales = (props: DialySalesProps) => {
             paddingRight: "9px",
           }}
         >
-          ¥{dialySalesContext.TotalDialySaleModel?.totalDinnerSale.toLocaleString()}
+          ¥
+          {dialySalesContext.TotalDialySaleModel?.totalDinnerSale.toLocaleString()}
         </Grid>
         <Grid
           item
@@ -233,7 +258,8 @@ export const DialySales = (props: DialySalesProps) => {
             paddingRight: "9px",
           }}
         >
-          ¥{dialySalesContext.TotalDialySaleModel?.totalLunchVisitor.toLocaleString()}
+          ¥
+          {dialySalesContext.TotalDialySaleModel?.totalLunchVisitor.toLocaleString()}
         </Grid>
         <Grid
           item
@@ -245,7 +271,8 @@ export const DialySales = (props: DialySalesProps) => {
             paddingRight: "9px",
           }}
         >
-          ¥{dialySalesContext.TotalDialySaleModel?.totalDinnerVisitor.toLocaleString()}
+          ¥
+          {dialySalesContext.TotalDialySaleModel?.totalDinnerVisitor.toLocaleString()}
         </Grid>
         <Grid
           item
@@ -257,7 +284,8 @@ export const DialySales = (props: DialySalesProps) => {
             paddingRight: "9px",
           }}
         >
-          ¥{dialySalesContext.TotalDialySaleModel?.totalVisitor.toLocaleString()}
+          ¥
+          {dialySalesContext.TotalDialySaleModel?.totalVisitor.toLocaleString()}
         </Grid>
         <Grid
           item
@@ -269,7 +297,8 @@ export const DialySales = (props: DialySalesProps) => {
             paddingRight: "9px",
           }}
         >
-          ¥{dialySalesContext.TotalDialySaleModel?.totalPersonnelCost.toLocaleString()}
+          ¥
+          {dialySalesContext.TotalDialySaleModel?.totalPersonnelCost.toLocaleString()}
         </Grid>
         <Grid
           item
@@ -281,7 +310,8 @@ export const DialySales = (props: DialySalesProps) => {
             paddingRight: "9px",
           }}
         >
-          ¥{dialySalesContext.TotalDialySaleModel?.totalPurchase.toLocaleString()}
+          ¥
+          {dialySalesContext.TotalDialySaleModel?.totalPurchase.toLocaleString()}
         </Grid>
       </Grid>
     </>

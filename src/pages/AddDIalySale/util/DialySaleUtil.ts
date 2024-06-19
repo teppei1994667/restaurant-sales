@@ -4,7 +4,7 @@ import { TotalDialySaleModel } from "../type/model/TotalDialySaleModel";
 
 // DialySalesの格合計値を計算
 export const calculateTotalDialySales = (data: DialySale[]) => {
-  const totalDailySale: TotalDialySaleModel = {
+  const totalDialySale: TotalDialySaleModel = {
     totalLunchSale: 0,
     totalDinnerSale: 0,
     totalSale: 0,
@@ -16,15 +16,15 @@ export const calculateTotalDialySales = (data: DialySale[]) => {
   };
 
   data.map((datum) => {
-    totalDailySale.totalLunchSale += datum.lunchSales;
-    totalDailySale.totalDinnerSale += datum.dinnerSales;
-    totalDailySale.totalSale += datum.totalSale;
-    totalDailySale.totalLunchVisitor += datum.lunchVisitor;
-    totalDailySale.totalDinnerVisitor += datum.dinnerVisitor;
-    totalDailySale.totalVisitor += datum.totalVisitor;
-    totalDailySale.totalPersonnelCost += datum.personnelCost;
-    totalDailySale.totalPurchase += datum.purchase;
+    totalDialySale.totalLunchSale += datum.lunchSales;
+    totalDialySale.totalDinnerSale += datum.dinnerSales;
+    totalDialySale.totalSale += datum.totalSale;
+    totalDialySale.totalLunchVisitor += datum.lunchVisitor;
+    totalDialySale.totalDinnerVisitor += datum.dinnerVisitor;
+    totalDialySale.totalVisitor += datum.totalVisitor;
+    totalDialySale.totalPersonnelCost += datum.personnelCost;
+    totalDialySale.totalPurchase += datum.purchase;
   });
 
-  return totalDailySale;
+  return totalDialySale;
 };

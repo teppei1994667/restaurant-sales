@@ -4,6 +4,7 @@ import {
   Button,
   ClickAwayListener,
   Drawer,
+  Grid,
   IconButton,
   Link,
   List,
@@ -85,7 +86,10 @@ export const Header = (props: HeaderProps) => {
       <List className="mt-10">
         <ListItem disablePadding>
           <ListItemButton onClick={handleListItemCreateStoreOnClick}>
-            <ListItemText className="text-center text-gray-500" primary="新規ショップ作成" />
+            <ListItemText
+              className="text-center text-gray-500"
+              primary="新規ショップ作成"
+            />
           </ListItemButton>
         </ListItem>
       </List>
@@ -101,17 +105,28 @@ export const Header = (props: HeaderProps) => {
         </ListItem>
         {storeContext.OtherStoreModels?.map((otherStoreModel, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemButton onClick={() => handleStoreNameOnClick(String(otherStoreModel.id))}>
-              <ListItemText className="text-center text-gray-500" primary={otherStoreModel.name} />
+            <ListItemButton
+              onClick={() => handleStoreNameOnClick(String(otherStoreModel.id))}
+            >
+              <ListItemText
+                className="text-center text-gray-500"
+                primary={otherStoreModel.name}
+              />
             </ListItemButton>
           </ListItem>
         ))}
         <ListItem disablePadding className="mt-20">
-          <ListItemText className="text-center text-gray-500 mb-5" primary="◇ユーザー" />
+          <ListItemText
+            className="text-center text-gray-500 mb-5"
+            primary="◇ユーザー"
+          />
         </ListItem>
         <ListItem disablePadding className="">
           <ListItemButton onClick={handleUserNameOnClick}>
-            <ListItemText className="text-center text-gray-500" primary={storeContext.UserModel?.name} />
+            <ListItemText
+              className="text-center text-gray-500"
+              primary={storeContext.UserModel?.name}
+            />
           </ListItemButton>
         </ListItem>
       </List>
@@ -123,29 +138,55 @@ export const Header = (props: HeaderProps) => {
     <Box sx={{ width: 350 }}>
       <List className="mt-10">
         <ListItem disablePadding className="mb-5">
-          <ListItemText className="text-center text-gray-500" primary="◇売上登録" />
+          <ListItemText
+            className="text-center text-gray-500"
+            primary="◇売上登録"
+          />
         </ListItem>
         {dialySaleContext.OtherStoreModels?.map((otherStoreModel, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemButton onClick={() => handleothereStoreAddDialySaleOnClick(String(otherStoreModel.id))}>
-              <ListItemText className="text-center text-gray-500" primary={otherStoreModel.name} />
+            <ListItemButton
+              onClick={() =>
+                handleothereStoreAddDialySaleOnClick(String(otherStoreModel.id))
+              }
+            >
+              <ListItemText
+                className="text-center text-gray-500"
+                primary={otherStoreModel.name}
+              />
             </ListItemButton>
           </ListItem>
         ))}
         <ListItem disablePadding className="mt-20">
-          <ListItemText className="text-center text-gray-500 mb-5" primary="◇ストア" />
+          <ListItemText
+            className="text-center text-gray-500 mb-5"
+            primary="◇ストア"
+          />
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton onClick={() => handleStoreNameOnClick(String(dialySaleContext.StoreModel?.id))}>
-            <ListItemText className="text-center text-gray-500" primary={dialySaleContext.StoreModel?.name} />
+          <ListItemButton
+            onClick={() =>
+              handleStoreNameOnClick(String(dialySaleContext.StoreModel?.id))
+            }
+          >
+            <ListItemText
+              className="text-center text-gray-500"
+              primary={dialySaleContext.StoreModel?.name}
+            />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding className="mt-20">
-          <ListItemText className="text-center text-gray-500 mb-5" primary="◇ユーザー" />
+          <ListItemText
+            className="text-center text-gray-500 mb-5"
+            primary="◇ユーザー"
+          />
         </ListItem>
         <ListItem disablePadding>
           <ListItemButton onClick={handleUserNameOnClick}>
-            <ListItemText className="text-center text-gray-500" primary={dialySaleContext.UserModel?.name} />
+            <ListItemText
+              className="text-center text-gray-500"
+              primary={dialySaleContext.UserModel?.name}
+            />
           </ListItemButton>
         </ListItem>
       </List>
@@ -185,28 +226,42 @@ export const Header = (props: HeaderProps) => {
     <>
       <AppBar elevation={1} position="static" color="transparent">
         <Toolbar>
-          {loginStatus && (
-            <ClickAwayListener onClickAway={handleDrawerOnClose}>
-              <IconButton edge="start" onClick={handleDrawerOpenAndClose}>
-                <MenuIcon />
-                <Drawer anchor={"left"} open={isDrawerOpend}>
-                  {drawerList}
-                </Drawer>
-              </IconButton>
-            </ClickAwayListener>
-          )}
-
-          <Link className="no-underline ml-10" href="/" sx={{ flexGrow: "1" }}>
-            <Typography className="text-gray-500" variant="h6">
-              Dialy Sales
-            </Typography>
-          </Link>
-          <Button
-            onClick={handleSignOutButtonOnClick}
-            sx={{ visibility: loginStatus ? "visible" : "hidden", color: "#666699" }}
-          >
-            ログアウト
-          </Button>
+          <Grid container sx={{ height: "64px", placeItems: "center" }}>
+            <Grid item>
+              {loginStatus && (
+                <ClickAwayListener onClickAway={handleDrawerOnClose}>
+                  <IconButton edge="start" onClick={handleDrawerOpenAndClose}>
+                    <MenuIcon />
+                    <Drawer anchor={"left"} open={isDrawerOpend}>
+                      {drawerList}
+                    </Drawer>
+                  </IconButton>
+                </ClickAwayListener>
+              )}
+            </Grid>
+            <Grid item sx={{ flexGrow: "1" }}>
+              <Link
+                className="no-underline ml-10 text-gray-500"
+                href="/"
+                variant="h6"
+                sx={{}}
+              >
+                Dialy Sales
+              </Link>
+            </Grid>
+            <Grid item sx={{}}>
+              <Button
+                onClick={handleSignOutButtonOnClick}
+                sx={{
+                  visibility: loginStatus ? "visible" : "hidden",
+                  color: "#666699",
+                  textAlign: "right",
+                }}
+              >
+                ログアウト
+              </Button>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
     </>

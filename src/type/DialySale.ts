@@ -1,4 +1,4 @@
-//DialySaleの型
+// DialySaleの型
 export type DialySale = {
   id: number;
   salesDay: string;
@@ -12,7 +12,7 @@ export type DialySale = {
   totalVisitor: number;
 };
 
-//ReactHookFormでDialySaleを管理する為の型
+// ReactHookFormでDialySaleを管理する為の型
 export type FormDialySale = {
   salesDay: Date | null;
   lunchSale?: string;
@@ -23,8 +23,11 @@ export type FormDialySale = {
   purchase?: string;
 };
 
-//SearchDialySalesをformで管理する為の型
-export type SearchDialySales = {
+// SearchDialySalesをformで管理する為の型
+export type SearchDialySalesType = {
   startDay: Date | null;
   endDay: Date | null;
 };
+
+// ComparisonDialySaleでサーバーからレスポンスを受け取る型
+export type ComparisonDialySale = {};

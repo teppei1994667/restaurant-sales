@@ -1,13 +1,13 @@
-import { DialySalesContextProvider } from "@/pages/AddDialySale/context/DialySalesContextProvider";
+import { Header } from "@/components/Header";
+import { DialySaleComparisonLogic } from "./components/DialySaleComparisonLogic";
 import { GetServerSideProps } from "next";
 import { authenticationPossibleServerSideProps } from "@/util/authRedirect";
-import { Header } from "@/components/Header";
-import { AddDialySaleLogic } from "./components/AddDialySaleLogic";
 import { useRouter } from "next/router";
 import { StoreModel } from "../Store/type/model/StoreModel";
 import { UserModel } from "../User/type/model/UserModel";
+import { DialySaleComparisonContextProvider } from "./context/DialySaleConparisonContextProvider";
 
-export type AddDialySaleProps = {
+export type DialySaleComparisonProps = {
   user: UserModel;
   stores?: StoreModel[];
 };
@@ -15,7 +15,9 @@ export type AddDialySaleProps = {
 export const getServerSideProps: GetServerSideProps =
   authenticationPossibleServerSideProps("users");
 
-export const AddDialySale = (props: GetServerSideProps & AddDialySaleProps) => {
+export const DialySaleComparison = (
+  props: GetServerSideProps & DialySaleComparisonProps
+) => {
   const { user, stores } = props;
 
   const router = useRouter();
@@ -32,16 +34,16 @@ export const AddDialySale = (props: GetServerSideProps & AddDialySaleProps) => {
 
   return (
     <>
-      <DialySalesContextProvider>
-        <Header loginStatus={true} callerPage="dialySale" />
-        <AddDialySaleLogic
+      <DialySaleComparisonContextProvider>
+        <Header loginStatus={true} />
+        <DialySaleComparisonLogic
           userModel={user}
           storeModel={storeModel}
           otherStoreModels={otherStoreModels}
         />
-      </DialySalesContextProvider>
+      </DialySaleComparisonContextProvider>
     </>
   );
 };
 
-export default AddDialySale;
+export default DialySaleComparison;

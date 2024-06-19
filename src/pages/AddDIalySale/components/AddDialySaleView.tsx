@@ -1,7 +1,7 @@
 import { CreateDialySale } from "@/pages/AddDialySale/components/CreateDialySale";
 import { DialySales } from "@/pages/AddDialySale/components/DialySales";
 import { EditDialog } from "@/pages/AddDialySale/components/EditDialog";
-import { SearchDailySales } from "@/pages/AddDialySale/components/SearchDailySales";
+import { SearchDialySales } from "@/pages/AddDialySale/components/SearchDialySales";
 import { DialySale } from "@/type/DialySale";
 import { Button, Grid, Paper, Snackbar, Typography } from "@mui/material";
 import { Dispatch, SetStateAction, useContext } from "react";
@@ -37,7 +37,7 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
 
   return (
     <>
-      <Paper elevation={0} className="pb-14">
+      <Paper elevation={0} className="mt-5">
         <Grid container className="justify-center">
           <Grid item>
             <Typography className="text-gray-500" variant="h5">
@@ -59,7 +59,11 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
         </Grid>
         <Grid container className="justify-center mt-2">
           <Grid item>
-            <Button className="text-gray-500" variant="text" onClick={handleKikanShiteiOnClick}>
+            <Button
+              className="text-gray-500"
+              variant="text"
+              onClick={handleKikanShiteiOnClick}
+            >
               {isSearchDialySalesDispalay ? "隠す" : "期間を指定して表示する"}
             </Button>
           </Grid>
@@ -67,14 +71,20 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
         {isSearchDialySalesDispalay ? (
           <Grid container className="justify-center mt-3">
             <Grid item>
-              <SearchDailySales />
+              <SearchDialySales />
             </Grid>
           </Grid>
         ) : null}
         {isLoading ? (
           <Grid container className="justify-center mt-9">
             <Grid item>
-              <CirclesWithBar height="80" width="80" color="gray" ariaLabel="three-dots-loading" wrapperClass="mt-20" />
+              <CirclesWithBar
+                height="80"
+                width="80"
+                color="gray"
+                ariaLabel="three-dots-loading"
+                wrapperClass="mt-20"
+              />
             </Grid>
           </Grid>
         ) : (
@@ -86,11 +96,19 @@ export const AddDialySaleView = (props: AddDialySaleViewProps) => {
             </Grid>
             <Grid container className="justify-center mt-3">
               <Grid item>
-                <Button className="text-gray-500" variant="text" onClick={handleEditBtnOnClick}>
+                <Button
+                  className="text-gray-500"
+                  variant="text"
+                  onClick={handleEditBtnOnClick}
+                >
                   変更
                 </Button>
               </Grid>
-              <Button className="text-gray-500" variant="text" onClick={handleDeleteOnClick}>
+              <Button
+                className="text-gray-500"
+                variant="text"
+                onClick={handleDeleteOnClick}
+              >
                 削除
               </Button>
             </Grid>

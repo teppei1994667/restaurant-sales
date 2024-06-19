@@ -1,5 +1,8 @@
 import { Reducer, useReducer } from "react";
-import { DialySalesContextInfo, DialySalesContextInitialState } from "./DialySalesContextInfo";
+import {
+  DialySalesContextInfo,
+  DialySalesContextInitialState,
+} from "./DialySalesContextInfo";
 import { DialySale } from "@/type/DialySale";
 import { UserModel } from "@/pages/User/type/model/UserModel";
 import { StoreModel } from "@/pages/Store/type/model/StoreModel";
@@ -32,16 +35,22 @@ export type DialySaleCotextAction =
       payload: { isSnackBarOpen: boolean; snackBarText: string };
     };
 
-export const dialySaleReducer: Reducer<DialySalesContextInfo, DialySaleCotextAction> = (state, action) => {
+export const dialySaleReducer: Reducer<
+  DialySalesContextInfo,
+  DialySaleCotextAction
+> = (state, action) => {
   switch (action.type) {
     case DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION:
       const updateDialySaleContext: DialySalesContextInfo = {
         ...state,
         UserModel: action.payload.userModel ?? state.UserModel,
         StoreModel: action.payload.storeModel ?? state.StoreModel,
-        OtherStoreModels: action.payload.otherStoreModels ?? state.OtherStoreModels,
-        DialySaleModels: action.payload.dialySaleModels ?? state.DialySaleModels,
-        TotalDialySaleModel: action.payload.totalDialySaleModel ?? state.TotalDialySaleModel,
+        OtherStoreModels:
+          action.payload.otherStoreModels ?? state.OtherStoreModels,
+        DialySaleModels:
+          action.payload.dialySaleModels ?? state.DialySaleModels,
+        TotalDialySaleModel:
+          action.payload.totalDialySaleModel ?? state.TotalDialySaleModel,
       };
       return updateDialySaleContext;
     case DialySaleContextActionType.SELECT_GRID_ROW_MODEL:
@@ -61,12 +70,17 @@ export const dialySaleReducer: Reducer<DialySalesContextInfo, DialySaleCotextAct
 };
 
 export const useDialySalesReducer = () => {
-  const [state, dispatch] = useReducer(dialySaleReducer, DialySalesContextInitialState);
+  const [state, dispatch] = useReducer(
+    dialySaleReducer,
+    DialySalesContextInitialState
+  );
 
   return { state, dispatch };
 };
 
-export const defaultDialySalesReducerContext: ReturnType<typeof useDialySalesReducer> = {
+export const defaultDialySalesReducerContext: ReturnType<
+  typeof useDialySalesReducer
+> = {
   state: {
     StoreModel: undefined,
     UserModel: undefined,

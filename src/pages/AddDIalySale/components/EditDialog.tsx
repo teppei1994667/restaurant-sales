@@ -1,13 +1,29 @@
-import { Button, Dialog, DialogContent, DialogTitle, Grid, Typography } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { ControlledNumberTextField } from "../../../components/share/form/ControlledNumberTextField";
 import { ControlledDatePicker } from "../../../components/share/form/ControlledDatePicker";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormDialySale, DialySale } from "@/type/DialySale";
-import { Dispatch, SetStateAction, useContext, useEffect, useMemo } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useMemo,
+} from "react";
 import { convertDialySaleAxios } from "@/util/convertAxios";
 import { calculateTotalDialySales } from "../util/DialySaleUtil";
-import { DialySaleContextActionType } from "../context/DIalySalesContextReducer";
-import { DialySalesContext, DialySalesDispatch } from "../context/DialySalesContextProvider";
+import { DialySaleContextActionType } from "../context/DialySalesContextReducer";
+import {
+  DialySalesContext,
+  DialySalesDispatch,
+} from "../context/DialySalesContextProvider";
 
 export type EditDialogProps = {
   isEditDialogOpen: boolean;
@@ -16,14 +32,17 @@ export type EditDialogProps = {
 };
 
 export const EditDialog = (props: EditDialogProps) => {
-  const { isEditDialogOpen, setIsEditDialogOpen, rowSelectionModelValue } = props;
+  const { isEditDialogOpen, setIsEditDialogOpen, rowSelectionModelValue } =
+    props;
 
   const dialySaleContext = useContext(DialySalesContext);
   const dialySalesDspatch = useContext(DialySalesDispatch);
 
   //ReactHookForm以外ではsalesDayをstringで管理しているので再度Date型に変換する
   const stringSalesDayToDate = useMemo(() => {
-    return rowSelectionModelValue ? new Date(rowSelectionModelValue.salesDay.substring(0, 10)) : null;
+    return rowSelectionModelValue
+      ? new Date(rowSelectionModelValue.salesDay.substring(0, 10))
+      : null;
   }, [rowSelectionModelValue]);
 
   const dialySaleEditForm = useForm<FormDialySale>({
@@ -41,16 +60,39 @@ export const EditDialog = (props: EditDialogProps) => {
   // 選択した行のデータをformにセットする
   useEffect(() => {
     dialySaleEditForm.setValue("salesDay", stringSalesDayToDate);
-    dialySaleEditForm.setValue("lunchSale", rowSelectionModelValue?.lunchSales.toString());
-    dialySaleEditForm.setValue("dinnerSale", rowSelectionModelValue?.dinnerSales.toString());
-    dialySaleEditForm.setValue("lunchVisitor", rowSelectionModelValue?.lunchVisitor.toString());
-    dialySaleEditForm.setValue("dinnerVisitor", rowSelectionModelValue?.dinnerVisitor.toString());
-    dialySaleEditForm.setValue("personnelCost", rowSelectionModelValue?.personnelCost.toString());
-    dialySaleEditForm.setValue("purchase", rowSelectionModelValue?.purchase.toString());
-  }, [dialySaleEditForm, rowSelectionModelValue, isEditDialogOpen, stringSalesDayToDate]);
+    dialySaleEditForm.setValue(
+      "lunchSale",
+      rowSelectionModelValue?.lunchSales.toString()
+    );
+    dialySaleEditForm.setValue(
+      "dinnerSale",
+      rowSelectionModelValue?.dinnerSales.toString()
+    );
+    dialySaleEditForm.setValue(
+      "lunchVisitor",
+      rowSelectionModelValue?.lunchVisitor.toString()
+    );
+    dialySaleEditForm.setValue(
+      "dinnerVisitor",
+      rowSelectionModelValue?.dinnerVisitor.toString()
+    );
+    dialySaleEditForm.setValue(
+      "personnelCost",
+      rowSelectionModelValue?.personnelCost.toString()
+    );
+    dialySaleEditForm.setValue(
+      "purchase",
+      rowSelectionModelValue?.purchase.toString()
+    );
+  }, [
+    dialySaleEditForm,
+    rowSelectionModelValue,
+    isEditDialogOpen,
+    stringSalesDayToDate,
+  ]);
 
   // 保存ボタン押下時
-  const handleUpdateDIalySaleOnClick = async () => {
+  const handleUpdateDialySaleOnClick = async () => {
     if (rowSelectionModelValue) {
       const updateId = rowSelectionModelValue.id;
       try {
@@ -68,16 +110,22 @@ export const EditDialog = (props: EditDialogProps) => {
         });
 
         // totalDialySaleを計算
-        const totalDailySale = calculateTotalDialySales(res.data);
+        const totalDialySale = calculateTotalDialySales(res.data);
 
         dialySalesDspatch({
           type: DialySaleContextActionType.SAVE_DIALY_SALE_INFORMATION,
-          payload: { dialySaleModels: res.data, totalDialySaleModel: totalDailySale },
+          payload: {
+            dialySaleModels: res.data,
+            totalDialySaleModel: totalDialySale,
+          },
         });
 
         dialySalesDspatch({
           type: DialySaleContextActionType.UPDATE_SNACKBAR,
-          payload: { isSnackBarOpen: true, snackBarText: "営業データを変更しました" },
+          payload: {
+            isSnackBarOpen: true,
+            snackBarText: "営業データを変更しました",
+          },
         });
       } catch (error: any) {
         alert(error.response.data);
@@ -94,7 +142,12 @@ export const EditDialog = (props: EditDialogProps) => {
 
   return (
     <FormProvider {...dialySaleEditForm}>
-      <Dialog open={isEditDialogOpen} fullWidth maxWidth="xl" sx={{ textAlign: "center" }}>
+      <Dialog
+        open={isEditDialogOpen}
+        fullWidth
+        maxWidth="xl"
+        sx={{ textAlign: "center" }}
+      >
         <DialogTitle>
           <Grid container spacing={0.75} justifyContent="center">
             <Grid item>
@@ -111,14 +164,18 @@ export const EditDialog = (props: EditDialogProps) => {
               <ControlledNumberTextField
                 name="lunchSale"
                 label="ランチ売り上げ"
-                helperText={dialySaleEditForm.formState.errors.lunchSale?.message}
+                helperText={
+                  dialySaleEditForm.formState.errors.lunchSale?.message
+                }
               />
             </Grid>
             <Grid item className="ml-7 w-52">
               <ControlledNumberTextField
                 name="dinnerSale"
                 label="ディナー売り上げ"
-                helperText={dialySaleEditForm.formState.errors.dinnerSale?.message}
+                helperText={
+                  dialySaleEditForm.formState.errors.dinnerSale?.message
+                }
               />
             </Grid>
             <Grid container spacing={0.75} className="justify-center mt-5">
@@ -126,28 +183,36 @@ export const EditDialog = (props: EditDialogProps) => {
                 <ControlledNumberTextField
                   name="lunchVisitor"
                   label="ランチ来客数"
-                  helperText={dialySaleEditForm.formState.errors.lunchVisitor?.message}
+                  helperText={
+                    dialySaleEditForm.formState.errors.lunchVisitor?.message
+                  }
                 />
               </Grid>
               <Grid item className="ml-7 w-52">
                 <ControlledNumberTextField
                   name="dinnerVisitor"
                   label="ディナー来客数"
-                  helperText={dialySaleEditForm.formState.errors.dinnerVisitor?.message}
+                  helperText={
+                    dialySaleEditForm.formState.errors.dinnerVisitor?.message
+                  }
                 />
               </Grid>
               <Grid item className="ml-7 w-52">
                 <ControlledNumberTextField
                   name="personnelCost"
                   label="人件費"
-                  helperText={dialySaleEditForm.formState.errors.personnelCost?.message}
+                  helperText={
+                    dialySaleEditForm.formState.errors.personnelCost?.message
+                  }
                 />
               </Grid>
               <Grid item className="ml-7 w-52">
                 <ControlledNumberTextField
                   name="purchase"
                   label="仕入れ"
-                  helperText={dialySaleEditForm.formState.errors.purchase?.message}
+                  helperText={
+                    dialySaleEditForm.formState.errors.purchase?.message
+                  }
                 />
               </Grid>
             </Grid>
@@ -159,7 +224,12 @@ export const EditDialog = (props: EditDialogProps) => {
               </Button>
             </Grid>
             <Grid item className="ml-5">
-              <Button variant="outlined" onClick={dialySaleEditForm.handleSubmit(handleUpdateDIalySaleOnClick)}>
+              <Button
+                variant="outlined"
+                onClick={dialySaleEditForm.handleSubmit(
+                  handleUpdateDialySaleOnClick
+                )}
+              >
                 保存
               </Button>
             </Grid>
